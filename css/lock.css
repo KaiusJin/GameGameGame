@@ -11,8 +11,9 @@ body {
     height: 100vh;
     height: var(--app-vh, 100vh);
     overflow: hidden;
+    background-color: #0d1f30;
     background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-        radial-gradient(120% 90% at 20% 10%, #3d6f8e 0%, #1d3d55 45%, #0d1f30 100%);
+        url("../image/wallpaper.jpg");
     background-size: cover;
     background-position: center;
     position: relative;
@@ -156,8 +157,9 @@ body {
 #lockscreen {
     position: absolute;
     inset: 0;
+    background-color: #0d1f30;
     background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
-        radial-gradient(120% 90% at 20% 10%, #3d6f8e 0%, #1d3d55 45%, #0d1f30 100%);
+        url("../image/wallpaper.jpg");
     background-size: cover;
     background-position: center;
     z-index: 10;

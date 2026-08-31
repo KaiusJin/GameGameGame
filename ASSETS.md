@@ -41,7 +41,9 @@
 | W2 | 林晚封面 | 图书馆窗边座位 |
 | W3 | 林晚封面 | 同一个窗边座位，但**只有一杯咖啡**（2026年7月，看懂的人会难受） |
 | X1 | 氛围填充帖 | 湖边晚霞 |
-| 壁纸 | 电脑桌面壁纸 | 可选。当前是深蓝渐变，也可以换成 Win10 风景壁纸 |
+
+（电脑壁纸已解决：`image/wallpaper.jpg` 是 Win10 官方默认壁纸 img0，桌面/锁屏/登录共用；
+系统图标也已就位：`myPc.png`、`recycleEmpty.png`、`folder.png`、`zipfolder.png`、`exe.png`、`file.png`、`chrome.png`、`xhs.png`）
 
 ## 你们自己拍（F1–F6，开头的正常帖）
 

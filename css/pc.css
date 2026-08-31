@@ -18,9 +18,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    background: radial-gradient(120% 90% at 20% 10%, #3d6f8e 0%, #1d3d55 45%, #0d1f30 100%);
-    background-size: cover;
-    background-position: center;
+    background: #0d1f30 url("../image/wallpaper.jpg") center / cover no-repeat;
     user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
