@@ -1,0 +1,302 @@
+/* Windows 桌面模拟（架构学 ningning pc.css：窗口预置在 HTML 里 display:none，
+   z-index 用递增计数器，命名 #win-<app> / #icon-<app> / #task-<app>） */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    height: var(--app-vh, 100vh);
+    overflow: hidden;
+}
+@supports (height: 100dvh) { html, body { height: 100dvh; } }
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(120% 90% at 20% 10%, #3d6f8e 0%, #1d3d55 45%, #0d1f30 100%);
+    background-size: cover;
+    background-position: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------------- 桌面与图标 ---------------- */
+.desktop {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 6px;
+}
+.desktop-icon {
+    width: 86px;
+    padding: 8px 4px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.desktop-icon:hover { background: rgba(255, 255, 255, .12); }
+.desktop-icon.selected { background: rgba(98, 162, 228, .35); border-color: rgba(140, 190, 240, .5); }
+.desktop-icon .ic { width: 44px; height: 44px; margin: 0 auto 6px; display: block; }
+.desktop-icon .label {
+    font-size: 12px;
+    line-height: 1.35;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
+    word-break: break-all;
+}
+
+/* ---------------- 窗口 ---------------- */
+.window {
+    position: absolute;
+    width: 980px;
+    height: 640px;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100% - 20px);
+    background: #fff;
+    border: 1px solid #7a7a7a;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .45);
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+}
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100% !important;
+    max-width: none;
+    max-height: none;
+    border: none;
+}
+.title-bar {
+    height: 32px;
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: default;
+}
+.title-text {
+    flex: 1;
+    font-size: 12px;
+    color: #444;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.title-text svg, .title-text img { width: 16px; height: 16px; }
+.window-controls { display: flex; height: 100%; }
+.window-controls button {
+    width: 46px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.window-controls button:hover { background: #e9e9e9; }
+.window-controls .btn-close:hover { background: #e81123; color: #fff; }
+.window-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+/* 此电脑 / 回收站的简单内容 */
+.plain-pane {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    font-size: 13px;
+    color: #333;
+}
+.drive {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 320px;
+    padding: 10px;
+    border: 1px solid transparent;
+}
+.drive:hover { background: #e8f2fb; border-color: #bcd9f2; }
+.drive .bar {
+    height: 14px;
+    width: 180px;
+    border: 1px solid #999;
+    background: #fff;
+    position: relative;
+}
+.drive .bar i {
+    position: absolute;
+    inset: 0;
+    right: auto;
+    background: #4aa3e8;
+}
+.drive small { color: #888; display: block; margin-top: 3px; }
+.empty-pane {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 13px;
+}
+
+/* ---------------- 任务栏 ---------------- */
+.taskbar {
+    height: 44px;
+    background: rgba(18, 20, 24, .95);
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+    flex-shrink: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.start-btn {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.start-btn:hover { background: rgba(255, 255, 255, .1); }
+.task-items { flex: 1; display: flex; height: 100%; gap: 2px; padding: 0 4px; overflow: hidden; }
+.task-item {
+    min-width: 48px;
+    max-width: 180px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    color: #ddd;
+    font-size: 12px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.task-item:hover { background: rgba(255, 255, 255, .08); }
+.task-item.active { background: rgba(255, 255, 255, .12); border-bottom-color: #4aa3e8; }
+.task-item svg, .task-item img { width: 18px; height: 18px; flex-shrink: 0; }
+.task-clock {
+    padding: 0 14px;
+    color: #eee;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.5;
+    cursor: default;
+}
+
+/* ---------------- 开始菜单 ---------------- */
+.start-menu {
+    position: absolute;
+    left: 4px;
+    bottom: 48px;
+    width: 260px;
+    background: rgba(28, 31, 36, .97);
+    border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+    z-index: 99998;
+    display: none;
+    padding: 8px 0;
+}
+.start-menu.open { display: block; }
+.sm-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: #eee;
+    font-size: 13px;
+    cursor: pointer;
+}
+.sm-item:hover { background: rgba(255, 255, 255, .1); }
+.sm-item svg, .sm-item img { width: 18px; height: 18px; }
+.sm-divider { height: 1px; background: rgba(255, 255, 255, .12); margin: 6px 0; }
+
+/* ---------------- 系统弹窗 ---------------- */
+.sys-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .35);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sys-dialog {
+    width: 400px;
+    max-width: 92vw;
+    background: #fff;
+    border: 1px solid #8a8a8a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .4);
+}
+.sys-dialog .d-title {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 12px;
+    color: #444;
+    border-bottom: 1px solid #eee;
+}
+.sys-dialog .d-body { padding: 22px 20px; font-size: 13px; color: #333; line-height: 1.8; }
+.sys-dialog .d-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 0 20px 16px;
+}
+.sys-dialog button {
+    min-width: 78px;
+    height: 30px;
+    border: 1px solid #adadad;
+    background: #e1e1e1;
+    font-size: 12px;
+    cursor: pointer;
+}
+.sys-dialog button.primary { border-color: #0078D7; background: #0078D7; color: #fff; }
+.sys-dialog button:hover { filter: brightness(1.06); }
+
+/* ---------------- 移动端（ningning 式：窗口变全屏页） ---------------- */
+html.mobile-mode .window {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 44px !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: none;
+    max-height: none;
+    border: none;
+    box-shadow: none;
+}
+html.mobile-mode .window-controls .btn-max { display: none; }
+html.mobile-mode .desktop-icon { width: 76px; }
+html.mobile-mode .desktop-icon .ic { width: 40px; height: 40px; }

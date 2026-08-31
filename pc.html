@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>桌面</title>
+    <script src="js/mobile.js"></script>
+    <link rel="stylesheet" href="css/pc.css">
+    <link rel="stylesheet" href="css/xhs.css">
+</head>
+<body>
+
+    <div class="desktop" id="desktop">
+
+        <!-- 桌面图标 -->
+        <div class="desktop-icon" id="icon-mypc" data-app="mypc">
+            <svg class="ic" viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="24" rx="2" fill="#d9e9f8"/><rect x="9" y="11" width="30" height="18" fill="#2f7fd3"/><rect x="20" y="34" width="8" height="4" fill="#b8c6d4"/><rect x="14" y="38" width="20" height="3" rx="1" fill="#b8c6d4"/></svg>
+            <div class="label">此电脑</div>
+        </div>
+        <div class="desktop-icon" id="icon-recycle" data-app="recycle">
+            <svg class="ic" viewBox="0 0 48 48"><path d="M12 14h24l-2.5 26a3 3 0 0 1-3 2.6h-13a3 3 0 0 1-3-2.6z" fill="#dfeaf2" stroke="#9fb3c2" stroke-width="1.5"/><ellipse cx="24" cy="14" rx="12" ry="4" fill="#c8d8e4" stroke="#9fb3c2" stroke-width="1.5"/><path d="M19 20v16M24 20v16M29 20v16" stroke="#9fb3c2" stroke-width="1.5"/></svg>
+            <div class="label">回收站</div>
+        </div>
+        <div class="desktop-icon" id="icon-xhs" data-app="xhs">
+            <svg class="ic" viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="9" fill="#ff2442"/><text x="24" y="29" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="sans-serif">小红书</text></svg>
+            <div class="label">小红书</div>
+        </div>
+
+        <!-- 窗口：此电脑 -->
+        <div class="window" id="win-mypc" data-app="mypc" style="width:640px;height:420px;">
+            <div class="title-bar">
+                <div class="title-text">此电脑</div>
+                <div class="window-controls">
+                    <button class="btn-min" data-app="mypc">─</button>
+                    <button class="btn-max" data-app="mypc">▢</button>
+                    <button class="btn-close" data-app="mypc">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="plain-pane">
+                    <p style="color:#888;margin-bottom:14px;">设备和驱动器 (2)</p>
+                    <div class="drive">
+                        <svg width="40" height="40" viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="20" rx="2" fill="#d9e4ee" stroke="#9fb3c2"/><circle cx="37" cy="24" r="2" fill="#6ee06e"/></svg>
+                        <div>
+                            本地磁盘 (C:)
+                            <div class="bar"><i style="width:62%"></i></div>
+                            <small>93.1 GB 可用，共 237 GB</small>
+                        </div>
+                    </div>
+                    <div class="drive">
+                        <svg width="40" height="40" viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="20" rx="2" fill="#d9e4ee" stroke="#9fb3c2"/><circle cx="37" cy="24" r="2" fill="#6ee06e"/></svg>
+                        <div>
+                            本地磁盘 (D:)
+                            <div class="bar"><i style="width:18%"></i></div>
+                            <small>391 GB 可用，共 476 GB</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 窗口：回收站 -->
+        <div class="window" id="win-recycle" data-app="recycle" style="width:560px;height:380px;">
+            <div class="title-bar">
+                <div class="title-text">回收站</div>
+                <div class="window-controls">
+                    <button class="btn-min" data-app="recycle">─</button>
+                    <button class="btn-max" data-app="recycle">▢</button>
+                    <button class="btn-close" data-app="recycle">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="empty-pane">回收站是空的</div>
+            </div>
+        </div>
+
+        <!-- 窗口：小红书 -->
+        <div class="window" id="win-xhs" data-app="xhs" style="width:1040px;height:680px;">
+            <div class="title-bar">
+                <div class="title-text">
+                    <svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="9" fill="#ff2442"/><text x="24" y="30" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="sans-serif">书</text></svg>
+                    小红书
+                </div>
+                <div class="window-controls">
+                    <button class="btn-min" data-app="xhs">─</button>
+                    <button class="btn-max" data-app="xhs">▢</button>
+                    <button class="btn-close" data-app="xhs">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="xhs-root" id="xhs-root">
+                    <div class="xhs-header">
+                        <span class="xhs-logo">小红书</span>
+                        <div class="xhs-search" id="xhs-search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+                            搜索笔记
+                        </div>
+                        <div class="xhs-tabs">
+                            <span class="xhs-tab" data-tab="follow">关注</span>
+                            <span class="xhs-tab active" data-tab="discover">发现</span>
+                            <span class="xhs-tab" data-tab="school">同校</span>
+                        </div>
+                        <div class="xhs-me" id="xhs-me"></div>
+                    </div>
+                    <div class="xhs-feed-wrap" id="xhs-feed-wrap"></div>
+                    <!-- 详情弹层 / 主页覆盖层 / toast 动态插入到 xhs-root -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 任务栏 -->
+    <div class="taskbar">
+        <div class="start-btn" id="start-btn">
+            <svg viewBox="0 0 88 88" width="20" height="20"><path fill="#e8f2fa" d="M0,12.5 L36,7.5 L36,42 L0,42 L0,12.5 Z M39,7 L88,0 L88,42 L39,42 L39,7 Z M0,45 L36,45 L36,79.5 L0,74.5 L0,45 Z M39,45 L88,45 L88,88 L39,81 L39,45 Z"/></svg>
+        </div>
+        <div class="task-items" id="task-items"></div>
+        <div class="task-clock" id="task-clock">
+            <div id="clock-time">00:00</div>
+            <div id="clock-date">2026/8/31</div>
+        </div>
+    </div>
+
+    <!-- 开始菜单 -->
+    <div class="start-menu" id="start-menu">
+        <div class="sm-item" data-open="xhs">
+            <svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="9" fill="#ff2442"/><text x="24" y="30" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="sans-serif">书</text></svg>
+            小红书
+        </div>
+        <div class="sm-item" data-open="mypc">
+            <svg viewBox="0 0 48 48"><rect x="9" y="11" width="30" height="18" fill="#2f7fd3"/><rect x="14" y="38" width="20" height="3" rx="1" fill="#b8c6d4"/></svg>
+            此电脑
+        </div>
+        <div class="sm-item" data-open="recycle">
+            <svg viewBox="0 0 48 48"><path d="M12 14h24l-2.5 26a3 3 0 0 1-3 2.6h-13a3 3 0 0 1-3-2.6z" fill="#dfeaf2" stroke="#9fb3c2" stroke-width="1.5"/></svg>
+            回收站
+        </div>
+        <div class="sm-divider"></div>
+        <div class="sm-item" id="sm-restart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#eee" stroke-width="1.6" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/></svg>
+            重新开始（清除进度）
+        </div>
+        <div class="sm-item" id="sm-shutdown">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#eee" stroke-width="1.6" stroke-linecap="round"><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/><line x1="12" y1="2" x2="12" y2="10"/></svg>
+            关机
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/pc.js"></script>
+    <script src="js/xhs.js"></script>
+</body>
+</html>
