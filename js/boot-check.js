@@ -1,11 +1,30 @@
-/* 首帧决定显示哪个屏幕（学 ningning js/lock/boot-check.js 的 document.write 技巧：
-   在首次绘制前就决定 OOBE / 开机动画，避免闪屏）。样式标签稍后由 lock.js 移除。 */
+/* 首帧检查（在 <head> 里同步执行）：
+   - index.html?reset 清档
+   - 已经连上桌面的 PC 玩家直接去 pc.html（不重播开场）
+   注意：移动端判定不能在解析期定死 —— 部分 WebView 首帧视口未定型，
+   宽度可疑时推迟到 load 之后再决定（index 本来就先渲染聊天，不闪屏）。 */
 (function () {
-    var done = false;
-    try { done = localStorage.getItem("xy_first_boot_done") === "true"; } catch (e) {}
-    if (!done) {
-        document.write('<style id="first-boot-style">#lockscreen,#login-screen{display:none!important}#oobe{display:flex!important}</style>');
-    } else {
-        document.write('<style id="first-boot-style">#boot-screen{display:flex!important}</style>');
-    }
+    try {
+        if (location.search.indexOf("reset") >= 0) {
+            Object.keys(localStorage).forEach(function (k) {
+                if (k.indexOf("xy_") === 0) localStorage.removeItem(k);
+            });
+            history.replaceState(null, "", location.pathname);
+        }
+        if (localStorage.getItem("xy_stage") !== "desktop") return;
+
+        function isMobileNow() {
+            return (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) ||
+                window.innerWidth <= 820;
+        }
+        if (window.innerWidth > 820) {
+            location.replace("pc.html");     /* 视口已定型且明确是桌面 */
+        } else {
+            window.addEventListener("load", function () {
+                setTimeout(function () {
+                    if (!isMobileNow()) location.replace("pc.html");
+                }, 250);
+            });
+        }
+    } catch (e) {}
 })();

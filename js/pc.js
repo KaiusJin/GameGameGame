@@ -3,17 +3,31 @@
 (function () {
     function $(s) { return document.querySelector(s); }
 
-    /* 未设置用户名（直接打开 pc.html）时送回开机流程 */
-    if (localStorage.getItem("xy_first_boot_done") !== "true") {
+    /* 守卫：没走完开场的送回去（同步，localStorage 可靠）。
+       移动端禁入（剧情：手机连不了远程）推迟到视口定型后再判 ——
+       部分 WebView 在脚本求值时宽度未定，会把桌面误判成移动端。 */
+    if (localStorage.getItem("xy_stage") !== "desktop") {
         location.replace("index.html");
         return;
     }
+    window.addEventListener("load", function () {
+        (function decide() {
+            var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+            if (!window.innerWidth && !coarse) {   /* 视口未定型，等非 0 再判 */
+                setTimeout(decide, 300);
+                return;
+            }
+            if (coarse || window.innerWidth <= 820) location.replace("index.html");
+        })();
+    });
 
     var APP_INFO = {
         mypc: { title: "此电脑" },
         recycle: { title: "回收站" },
         browser: { title: "Google Chrome" },
-        xhs: { title: "小红书" }
+        wechat: { title: "微信" },
+        files: { title: "下载" },
+        viewer: { title: "文件查看" }
     };
     var windowsState = {};   /* appId -> {isOpen, isMinimized} */
     var zCounter = 100;
@@ -73,6 +87,7 @@
             win.style.display = "flex";
         }
         bringToFront(appId);
+        document.dispatchEvent(new CustomEvent("app-open", { detail: appId }));
     }
 
     function minimizeApp(appId) {
@@ -100,10 +115,9 @@
         bringToFront(appId);
     }
 
-    /* 标题栏拖拽（移动端窗口固定全屏，不拖） */
+    /* 标题栏拖拽 */
     function makeDraggable(win, handle) {
         handle.addEventListener("mousedown", function (e) {
-            if (window.XY_IS_MOBILE) return;
             if (win.classList.contains("maximized")) return;
             if (e.target.closest("button")) return;
             e.preventDefault();
@@ -154,13 +168,12 @@
     /* ---------------- 初始化 ---------------- */
     document.addEventListener("DOMContentLoaded", function () {
 
-        /* 图标：双击打开（触屏单击），单击选中 */
+        /* 图标：双击打开，单击选中 */
         document.querySelectorAll(".desktop-icon").forEach(function (icon) {
             var app = icon.dataset.app;
             icon.addEventListener("click", function () {
                 document.querySelectorAll(".desktop-icon").forEach(function (i) { i.classList.remove("selected"); });
                 icon.classList.add("selected");
-                if (window.XY_IS_MOBILE) openApp(app);
             });
             icon.addEventListener("dblclick", function () { openApp(app); });
         });
@@ -198,9 +211,9 @@
                 openApp(item.dataset.open);
             });
         });
-        $("#sm-shutdown").addEventListener("click", function () {
+        $("#sm-quit").addEventListener("click", function () {
             startMenu.classList.remove("open");
-            location.href = "index.html";
+            if (window.REMOTE) window.REMOTE.quit();
         });
         $("#sm-restart").addEventListener("click", function () {
             startMenu.classList.remove("open");
@@ -208,34 +221,9 @@
                 { label: "取消" },
                 {
                     label: "确定", primary: true,
-                    fn: function () {
-                        Object.keys(localStorage).forEach(function (k) {
-                            if (k.indexOf("xy_") === 0) localStorage.removeItem(k);
-                        });
-                        location.href = "index.html";
-                    }
+                    fn: function () { location.href = "index.html?reset"; }
                 }
             ]);
         });
-
-        /* 任务栏时钟 */
-        function tick() {
-            var d = new Date();
-            $("#clock-time").textContent = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-            $("#clock-date").textContent = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
-        }
-        tick();
-        setInterval(tick, 15000);
-
-        /* 首次进入桌面：欢迎弹窗，引导打开小红书 */
-        if (localStorage.getItem("xy_welcomed") !== "true") {
-            localStorage.setItem("xy_welcomed", "true");
-            var name = localStorage.getItem("xy_name") || "用户";
-            setTimeout(function () {
-                sysDialog("系统通知",
-                    name + "，你的设备已准备就绪。<br>已为你恢复上次的应用：<b>小红书</b>",
-                    [{ label: "确定", primary: true, fn: function () { openApp("xhs"); } }]);
-            }, 700);
-        }
     });
 })();

@@ -11,6 +11,7 @@
     }
     function apply() {
         var w = window.innerWidth, h = window.innerHeight;
+        if (!w && !isCoarse()) return;   /* 视口还没定型（后台标签/WebView 首帧），先不判 */
         var mobile = isCoarse() || w <= MOBILE_MAX_WIDTH;
         root.classList.toggle("mobile-mode", mobile);
         root.classList.toggle("mm-narrow", mobile && w <= NARROW_MAX_WIDTH);
@@ -27,4 +28,8 @@
         setTimeout(apply, 200);
     });
     apply();
+    /* 有些 WebView 在 <head> 求值时视口还没定型（宽度为 0 或极小），
+       会把桌面误判成移动端 —— 布局完成后再补算 */
+    document.addEventListener("DOMContentLoaded", apply);
+    window.addEventListener("load", apply);
 })();

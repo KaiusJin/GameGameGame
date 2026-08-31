@@ -1,7 +1,10 @@
-# 未命名恐怖叙事游戏 · 第一阶段
+# 未命名恐怖叙事游戏 · 第一章（纵切片）
 
-模拟一台 Windows 电脑：开机 → 登录 → 桌面 → 打开小红书 → 刷到寻人帖。
-架构完全照着 `/Users/jiamulin/ningning`（参考项目）的做法搭。
+你是陈雨的网友。她妈妈深夜找到你：女儿在多伦多失联三天了。
+你远程连上她的电脑，一边翻，一边回答一个不停发消息的母亲。
+每样东西都有两种读法：她出事了 / 这是一场骗局。
+
+设定、线索表、纪律见 [DESIGN.md](DESIGN.md)。**改剧情 = 改 `js/data.js`，不改代码。**
 
 ## 运行
 
@@ -9,44 +12,52 @@
 python3 -m http.server 4173
 ```
 
-浏览器打开 http://localhost:4173 。想清档重玩：访问 `index.html?reset`，
-或者在游戏里 开始菜单 → 重新开始。
+浏览器打开 http://localhost:4173 。清档重玩：访问 `index.html?reset`，
+或游戏里 开始菜单 → 重新开始。
 
-## 流程（第一阶段范围）
+## 流程（第一章范围）
 
-1. **OOBE**：蓝屏设置向导，输入名字（= 电脑用户名 = 小红书昵称）
-2. **开机动画 → 锁屏 → 登录**（Win10 样式）
-3. **桌面**：此电脑 / 回收站 / Google Chrome / 小红书 图标 + 任务栏 + 开始菜单
-4. 首次进桌面弹"系统通知"，引导打开**小红书**窗口
-5. 发现页刷帖（前面全是正常帖）→ 刷到**寻人帖**（全大写拼音标题 + 同校角标）
-6. 帖内：系统推荐横幅（点出同校）、带玩家昵称的转发横幅、评论区骂骗子/劝报警
-7. 母亲主页：仅 1 帖、上月注册、关注列表只有儿子 → **儿子主页**：三年封面墙由亮到暗，
-   最后一帖是 12月19日 无标题的车窗雪，评论区有室友三连追问和"考古"路人
+1. **冷开场**（index.html）：微信收到"平安是福"好友申请 → 母亲求助（脚本化，无自由输入）
+   → 两张手机截图（+1 未接来电 / 她最后的消息）→ ToDask 远程协助邀请
+2. **分流**：PC 点"接受并连接"→ 连接动画 → 女儿桌面；
+   移动端连接失败（剧情：手机发起不了远程），留在聊天里收母亲的截图
+3. **桌面**（pc.html）：远程顶栏 + 母亲聊天坞**常驻**；时钟 = 本机时间 −12h（多伦多）
+4. 可翻的东西：微信（妈妈 / 王警官 / 同学群 / **通话记录★**）、下载文件夹（假文书）、
+   Chrome（最近搜索 / biliblil 首页与历史记录 / 反诈假网页）
+5. **结束**：拘留通知书 + 通话记录 +（王警官聊天 或 搜索记录）三条集齐 →
+   母亲狂喜"她回我了"——回复和《保密承诺书》的统一回复一字不差 → 黑屏"第一章 完"
 
-## 文件结构（对应 ningning 的架构）
+## 文件结构
 
-| 文件 | 对应 ningning | 作用 |
-|---|---|---|
-| `index.html` + `css/lock.css` + `js/lock.js` | index.html + style.css + js/lock/* | OOBE/开机/锁屏/登录 |
-| `js/boot-check.js` | js/lock/boot-check.js | document.write 首帧防闪屏 |
-| `js/mobile.js` | js/mobile.js | html.mobile-mode 类适配层 |
-| `pc.html` + `css/pc.css` + `js/pc.js` | pc.html + pc.css + js/pc/main.js | 桌面、窗口管理器、任务栏、开始菜单、系统弹窗 |
-| `js/xhs.js` + `css/xhs.css` | js/pc/xhs.js | 小红书窗口应用（数据驱动渲染） |
-| `js/browser.js` + `css/browser.css` | js/pc/google.js | Chrome 窗口：Google 首页/搜索/假网页，线索往 `SEARCH_DB`/`PAGES` 加 |
-| `js/data.js` | xhs.js 里的 POSTS/SEED_COMMENTS | 全部剧情内容：账号/帖子/评论 |
+| 文件 | 作用 |
+|---|---|
+| `index.html` + `css/chat.css` + `js/intro.js` | 冷开场（玩家的微信）+ 双端分流 |
+| `js/boot-check.js` | 首帧检查：?reset 清档、已连接的直接进桌面 |
+| `js/mobile.js` | 移动端判定（学 ningning：pointer coarse / 宽度≤820） |
+| `pc.html` + `css/pc.css` + `js/pc.js` | 桌面、窗口管理器、任务栏、开始菜单 |
+| `css/apps.css` | 远程壳 + 微信/下载/查看器/biliblil 样式 |
+| `js/remote.js` | 远程顶栏、她时区的时钟、倒计时接口、母亲聊天坞、结束判定 |
+| `js/wechat.js` | 她的微信窗口（会话 + 通话记录★锚点线索） |
+| `js/files.js` | 下载文件夹 + 假文书查看器 |
+| `js/browser.js` + `css/browser.css` | Chrome：Google/搜索/假网页 + biliblil |
+| `js/clues.js` | 线索引擎（发现/解锁/订阅） |
+| `js/shots.js` + `css/shot.css` | 手机截图气泡渲染（两页共用） |
+| `js/data.js` | **全部剧情**：脚本/聊天/文书/线索表（唯一要改的文件） |
 
-存档全部在 localStorage，前缀 `xy_`（`xy_name`、`xy_first_boot_done`、`xy_state`、`xy_welcomed`）。
+存档全在 localStorage，前缀 `xy_`（xy_stage / xy_ip_main / xy_ip_tail /
+xy_choices / xy_assist_log / xy_clues / xy_ended）。
 
 ## 占位说明
 
-- 所有封面/头像是自动生成的灰色占位图，图上印着素材编号 → 见 `ASSETS.md`
-- F1–F6 是你们真帖的占位，改 `js/data.js` 里的 `f1`–`f6`
-- 人名都是占位：陈屿（儿子）/ 林晚（同班女生）/ Kevin（室友）/ 知足常乐-老陈（父亲），
-  改名直接在 `js/data.js` 搜索替换
+- 头像/封面是灰色占位图，图上印素材编号 → 见 `ASSETS.md`
+- 人名占位：陈雨（女儿）/ 平安是福（妈妈）/ 王警官（骗子），改名在 `js/data.js` 搜索替换
+- biliblil 首页 6 张卡、历史记录里的正常生活视频：换成你们自己的素材
 
-## 下一阶段（未做，按十步链条）
+## 第一章不做（见 DESIGN.md）
 
-- 搜索功能（挖二手卖教材帖）、私信解锁、未公开帖密码门
-- 林晚主页的"写给某个人的简介"、评论区关闭的细节强化
-- 恐怖氛围演出（音效、加载延迟、深夜时间感）
-- 结局分支：转发链接 / 关掉页面
+后续章节、小游戏、真实视频、B 站账号运营、SDK 昵称、倒计时启用
+（接口已留：`REMOTE.setCountdown(时间戳)`）、4399 副站。
+
+## 发布（Toy）
+
+ZIP 根目录放 index.html，总大小 ≤140MB，不塞白名单外文件。slug/密码：暂缓。
