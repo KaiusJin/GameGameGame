@@ -1,0 +1,213 @@
+/* Google Chrome 窗口（结构学 ningning pc.html 的 win-google：
+   工具栏+胶囊地址栏，内容区在 首页/结果页/文章页/错误页 之间切换） */
+
+.br-root {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+    font-family: arial, "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+
+/* ---------------- 工具栏 ---------------- */
+.br-toolbar {
+    height: 40px;
+    background: #f1f3f4;
+    border-bottom: 1px solid #e8eaed;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.br-navbtn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    opacity: .3;
+    cursor: default;
+}
+.br-navbtn.enabled { opacity: 1; cursor: pointer; }
+.br-navbtn.enabled:hover { background: #e8eaed; }
+.br-address {
+    flex: 1;
+    min-width: 0;
+    height: 28px;
+    background: #fff;
+    border: 1px solid #dfe1e5;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+    overflow: hidden;
+}
+.br-address svg { flex-shrink: 0; }
+.br-address span {
+    font-size: 12px;
+    color: #202124;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+
+/* ---------------- 内容区 ---------------- */
+.br-view {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Google 首页 */
+.br-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 20px 40px;
+}
+.g-logo {
+    user-select: none;
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+    font-size: 72px;
+    margin-bottom: 30px;
+}
+.g-logo i { font-style: normal; }
+.g-blue { color: #4285F4; }
+.g-red { color: #EA4335; }
+.g-yellow { color: #FBBC05; }
+.g-green { color: #34A853; }
+.br-searchbox {
+    width: 100%;
+    max-width: 560px;
+    height: 46px;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 10px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .1);
+    background: #fff;
+    cursor: text;
+    margin-bottom: 24px;
+}
+.br-searchbox:focus-within { box-shadow: 0 1px 10px rgba(32, 33, 36, .2); }
+.br-searchbox input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #202124;
+    background: transparent;
+    min-width: 0;
+    font-family: inherit;
+}
+.br-home-btns { display: flex; gap: 12px; }
+.br-home-btns button {
+    height: 36px;
+    padding: 0 20px;
+    background: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #3c4043;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+}
+.br-home-btns button:hover { box-shadow: 0 1px 3px rgba(0, 0, 0, .2); border-color: #dadce0; }
+
+/* 结果页 */
+.br-results { padding: 14px 24px 60px; max-width: 700px; }
+.br-results-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+.br-results-top .g-logo { font-size: 24px; margin: 0; letter-spacing: -1px; cursor: pointer; flex-shrink: 0; }
+.br-results-top .br-searchbox {
+    height: 40px;
+    margin: 0;
+    max-width: 520px;
+    box-shadow: none;
+}
+.br-results-tabs {
+    display: flex;
+    border-bottom: 1px solid #e8eaed;
+    margin: 10px 0 18px;
+    font-size: 13px;
+    color: #5f6368;
+}
+.br-results-tabs span { padding: 10px 16px; white-space: nowrap; }
+.br-results-tabs .on { color: #1a73e8; border-bottom: 3px solid #1a73e8; }
+.br-stat { font-size: 12px; color: #70757a; margin-bottom: 18px; }
+.br-result { margin-bottom: 26px; max-width: 600px; }
+.br-result .r-url {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #202124;
+    margin-bottom: 2px;
+}
+.br-result .r-title {
+    font-size: 18px;
+    color: #1a0dab;
+    cursor: pointer;
+    line-height: 1.35;
+    margin-bottom: 3px;
+}
+.br-result .r-title:hover { text-decoration: underline; }
+.br-result .r-desc { font-size: 13px; color: #4d5156; line-height: 1.58; }
+.br-noresult { max-width: 600px; font-size: 14px; color: #202124; line-height: 1.8; }
+.br-noresult p { margin-bottom: 14px; }
+.br-noresult ul { padding-left: 22px; color: #4d5156; }
+
+/* 文章页（假网站占位，如维基条目） */
+.br-page { padding: 26px 34px 60px; max-width: 720px; }
+.br-page h1 {
+    font-family: Georgia, "Songti SC", serif;
+    font-weight: 400;
+    font-size: 26px;
+    border-bottom: 1px solid #a2a9b1;
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    color: #202124;
+}
+.br-page .p-site { font-size: 12px; color: #54595d; margin-bottom: 16px; }
+.br-page p { font-size: 14px; color: #202124; line-height: 1.85; margin-bottom: 12px; }
+.br-page .p-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #72777d;
+    border-top: 1px solid #eaecf0;
+    padding-top: 10px;
+}
+
+/* 无法访问页 */
+.br-error {
+    padding: 90px 40px;
+    max-width: 520px;
+    margin: 0 auto;
+    color: #202124;
+}
+.br-error .e-icon { font-size: 44px; color: #9aa0a6; margin-bottom: 20px; }
+.br-error h2 { font-size: 20px; font-weight: 400; margin-bottom: 12px; }
+.br-error p { font-size: 14px; color: #5f6368; line-height: 1.7; margin-bottom: 6px; }
+.br-error .e-code { font-size: 12px; color: #9aa0a6; margin-top: 14px; }
+
+/* 移动端 */
+html.mobile-mode .br-results { padding: 12px 14px 40px; }
+html.mobile-mode .br-results-top .g-logo { display: none; }
+html.mobile-mode .br-page { padding: 20px 16px 40px; }
+html.mobile-mode .g-logo { font-size: 54px; }

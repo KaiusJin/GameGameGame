@@ -7,6 +7,7 @@
     <script src="js/mobile.js"></script>
     <link rel="stylesheet" href="css/pc.css">
     <link rel="stylesheet" href="css/xhs.css">
+    <link rel="stylesheet" href="css/browser.css">
 </head>
 <body>
 
@@ -20,6 +21,10 @@
         <div class="desktop-icon" id="icon-recycle" data-app="recycle">
             <svg class="ic" viewBox="0 0 48 48"><path d="M12 14h24l-2.5 26a3 3 0 0 1-3 2.6h-13a3 3 0 0 1-3-2.6z" fill="#dfeaf2" stroke="#9fb3c2" stroke-width="1.5"/><ellipse cx="24" cy="14" rx="12" ry="4" fill="#c8d8e4" stroke="#9fb3c2" stroke-width="1.5"/><path d="M19 20v16M24 20v16M29 20v16" stroke="#9fb3c2" stroke-width="1.5"/></svg>
             <div class="label">回收站</div>
+        </div>
+        <div class="desktop-icon" id="icon-browser" data-app="browser">
+            <img class="ic" src="image/chrome.png" alt="Google Chrome">
+            <div class="label">Google Chrome</div>
         </div>
         <div class="desktop-icon" id="icon-xhs" data-app="xhs">
             <svg class="ic" viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="9" fill="#ff2442"/><text x="24" y="29" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="sans-serif">小红书</text></svg>
@@ -71,6 +76,47 @@
             </div>
             <div class="window-content">
                 <div class="empty-pane">回收站是空的</div>
+            </div>
+        </div>
+
+        <!-- 窗口：Google Chrome -->
+        <div class="window" id="win-browser" data-app="browser" style="width:960px;height:640px;">
+            <div class="title-bar">
+                <div class="title-text">
+                    <img src="image/chrome.png" alt="">
+                    <span id="browser-title">新标签页 - Google Chrome</span>
+                </div>
+                <div class="window-controls">
+                    <button class="btn-min" data-app="browser">─</button>
+                    <button class="btn-max" data-app="browser">▢</button>
+                    <button class="btn-close" data-app="browser">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="br-root">
+                    <div class="br-toolbar">
+                        <div class="br-navbtn" id="br-back">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                        </div>
+                        <div class="br-navbtn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                        </div>
+                        <div class="br-navbtn enabled" id="br-refresh">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                        </div>
+                        <div class="br-address">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                            <span id="br-address-text">www.google.com</span>
+                        </div>
+                        <div class="br-navbtn enabled">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <div class="br-navbtn enabled">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="1.5"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                        </div>
+                    </div>
+                    <div class="br-view" id="br-view"></div>
+                </div>
             </div>
         </div>
 
@@ -128,6 +174,10 @@
             <svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="9" fill="#ff2442"/><text x="24" y="30" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="sans-serif">书</text></svg>
             小红书
         </div>
+        <div class="sm-item" data-open="browser">
+            <img src="image/chrome.png" alt="">
+            Google Chrome
+        </div>
         <div class="sm-item" data-open="mypc">
             <svg viewBox="0 0 48 48"><rect x="9" y="11" width="30" height="18" fill="#2f7fd3"/><rect x="14" y="38" width="20" height="3" rx="1" fill="#b8c6d4"/></svg>
             此电脑
@@ -150,5 +200,6 @@
     <script src="js/data.js"></script>
     <script src="js/pc.js"></script>
     <script src="js/xhs.js"></script>
+    <script src="js/browser.js"></script>
 </body>
 </html>

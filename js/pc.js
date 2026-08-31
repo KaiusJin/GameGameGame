@@ -12,6 +12,7 @@
     var APP_INFO = {
         mypc: { title: "此电脑" },
         recycle: { title: "回收站" },
+        browser: { title: "Google Chrome" },
         xhs: { title: "小红书" }
     };
     var windowsState = {};   /* appId -> {isOpen, isMinimized} */

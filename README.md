@@ -16,7 +16,7 @@ python3 -m http.server 4173
 
 1. **OOBE**：蓝屏设置向导，输入名字（= 电脑用户名 = 小红书昵称）
 2. **开机动画 → 锁屏 → 登录**（Win10 样式）
-3. **桌面**：此电脑 / 回收站 / 小红书 三个图标 + 任务栏 + 开始菜单
+3. **桌面**：此电脑 / 回收站 / Google Chrome / 小红书 图标 + 任务栏 + 开始菜单
 4. 首次进桌面弹"系统通知"，引导打开**小红书**窗口
 5. 发现页刷帖（前面全是正常帖）→ 刷到**寻人帖**（全大写拼音标题 + 同校角标）
 6. 帖内：系统推荐横幅（点出同校）、带玩家昵称的转发横幅、评论区骂骗子/劝报警
@@ -32,6 +32,7 @@ python3 -m http.server 4173
 | `js/mobile.js` | js/mobile.js | html.mobile-mode 类适配层 |
 | `pc.html` + `css/pc.css` + `js/pc.js` | pc.html + pc.css + js/pc/main.js | 桌面、窗口管理器、任务栏、开始菜单、系统弹窗 |
 | `js/xhs.js` + `css/xhs.css` | js/pc/xhs.js | 小红书窗口应用（数据驱动渲染） |
+| `js/browser.js` + `css/browser.css` | js/pc/google.js | Chrome 窗口：Google 首页/搜索/假网页，线索往 `SEARCH_DB`/`PAGES` 加 |
 | `js/data.js` | xhs.js 里的 POSTS/SEED_COMMENTS | 全部剧情内容：账号/帖子/评论 |
 
 存档全部在 localStorage，前缀 `xy_`（`xy_name`、`xy_first_boot_done`、`xy_state`、`xy_welcomed`）。
