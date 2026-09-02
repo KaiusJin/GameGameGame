@@ -133,6 +133,7 @@
             setTimeout(function () {
                 uninstalling = false;
                 render();
+                FX.sound("windowsError.mp3");
                 sysDialog(T("virus.uninstall.fail.title"), T("virus.uninstall.fail.body"),
                     [{ label: T("ui.ok"), primary: true }]);
                 STATE.emit("virus-delete-failed");

@@ -21,6 +21,7 @@
 
     function openFile(f) {
         if (isLocked(f)) {
+            FX.sound("windowsError.mp3");
             sysDialog(T("ui.dlg.locked.title"), T("ui.dlg.locked.body"), [{ label: T("ui.ok"), primary: true }]);
             return;
         }

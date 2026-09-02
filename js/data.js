@@ -182,11 +182,13 @@ window.DB = (function () {
     var TRIGGERS = [
         { id: "tg-boot", on: "event:boot-done", do: [["phase", "p0"], ["toast", "tip.boot"]] },
 
-        /* txt 链读完 → 病毒图标"出现" */
+        /* txt 链读完 → 屏幕故障 + 爆音 → 病毒图标"出现" */
         {
             id: "tg-virus-found", on: "change",
             if: { all: [{ flag: "read_note3" }, { not: "virus_found" }] },
-            do: [["set", "virus_found"], ["toast", "tip.virus.found"], ["badge", "virus", 1]]
+            do: [["delay", 500, [["fx", 1100], ["sound", "windows-10-foreground-earrape.mp3", 0.75]]],
+            ["delay", 1150, [["set", "virus_found"], ["badge", "virus", 1]]],
+            ["delay", 2100, [["toast", "tip.virus.found"]]]]
         },
         { id: "tg-virus-open", on: "event:open-app:virus", if: { flag: "virus_found" }, do: [["set", "virus_opened"]] },
 

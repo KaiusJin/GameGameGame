@@ -69,6 +69,8 @@
        ["open", app]              打开窗口
        ["dialog", tRef, bRef]     系统弹窗
        ["source", id]             切换数据源（own = 退出监控）
+       ["sound", file, vol?]      播放 audio/ 下的音效
+       ["fx", ms]                 全屏故障闪烁（见 fx.js）
        ["delay", ms, [actions]]   延迟执行一串动作 */
     function run(actions) {
         (actions || []).forEach(function (a) {
@@ -82,6 +84,8 @@
             else if (op === "open") { if (window.openApp) openApp(a[1]); }
             else if (op === "dialog") { if (window.sysDialog) sysDialog(T(a[1]), T(a[2]), [{ label: T("ui.ok"), primary: true }]); }
             else if (op === "source") { source = a[1]; document.dispatchEvent(new CustomEvent("source-change")); }
+            else if (op === "sound") { if (window.FX) FX.sound(a[1], a[2]); }
+            else if (op === "fx") { if (window.FX) FX.glitch(a[1]); }
             else if (op === "delay") {
                 (function (ms, acts) {
                     setTimeout(function () { run(acts); settle(); }, ms);

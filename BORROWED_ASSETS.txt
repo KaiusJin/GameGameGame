@@ -1,0 +1,25 @@
+借用资源清单（全部是开发占位，正式版逐条替换后删除本文件）
+================================================================
+
+来源：朋友的两个项目，仅学习/占位用
+  A = /Users/jiamulin/ningning
+  B = /Users/jiamulin/Empty_classes
+
+一、直接复制的文件
+----------------------------------------------------------------
+audio/windows-10-notify-system-sound.mp3   ← A/audio/  用途：toast 通知音
+audio/windowsError.mp3                     ← A/audio/  用途：报错弹窗（卸载失败、文件打不开）
+audio/windows-10-foreground-earrape.mp3    ← A/audio/  用途：ARGUS_9 现身的爆音刺声
+audio/message.mp3                          ← A/audio/  用途：备用（聊天新消息音，暂未接线）
+
+二、借鉴的做法（没有复制文件，替换时无需处理）
+----------------------------------------------------------------
+- 音效播放：new Audio(...).play().catch(静默)          ← A js/pc/main.js
+- 屏幕故障时桌面图标文字乱码（glitchChars 思路）        ← A js/pc/main.js，字符表自写
+- 窗口管理器架构（HTML 预置窗口 / z-index 计数器）      ← A js/pc/main.js（旧版就已沿用）
+
+三、还没借但可以考虑的
+----------------------------------------------------------------
+- A bluescreen.html：蓝屏死机整页（第二三案"软件失效"可参考）
+- A js/support-glitch.js：正文文字逐渐"腐化"（繁体→生僻字→重复），结局可参考
+- B vids/*.mp4：实拍视频素材的用法（正式美术阶段再看）

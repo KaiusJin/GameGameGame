@@ -125,6 +125,7 @@
             el.addEventListener("click", function () {
                 var h = history().filter(function (x) { return x.id === el.dataset.hist; })[0];
                 if (h.locked && !STATE.cond(h.locked)) {
+                    FX.sound("windowsError.mp3");
                     sysDialog(T("ui.dlg.locked.title"), T("ui.dlg.locked.body"), [{ label: T("ui.ok"), primary: true }]);
                     return;
                 }

@@ -30,6 +30,7 @@
             if (app && window.openApp) openApp(app);
         });
         ensureWrap().appendChild(el);
+        if (window.FX) FX.sound("windows-10-notify-system-sound.mp3", 0.5);
         requestAnimationFrame(function () { el.classList.add("show"); });
         setTimeout(function () {
             el.classList.remove("show");

@@ -16,6 +16,23 @@
 #boot-overlay.off { opacity: 0; pointer-events: none; }
 #boot-lines .boot-login { margin-top: 28px; color: #d7dfd9; }
 
+/* ---------------- 全屏故障（FX.glitch） ---------------- */
+#fx-glitch {
+    position: fixed; inset: 0; z-index: 9500;
+    pointer-events: none;
+    background:
+        repeating-linear-gradient(0deg, rgba(57, 255, 110, .07) 0 2px, transparent 2px 5px);
+    animation: fx-flicker .12s steps(2) infinite;
+    mix-blend-mode: hard-light;
+}
+@keyframes fx-flicker {
+    0% { opacity: 1; backdrop-filter: invert(0) hue-rotate(0); transform: none; }
+    25% { opacity: .4; backdrop-filter: invert(1) hue-rotate(90deg); transform: translateX(-6px); }
+    50% { opacity: .9; backdrop-filter: invert(0) saturate(0); transform: translateX(4px) scaleY(1.02); }
+    75% { opacity: .3; backdrop-filter: invert(1) hue-rotate(-60deg); transform: none; }
+    100% { opacity: 1; backdrop-filter: invert(0); transform: translateX(-2px); }
+}
+
 /* ---------------- toast（右下角，任务栏上方） ---------------- */
 #toast-wrap {
     position: fixed; right: 14px; bottom: 56px; z-index: 8000;
@@ -129,13 +146,21 @@ body.monitoring .desktop { box-shadow: inset 0 0 0 3px rgba(57, 255, 110, .35); 
 }
 
 /* ---------------- 查看器 ---------------- */
+/* txt = 记事本：白底黑字，占满窗口 */
+.viewer-body.vb-txt {
+    background: #fff;
+    padding: 0;
+    display: block;
+}
 .viewer-txt {
     margin: 0;
-    padding: 26px 30px;
-    font-family: "Consolas", "Courier New", monospace;
-    font-size: 14px;
+    min-height: 100%;
+    padding: 22px 26px;
+    font-family: "SimSun", "Consolas", "Courier New", monospace;
+    font-size: 14.5px;
     line-height: 1.9;
-    color: #222;
+    color: #111;
+    background: #fff;
     white-space: pre-wrap;
     word-break: break-word;
 }

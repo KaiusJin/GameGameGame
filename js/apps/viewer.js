@@ -41,6 +41,8 @@
         open: function (f) {
             $("#viewer-title").textContent = T(f.nameRef);
             var body = $("#viewer-body");
+            /* txt 走记事本式白底；图片/文书保持深色 PDF 阅读器底 */
+            body.classList.toggle("vb-txt", f.type === "txt");
             if (f.type === "txt") body.innerHTML = txtHtml(f);
             else if (f.type === "img") body.innerHTML = imgHtml(f);
             else if (f.type === "pdf" && f.doc) body.innerHTML = docHtml(f);
