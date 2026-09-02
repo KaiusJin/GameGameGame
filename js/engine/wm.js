@@ -1,40 +1,19 @@
-/* 窗口管理器（学 ningning js/pc/main.js：窗口预置在 HTML、display 切换、
-   z-index 递增计数器、#task-<app> 任务栏项、makeDraggable 标题栏拖拽） */
+/* =====================================================================
+   窗口系统（沿用 ningning 式做法：窗口预置在 HTML、display 切换、
+   z-index 递增、#task-<app> 任务栏项、标题栏拖拽）。
+   额外职责：
+   - [data-show-flag] 元素按 flag 显隐（如病毒图标"被发现"后才出现）
+   - app-open 事件广播（app 借此上报 STATE.emit）
+   ===================================================================== */
 (function () {
     function $(s) { return document.querySelector(s); }
 
-    /* 守卫：没走完开场的送回去（同步，localStorage 可靠）。
-       移动端禁入（剧情：手机连不了远程）推迟到视口定型后再判 ——
-       部分 WebView 在脚本求值时宽度未定，会把桌面误判成移动端。 */
-    if (localStorage.getItem("xy_stage") !== "desktop") {
-        location.replace("index.html");
-        return;
-    }
-    window.addEventListener("load", function () {
-        (function decide() {
-            var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-            if (!window.innerWidth && !coarse) {   /* 视口未定型，等非 0 再判 */
-                setTimeout(decide, 300);
-                return;
-            }
-            if (coarse || window.innerWidth <= 820) location.replace("index.html");
-        })();
-    });
-
-    var APP_INFO = {
-        mypc: { title: "此电脑" },
-        recycle: { title: "回收站" },
-        browser: { title: "Google Chrome" },
-        wechat: { title: "微信" },
-        files: { title: "下载" },
-        viewer: { title: "文件查看" }
-    };
-    var windowsState = {};   /* appId -> {isOpen, isMinimized} */
+    var windowsState = {};
     var zCounter = 100;
 
-    Object.keys(APP_INFO).forEach(function (id) {
-        windowsState[id] = { isOpen: false, isMinimized: false };
-    });
+    function appTitle(appId) {
+        return T("app." + appId + ".title");
+    }
 
     function bringToFront(appId) {
         var win = document.getElementById("win-" + appId);
@@ -52,10 +31,11 @@
         var item = document.createElement("div");
         item.className = "task-item";
         item.id = "task-" + appId;
-        item.innerHTML = (icon ? icon.outerHTML : "") + "<span>" + APP_INFO[appId].title + "</span>";
+        item.innerHTML = (icon ? icon.outerHTML : "") + "<span>" + appTitle(appId) + "</span>";
         item.onclick = function () {
             var st = windowsState[appId];
             var win = document.getElementById("win-" + appId);
+            item.classList.remove("flashing");
             if (st.isMinimized) {
                 st.isMinimized = false;
                 win.style.display = "flex";
@@ -77,7 +57,6 @@
             st.isOpen = true;
             st.isMinimized = false;
             win.style.display = "flex";
-            /* 居中（略微级联防止完全重叠） */
             var w = win.offsetWidth, h = win.offsetHeight;
             win.style.left = Math.max(0, (window.innerWidth - w) / 2 + (zCounter % 3) * 16) + "px";
             win.style.top = Math.max(0, (window.innerHeight - 44 - h) / 2) + "px";
@@ -87,7 +66,9 @@
             win.style.display = "flex";
         }
         bringToFront(appId);
+        NOTIFY.badge(appId, 0);
         document.dispatchEvent(new CustomEvent("app-open", { detail: appId }));
+        STATE.emit("open-app:" + appId);
     }
 
     function minimizeApp(appId) {
@@ -115,7 +96,6 @@
         bringToFront(appId);
     }
 
-    /* 标题栏拖拽 */
     function makeDraggable(win, handle) {
         handle.addEventListener("mousedown", function (e) {
             if (win.classList.contains("maximized")) return;
@@ -161,15 +141,34 @@
             if (fn) fn();
         });
         document.body.appendChild(mask);
+        return mask;
     }
     window.sysDialog = sysDialog;
     window.openApp = openApp;
 
+    /* [data-show-flag]：flag 为真才显示 */
+    function applyVisibility() {
+        document.querySelectorAll("[data-show-flag]").forEach(function (el) {
+            el.style.display = STATE.get(el.getAttribute("data-show-flag")) ? "" : "none";
+        });
+    }
+
+    /* [data-t]：静态 HTML 上的文字全部来自文案表（规则 6） */
+    function applyText() {
+        document.querySelectorAll("[data-t]").forEach(function (el) {
+            el.textContent = T(el.getAttribute("data-t"));
+        });
+    }
+
     /* ---------------- 初始化 ---------------- */
     document.addEventListener("DOMContentLoaded", function () {
+        applyText();
 
-        /* 图标：双击打开，单击选中 */
-        document.querySelectorAll(".desktop-icon").forEach(function (icon) {
+        document.querySelectorAll(".window").forEach(function (win) {
+            windowsState[win.dataset.app] = { isOpen: false, isMinimized: false };
+        });
+
+        document.querySelectorAll(".desktop-icon[data-app]").forEach(function (icon) {
             var app = icon.dataset.app;
             icon.addEventListener("click", function () {
                 document.querySelectorAll(".desktop-icon").forEach(function (i) { i.classList.remove("selected"); });
@@ -177,13 +176,12 @@
             });
             icon.addEventListener("dblclick", function () { openApp(app); });
         });
-        document.getElementById("desktop").addEventListener("click", function (e) {
+        $("#desktop").addEventListener("click", function (e) {
             if (e.target === e.currentTarget) {
                 document.querySelectorAll(".desktop-icon").forEach(function (i) { i.classList.remove("selected"); });
             }
         });
 
-        /* 窗口：控制按钮 + 拖拽 + 点击置顶 */
         document.querySelectorAll(".window").forEach(function (win) {
             var app = win.dataset.app;
             makeDraggable(win, win.querySelector(".title-bar"));
@@ -211,19 +209,15 @@
                 openApp(item.dataset.open);
             });
         });
-        $("#sm-quit").addEventListener("click", function () {
-            startMenu.classList.remove("open");
-            if (window.REMOTE) window.REMOTE.quit();
-        });
         $("#sm-restart").addEventListener("click", function () {
             startMenu.classList.remove("open");
-            sysDialog("系统", "确定要清除全部进度、重新开始吗？", [
-                { label: "取消" },
-                {
-                    label: "确定", primary: true,
-                    fn: function () { location.href = "index.html?reset"; }
-                }
+            sysDialog(T("ui.dlg.reset.title"), T("ui.dlg.reset.body"), [
+                { label: T("ui.cancel") },
+                { label: T("ui.ok"), primary: true, fn: function () { STATE.reset(); } }
             ]);
         });
+
+        applyVisibility();
+        STATE.on(applyVisibility);
     });
 })();

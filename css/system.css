@@ -1,0 +1,225 @@
+/* =====================================================================
+   系统层样式：开机序列 / 通知 toast / 红点 / 任务栏闪烁 / 亮点 hotspot /
+   灰态锁定 / 监控条 / 新增浏览器视图（起始页、新闻站、历史记录）/ 查看器
+   ===================================================================== */
+
+/* ---------------- 开机序列 ---------------- */
+#boot-overlay {
+    position: fixed; inset: 0; z-index: 9000;
+    background: #000;
+    padding: 48px 56px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 14px; line-height: 2;
+    color: #9aa89c;
+    transition: opacity .8s;
+}
+#boot-overlay.off { opacity: 0; pointer-events: none; }
+#boot-lines .boot-login { margin-top: 28px; color: #d7dfd9; }
+
+/* ---------------- toast（右下角，任务栏上方） ---------------- */
+#toast-wrap {
+    position: fixed; right: 14px; bottom: 56px; z-index: 8000;
+    display: flex; flex-direction: column; gap: 10px;
+    width: 320px;
+}
+.toast {
+    display: flex;
+    background: #1f2a33;
+    border: 1px solid #354652;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .5);
+    cursor: pointer;
+    opacity: 0; transform: translateX(24px);
+    transition: opacity .35s, transform .35s;
+}
+.toast.show { opacity: 1; transform: none; }
+.toast-bar { width: 4px; background: #39ff6e; flex: none; }
+.toast-body { padding: 10px 13px; min-width: 0; }
+.toast-title { font-size: 11px; color: #8ba0b1; margin-bottom: 3px; }
+.toast-text { font-size: 12.5px; color: #e8eef2; line-height: 1.5; }
+
+/* ---------------- 红点 / 闪烁 ---------------- */
+.desktop-icon { position: relative; }
+.ic-badge {
+    position: absolute; top: -4px; right: 6px;
+    min-width: 17px; height: 17px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: #e33;
+    color: #fff;
+    font-size: 11px; font-style: normal;
+    line-height: 17px; text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+}
+.task-item.flashing { animation: task-flash 1s steps(2) infinite; }
+@keyframes task-flash {
+    0% { background: rgba(255, 255, 255, .08); }
+    50% { background: rgba(224, 130, 30, .55); }
+}
+
+/* ---------------- 亮点（每屏只有一个，见 DB.HINTS） ---------------- */
+.hotspot { animation: hotspot-pulse 1.6s ease-in-out infinite; border-radius: 6px; }
+@keyframes hotspot-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(57, 255, 110, 0); }
+    50% { box-shadow: 0 0 0 4px rgba(57, 255, 110, .55); }
+}
+
+/* ---------------- 灰态锁定（灰态可见是引导规则，别改成隐藏） ---------------- */
+.desktop-icon.locked, .fx-row.locked, .hs-row.locked { opacity: .45; filter: grayscale(1); }
+.fx-lock {
+    font-style: normal; font-size: 10.5px;
+    color: #9a6c1f;
+    background: #f5e8cf;
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-left: 6px;
+}
+
+/* ---------------- 监控条（接入目标设备） ---------------- */
+#monitor-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 7000;
+    display: flex; align-items: center; gap: 10px;
+    height: 30px;
+    padding: 0 12px;
+    background: #04130a;
+    border-bottom: 1px solid #1d5c31;
+    font-size: 12px;
+    color: #39ff6e;
+    font-family: "Consolas", monospace;
+}
+#monitor-bar[hidden] { display: none; }
+.mb-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #39ff6e;
+    animation: mb-blink 1.2s steps(2) infinite;
+}
+@keyframes mb-blink { 50% { opacity: .25; } }
+#monitor-bar b { font-weight: 600; flex: 1; }
+#monitor-exit {
+    background: none;
+    border: 1px solid #2c7a44;
+    border-radius: 3px;
+    color: #39ff6e;
+    font-size: 11px;
+    padding: 2px 10px;
+    cursor: pointer;
+}
+#monitor-exit:hover { background: #123c20; }
+body.monitoring .desktop { box-shadow: inset 0 0 0 3px rgba(57, 255, 110, .35); }
+
+/* 桌面文件图标容器：children 直接进入桌面的流式图标布局 */
+#desktop-files { display: contents; }
+
+/* ---------------- 文件窗口补充 ---------------- */
+.fx-group {
+    padding: 8px 14px 4px;
+    font-size: 11.5px;
+    color: #888;
+}
+.fx-row.selected { background: #e3edf7; }
+
+/* ---------------- 聊天补充 ---------------- */
+.wc-empty {
+    padding: 40px 18px;
+    font-size: 12.5px;
+    color: #9a9a98;
+    text-align: center;
+    line-height: 1.7;
+}
+
+/* ---------------- 查看器 ---------------- */
+.viewer-txt {
+    margin: 0;
+    padding: 26px 30px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.9;
+    color: #222;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.viewer-split { display: flex; height: 100%; min-height: 0; }
+.viewer-stage {
+    flex: 1; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #1b1b1b;
+    padding: 14px;
+}
+.viewer-stage img { max-width: 100%; max-height: 100%; }
+.viewer-meta {
+    flex: none; width: 220px;
+    border-left: 1px solid #e2e2e2;
+    background: #fafafa;
+    padding: 16px;
+}
+.viewer-meta h4 { font-size: 12.5px; color: #333; margin: 0 0 10px; }
+.viewer-meta ul { list-style: none; margin: 0; padding: 0; }
+.viewer-meta li { font-size: 12px; color: #666; line-height: 1.6; margin-bottom: 9px; }
+
+/* ---------------- 浏览器：起始页 / 新闻站 / 历史记录 ---------------- */
+.br-address { flex: 1; display: flex; }
+.br-address input {
+    flex: 1; min-width: 0;
+    border: none; outline: none;
+    background: none;
+    font-size: 13px;
+    color: #202124;
+}
+.br-start-title { font-size: 22px; color: #9aa0a6; margin-bottom: 26px; letter-spacing: 2px; }
+.br-tiles { display: flex; gap: 16px; }
+.br-tile {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    width: 110px;
+    padding: 18px 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12.5px;
+    color: #3c4043;
+}
+.br-tile:hover { background: #f1f3f4; }
+.br-tile .bm-ico {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: #e8eaed;
+    font-size: 20px; font-style: normal;
+    display: flex; align-items: center; justify-content: center;
+    color: #5f6368;
+}
+.br-tile.dot::after {
+    content: "";
+    position: absolute; top: 12px; right: 22px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #e33;
+}
+.nw-root { max-width: 680px; margin: 0 auto; padding: 30px 20px 60px; }
+.nw-site {
+    font-size: 24px; font-weight: 700; color: #1a1a1a;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 12px; margin-bottom: 6px;
+}
+.nw-row {
+    display: flex; gap: 14px; align-items: baseline;
+    padding: 15px 4px;
+    border-bottom: 1px solid #e8e8e8;
+    cursor: pointer;
+}
+.nw-row:hover .nw-head { text-decoration: underline; }
+.nw-date { flex: none; font-size: 12px; color: #999; }
+.nw-head { font-size: 15.5px; color: #1a3f66; line-height: 1.5; }
+.nw-empty { padding: 30px 4px; color: #999; font-size: 13px; }
+.hs-root { max-width: 720px; margin: 0 auto; padding: 26px 20px 60px; }
+.hs-root h3 { font-size: 16px; color: #202124; margin: 0 0 14px; }
+.hs-row {
+    display: flex; gap: 14px; align-items: baseline;
+    padding: 11px 6px;
+    border-bottom: 1px solid #ececec;
+    cursor: pointer;
+    min-width: 0;
+}
+.hs-row:hover { background: #f8f9fa; }
+.hs-title { font-size: 13.5px; color: #1a3f66; flex: 1; min-width: 0; }
+.hs-url { font-size: 12px; color: #0a7a3d; white-space: nowrap; }
+.hs-when { font-size: 12px; color: #999; flex: none; }

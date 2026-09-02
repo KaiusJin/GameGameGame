@@ -3,38 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>微信</title>
+    <title>系统</title>
     <script src="js/mobile.js"></script>
-    <link rel="stylesheet" href="css/chat.css">
-    <link rel="stylesheet" href="css/shot.css">
-    <script src="js/boot-check.js"></script>
+    <link rel="stylesheet" href="css/pc.css">
+    <link rel="stylesheet" href="css/apps.css">
+    <link rel="stylesheet" href="css/browser.css">
+    <link rel="stylesheet" href="css/system.css">
+    <link rel="stylesheet" href="css/virus.css">
 </head>
 <body>
 
-    <div class="wx-frame">
-        <div class="wx-header">
-            <span class="wx-title" id="wx-title">微信</span>
-            <span class="wx-more">···</span>
+    <!-- 开机序列 -->
+    <div id="boot-overlay">
+        <div id="boot-lines"></div>
+    </div>
+
+    <!-- 监控条（接入目标设备时出现） -->
+    <div id="monitor-bar" hidden>
+        <span class="mb-dot"></span>
+        <b data-t="virus.monitor.bar"></b>
+        <button id="monitor-exit" data-t="virus.exit.btn"></button>
+    </div>
+
+    <div class="desktop" id="desktop">
+
+        <!-- 桌面图标（应用） -->
+        <div class="desktop-icon" id="icon-browser" data-app="browser">
+            <img class="ic" src="image/chrome.png" alt="">
+            <div class="label" data-t="app.browser.title"></div>
         </div>
-        <div class="wx-msgs" id="wx-msgs"></div>
-        <div class="wx-replybar" id="wx-replybar"></div>
-        <div class="wx-inputbar">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-            <div class="wx-input-fake"></div>
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.2 1.6 3.5 1.6 3.5-1.6 3.5-1.6"/><circle cx="9" cy="10" r=".8" fill="currentColor"/><circle cx="15" cy="10" r=".8" fill="currentColor"/></svg>
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+        <div class="desktop-icon" id="icon-chat" data-app="chat">
+            <svg class="ic" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="10" fill="#07c160"/><ellipse cx="19" cy="21" rx="11" ry="9" fill="#fff"/><circle cx="15.5" cy="19" r="1.5" fill="#07c160"/><circle cx="22.5" cy="19" r="1.5" fill="#07c160"/><ellipse cx="31" cy="28" rx="9" ry="7.5" fill="#fff" opacity=".92"/><circle cx="28" cy="26.5" r="1.3" fill="#07c160"/><circle cx="34" cy="26.5" r="1.3" fill="#07c160"/></svg>
+            <div class="label" data-t="app.chat.title"></div>
+        </div>
+        <div class="desktop-icon" id="icon-files" data-app="files">
+            <img class="ic" src="image/folder.png" alt="">
+            <div class="label" data-t="app.files.title"></div>
+        </div>
+        <div class="desktop-icon" id="icon-mypc" data-app="mypc">
+            <img class="ic" src="image/myPc.png" alt="">
+            <div class="label" data-t="app.mypc.title"></div>
+        </div>
+        <div class="desktop-icon" id="icon-recycle" data-app="recycle">
+            <img class="ic" src="image/recycleEmpty.png" alt="">
+            <div class="label" data-t="app.recycle.title"></div>
+        </div>
+        <!-- 病毒软件（txt 链读完才"出现"） -->
+        <div class="desktop-icon" id="icon-virus" data-app="virus" data-show-flag="virus_found" data-hint="icon:virus">
+            <svg class="ic" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="6" fill="#050b06" stroke="#1c4a26"/><text x="24" y="31" text-anchor="middle" font-family="monospace" font-size="19" fill="#39ff6e">&gt;_</text></svg>
+            <div class="label" data-t="app.virus.title"></div>
+        </div>
+
+        <!-- 桌面文件图标（files.js 渲染：前任机主的 txt 链等） -->
+        <div id="desktop-files"></div>
+
+        <!-- 窗口：此电脑 -->
+        <div class="window" id="win-mypc" data-app="mypc" style="width:640px;height:420px;">
+            <div class="title-bar">
+                <div class="title-text"><img src="image/myPc.png" alt=""><span data-t="app.mypc.title"></span></div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="plain-pane">
+                    <p style="color:#888;margin-bottom:14px;" data-t="mypc.drives"></p>
+                    <div class="drive">
+                        <svg width="40" height="40" viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="20" rx="2" fill="#d9e4ee" stroke="#9fb3c2"/><circle cx="37" cy="24" r="2" fill="#6ee06e"/></svg>
+                        <div>
+                            本地磁盘 (C:)
+                            <div class="bar"><i style="width:62%"></i></div>
+                            <small>93.1 GB 可用，共 237 GB</small>
+                        </div>
+                    </div>
+                    <div class="drive">
+                        <svg width="40" height="40" viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="20" rx="2" fill="#d9e4ee" stroke="#9fb3c2"/><circle cx="37" cy="24" r="2" fill="#6ee06e"/></svg>
+                        <div>
+                            本地磁盘 (D:)
+                            <div class="bar"><i style="width:18%"></i></div>
+                            <small>391 GB 可用，共 476 GB</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 窗口：回收站 -->
+        <div class="window" id="win-recycle" data-app="recycle" style="width:560px;height:380px;">
+            <div class="title-bar">
+                <div class="title-text"><img src="image/recycleEmpty.png" alt=""><span data-t="app.recycle.title"></span></div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="empty-pane" data-t="recycle.empty"></div>
+            </div>
+        </div>
+
+        <!-- 窗口：浏览器 -->
+        <div class="window" id="win-browser" data-app="browser" style="width:980px;height:660px;">
+            <div class="title-bar">
+                <div class="title-text">
+                    <img src="image/chrome.png" alt="">
+                    <span id="browser-title"></span>
+                </div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="br-root">
+                    <div class="br-toolbar">
+                        <div class="br-navbtn" id="br-back">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                        </div>
+                        <div class="br-navbtn enabled" id="br-refresh">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                        </div>
+                        <div class="br-address" id="br-address">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                            <input autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                    <div class="br-bookmarks">
+                        <span class="bm" id="bm-news"><i class="bm-ico">·</i><span data-t="news.site"></span></span>
+                        <span class="bm" id="bm-hist"><i class="bm-ico g">⟲</i><span data-t="browser.hist.title"></span></span>
+                    </div>
+                    <div class="br-view" id="br-view"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 窗口：聊天（微信壳：自己的会话 + 监控模式） -->
+        <div class="window" id="win-chat" data-app="chat" style="width:1000px;height:660px;">
+            <div class="title-bar">
+                <div class="title-text">
+                    <svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="10" fill="#07c160"/><ellipse cx="19" cy="21" rx="11" ry="9" fill="#fff"/><ellipse cx="31" cy="28" rx="9" ry="7.5" fill="#fff" opacity=".92"/></svg>
+                    <span data-t="app.chat.title"></span>
+                </div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="wc-root">
+                    <div class="wc-nav">
+                        <div class="wc-nav-ava" id="wc-my-ava"></div>
+                        <div class="wc-nav-btn active">
+                            <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor"><path d="M12 3C6.9 3 3 6.4 3 10.5c0 2.3 1.2 4.3 3.1 5.7L5.5 20l3.7-2.1c.9.2 1.8.4 2.8.4 5.1 0 9-3.4 9-7.6S17.1 3 12 3z"/></svg>
+                        </div>
+                        <div class="wc-nav-btn dim">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>
+                        </div>
+                    </div>
+                    <div class="wc-list" id="wc-list"></div>
+                    <div class="wc-panel">
+                        <div class="wc-panel-head" id="wc-panel-head"></div>
+                        <div class="wc-panel-body" id="wc-panel-body"></div>
+                        <div class="wc-panel-foot" id="wc-panel-foot" hidden>
+                            <div class="wc-input" id="wc-input"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 窗口：文件 -->
+        <div class="window" id="win-files" data-app="files" style="width:780px;height:500px;">
+            <div class="title-bar">
+                <div class="title-text"><img src="image/folder.png" alt=""><span data-t="app.files.title"></span></div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="fx-root">
+                    <div class="fx-head">
+                        <span class="c-name" data-t="ui.col.name"></span><span class="c-date"></span><span class="c-size"></span>
+                    </div>
+                    <div class="fx-list" id="fx-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 窗口：查看器（代码打开，无桌面图标） -->
+        <div class="window" id="win-viewer" data-app="viewer" style="width:740px;height:620px;">
+            <div class="title-bar">
+                <div class="title-text"><img src="image/file.png" alt=""><span id="viewer-title"></span></div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="viewer-body" id="viewer-body"></div>
+            </div>
+        </div>
+
+        <!-- 窗口：病毒软件 -->
+        <div class="window vx-window" id="win-virus" data-app="virus" style="width:860px;height:600px;">
+            <div class="title-bar">
+                <div class="title-text">
+                    <svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="6" fill="#050b06" stroke="#1c4a26"/><text x="24" y="31" text-anchor="middle" font-family="monospace" font-size="19" fill="#39ff6e">&gt;_</text></svg>
+                    <span data-t="app.virus.title"></span>
+                </div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div id="vx-root"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 任务栏 -->
+    <div class="taskbar">
+        <div class="start-btn" id="start-btn">
+            <svg viewBox="0 0 88 88" width="20" height="20"><path fill="#e8f2fa" d="M0,12.5 L36,7.5 L36,42 L0,42 L0,12.5 Z M39,7 L88,0 L88,42 L39,42 L39,7 Z M0,45 L36,45 L36,79.5 L0,74.5 L0,45 Z M39,45 L88,45 L88,88 L39,81 L39,45 Z"/></svg>
+        </div>
+        <div class="task-items" id="task-items"></div>
+        <div class="task-clock" id="task-clock">
+            <div id="clock-time">--:--</div>
+            <div id="clock-date"></div>
         </div>
     </div>
 
-    <div id="connect-overlay" hidden>
-        <div class="co-brand"><span class="td-logo">T</span><b>ToDask</b></div>
-        <div class="co-spinner"></div>
-        <div class="co-steps" id="co-steps"></div>
+    <!-- 开始菜单 -->
+    <div class="start-menu" id="start-menu">
+        <div class="sm-item" data-open="browser"><img src="image/chrome.png" alt=""><span data-t="app.browser.title"></span></div>
+        <div class="sm-item" data-open="chat">
+            <svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="10" fill="#07c160"/><ellipse cx="19" cy="21" rx="11" ry="9" fill="#fff"/><ellipse cx="31" cy="28" rx="9" ry="7.5" fill="#fff" opacity=".92"/></svg>
+            <span data-t="app.chat.title"></span>
+        </div>
+        <div class="sm-item" data-open="files"><img src="image/folder.png" alt=""><span data-t="app.files.title"></span></div>
+        <div class="sm-item" data-open="mypc"><img src="image/myPc.png" alt=""><span data-t="app.mypc.title"></span></div>
+        <div class="sm-item" data-open="recycle"><img src="image/recycleEmpty.png" alt=""><span data-t="app.recycle.title"></span></div>
+        <div class="sm-divider"></div>
+        <div class="sm-item" id="sm-restart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#eee" stroke-width="1.6" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/></svg>
+            <span data-t="ui.sm.restart"></span>
+        </div>
     </div>
 
     <script src="js/data.js"></script>
-    <script src="js/clues.js"></script>
-    <script src="js/shots.js"></script>
-    <script src="js/intro.js"></script>
+    <script src="js/engine/state.js"></script>
+    <script src="js/engine/notify.js"></script>
+    <script src="js/engine/wm.js"></script>
+    <script src="js/apps/files.js"></script>
+    <script src="js/apps/viewer.js"></script>
+    <script src="js/apps/chat.js"></script>
+    <script src="js/apps/browser.js"></script>
+    <script src="js/apps/virus.js"></script>
+    <script src="js/engine/boot.js"></script>
 </body>
 </html>

@@ -1,0 +1,130 @@
+/* =====================================================================
+   病毒软件（ARGUS_9）：黑绿终端。界面可以黑绿到底，内容保持好莱坞式，
+   不出现真实黑客工具名与真实手法（规则 5）。
+   ===================================================================== */
+
+.vx-window .window-content { background: #030905; }
+
+#vx-root {
+    flex: 1;
+    display: flex; flex-direction: column;
+    min-height: 0;
+    font-family: "Consolas", "Courier New", monospace;
+    color: #39ff6e;
+    background:
+        repeating-linear-gradient(0deg, rgba(57, 255, 110, .028) 0 1px, transparent 1px 3px),
+        #030905;
+}
+.vx-header {
+    flex: none;
+    padding: 10px 16px;
+    font-size: 12.5px;
+    color: #2fbf58;
+    border-bottom: 1px solid #123c20;
+    letter-spacing: 1px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vx-body { flex: 1; display: flex; min-height: 0; }
+.vx-nav {
+    flex: none; width: 150px;
+    border-right: 1px solid #123c20;
+    padding: 14px 0;
+}
+.vx-nav-item {
+    padding: 9px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #2fbf58;
+}
+.vx-nav-item:hover { background: #07180d; }
+.vx-nav-item.on { background: #0b2413; color: #6bffa0; }
+.vx-main { flex: 1; min-width: 0; overflow-y: auto; padding: 16px; }
+
+.vx-empty { padding: 40px 10px; font-size: 13px; color: #1f7a3a; }
+
+/* ---------------- 求助单 ---------------- */
+.vx-task { border: 1px solid #123c20; margin-bottom: 12px; }
+.vx-task-head {
+    padding: 11px 14px;
+    font-size: 13.5px;
+    cursor: pointer;
+    color: #6bffa0;
+    letter-spacing: 1px;
+}
+.vx-task-head:hover { background: #07180d; }
+.vx-blink { animation: vx-blink 1s steps(2) infinite; margin-right: 8px; }
+@keyframes vx-blink { 50% { opacity: 0; } }
+.vx-task-body { border-top: 1px solid #123c20; padding: 14px; }
+.vx-profile { display: flex; gap: 14px; margin-bottom: 14px; }
+.vx-profile img {
+    flex: none;
+    width: 74px; height: 74px;
+    object-fit: cover;
+    border: 1px solid #1d5c31;
+    filter: grayscale(.4) brightness(.9);
+}
+.vx-target { font-size: 13.5px; color: #d9ffe6; margin-bottom: 8px; }
+.vx-brief {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #2fbf58;
+    white-space: pre-wrap;
+    font-family: inherit;
+}
+.vx-steps { margin: 6px 0 14px; }
+.vx-step { font-size: 12.5px; line-height: 2; color: #2fbf58; }
+.vx-step.done { color: #6bffa0; }
+.vx-step.locked { color: #175c2c; }
+
+/* ---------------- 按钮 ---------------- */
+.vx-btn {
+    display: inline-block;
+    background: none;
+    border: 1px solid #2c7a44;
+    color: #39ff6e;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 22px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.vx-btn:hover { background: #0b2413; }
+.vx-btn.primary { background: #0e3a1d; border-color: #39ff6e; color: #d9ffe6; }
+.vx-btn.primary:hover { background: #145227; }
+.vx-btn.danger { border-color: #7a2c2c; color: #ff6e6e; }
+.vx-btn.danger:hover { background: #240b0b; }
+
+/* ---------------- 卸载 ---------------- */
+.vx-uninstall {
+    height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 18px;
+}
+.vx-progress {
+    width: 300px; height: 12px;
+    border: 1px solid #2c7a44;
+    padding: 2px;
+}
+.vx-progress-fill {
+    height: 100%; width: 0;
+    background: #39ff6e;
+    animation: vx-fill 2.4s linear forwards;
+}
+@keyframes vx-fill {
+    0% { width: 0; }
+    70% { width: 86%; }
+    100% { width: 97%; }
+}
+.vx-doing { font-size: 12.5px; color: #2fbf58; }
+
+/* ---------------- 关于 ---------------- */
+.vx-about {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 2;
+    color: #2fbf58;
+    white-space: pre-wrap;
+    font-family: inherit;
+}
