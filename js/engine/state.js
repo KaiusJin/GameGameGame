@@ -48,12 +48,13 @@
 
     /* ---------------- 条件表达式 ----------------
        null/undefined = 恒真
-       {flag:"x"} {not:"x"} {phase:"p1"} {all:[...]} {any:[...]} */
+       {flag:"x"} {not:"x"} {phase:"p1"} {source:"t1"} {all:[...]} {any:[...]} */
     function cond(c) {
         if (c == null) return true;
         if (c.flag !== undefined) return !!flags[c.flag];
         if (c.not !== undefined) return !flags[c.not];
         if (c.phase !== undefined) return phase === c.phase;
+        if (c.source !== undefined) return source === c.source;
         if (c.all) return c.all.every(cond);
         if (c.any) return c.any.some(cond);
         return true;
@@ -70,6 +71,7 @@
        ["dialog", tRef, bRef]     系统弹窗
        ["source", id]             切换数据源（own = 退出监控）
        ["sound", file, vol?]      播放 audio/ 下的音效
+       ["scare", file, opts]      恐怖变体（变速/失真/倒放，见 fx.js）
        ["fx", ms]                 全屏故障闪烁（见 fx.js）
        ["delay", ms, [actions]]   延迟执行一串动作 */
     function run(actions) {
@@ -85,6 +87,7 @@
             else if (op === "dialog") { if (window.sysDialog) sysDialog(T(a[1]), T(a[2]), [{ label: T("ui.ok"), primary: true }]); }
             else if (op === "source") { source = a[1]; document.dispatchEvent(new CustomEvent("source-change")); }
             else if (op === "sound") { if (window.FX) FX.sound(a[1], a[2]); }
+            else if (op === "scare") { if (window.FX) FX.scare(a[1], a[2]); }
             else if (op === "fx") { if (window.FX) FX.glitch(a[1]); }
             else if (op === "delay") {
                 (function (ms, acts) {

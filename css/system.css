@@ -5,7 +5,7 @@
 
 /* ---------------- 开机序列 ---------------- */
 #boot-overlay {
-    position: fixed; inset: 0; z-index: 9000;
+    position: fixed; inset: 0; z-index: 100500;
     background: #000;
     padding: 48px 56px;
     font-family: "Consolas", "Courier New", monospace;
@@ -18,7 +18,7 @@
 
 /* ---------------- 全屏故障（FX.glitch） ---------------- */
 #fx-glitch {
-    position: fixed; inset: 0; z-index: 9500;
+    position: fixed; inset: 0; z-index: 100300;
     pointer-events: none;
     background:
         repeating-linear-gradient(0deg, rgba(57, 255, 110, .07) 0 2px, transparent 2px 5px);
@@ -35,7 +35,7 @@
 
 /* ---------------- toast（右下角，任务栏上方） ---------------- */
 #toast-wrap {
-    position: fixed; right: 14px; bottom: 56px; z-index: 8000;
+    position: fixed; right: 14px; bottom: 56px; z-index: 10200;
     display: flex; flex-direction: column; gap: 10px;
     width: 320px;
 }
@@ -248,3 +248,177 @@ body.monitoring .desktop { box-shadow: inset 0 0 0 3px rgba(57, 255, 110, .35); 
 .hs-title { font-size: 13.5px; color: #1a3f66; flex: 1; min-width: 0; }
 .hs-url { font-size: 12px; color: #0a7a3d; white-space: nowrap; }
 .hs-when { font-size: 12px; color: #999; flex: none; }
+
+/* =====================================================================
+   双桌面 / 黑入过场 / 登录界面 / 蓝屏 / 右键菜单 / 假课件站 / 假 B 站
+   ===================================================================== */
+
+/* 图标包装（svg 单色图标放在彩色圆角块里） */
+.ic-wrap { display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+.ic-wrap.xhs { background: #ff2442; }
+.ic-wrap img { width: 62%; height: 62%; filter: invert(1); }
+.ic-wrap.sm { width: 16px; height: 16px; border-radius: 4px; margin-right: 6px; }
+.task-item .ic-wrap { width: 18px; height: 18px; border-radius: 4px; }
+
+/* ---------------- 黑入过场 ---------------- */
+#hack-overlay { position: fixed; inset: 0; z-index: 100200; background: #000; overflow: hidden; }
+#hack-overlay .hk-stripes {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .09) 0 2px, transparent 2px 7px);
+    animation: hk-roll .25s linear infinite;
+    mix-blend-mode: screen;
+}
+@keyframes hk-roll { to { transform: translateY(7px); } }
+#hack-overlay .hk-red {
+    position: absolute; inset: 0;
+    background: #c00;
+    animation: hk-strobe .18s steps(2) infinite;
+    mix-blend-mode: multiply;
+}
+@keyframes hk-strobe { 0% { opacity: 0; } 50% { opacity: .85; } 100% { opacity: 0; } }
+#hack-overlay .hk-wins { position: absolute; inset: 0; }
+.hk-win {
+    position: absolute;
+    background: #0c0c0c;
+    border: 1px solid #444;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .8);
+    font-family: "Consolas", monospace;
+    font-size: 11px;
+    color: #39ff6e;
+    overflow: hidden;
+    animation: hk-pop .12s steps(2);
+}
+@keyframes hk-pop { from { transform: scale(.6); } }
+.hk-title { background: #fff; color: #000; font-size: 11px; padding: 2px 8px; }
+.hk-body { padding: 6px 8px; line-height: 1.5; white-space: nowrap; }
+#hack-overlay .hk-white { position: absolute; inset: 0; background: #fff; opacity: 0; }
+#hack-overlay.flash .hk-white { opacity: 1; }
+#hack-overlay.black .hk-white, #hack-overlay.black .hk-stripes, #hack-overlay.black .hk-red { opacity: 0; animation: none; }
+#hack-overlay.out { background: transparent; }
+#hack-overlay.out .hk-black { position: absolute; inset: 0; background: #000; animation: hk-out .9s steps(3) forwards; }
+@keyframes hk-out { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ---------------- 目标电脑登录界面 ---------------- */
+#login-screen {
+    position: fixed; inset: 0; z-index: 100100;
+    background: #123 center / cover no-repeat;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity .7s;
+}
+#login-screen[hidden] { display: none; }
+#login-screen::before { content: ""; position: absolute; inset: 0; backdrop-filter: blur(18px) brightness(.55); }
+#login-screen.off { opacity: 0; }
+#login-screen.shake .lg-card { animation: lg-shake .4s; }
+@keyframes lg-shake { 0%, 100% { transform: none; } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+.lg-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; color: #fff; text-align: center; }
+#login-ava { width: 168px; height: 168px; border-radius: 50%; object-fit: cover; box-shadow: 0 8px 30px rgba(0, 0, 0, .5); }
+#login-name { font-size: 30px; font-weight: 300; letter-spacing: 1px; margin-top: 8px; }
+.lg-row { display: flex; margin-top: 8px; }
+#login-pwd {
+    width: 250px; height: 34px;
+    border: 2px solid rgba(255, 255, 255, .6);
+    background: rgba(255, 255, 255, .92);
+    padding: 0 10px;
+    font-size: 15px;
+    outline: none;
+    color: #111;
+}
+#login-pwd:focus { border-color: #fff; }
+#login-go {
+    width: 34px; height: 34px;
+    border: 2px solid rgba(255, 255, 255, .6); border-left: 0;
+    background: rgba(0, 0, 0, .35);
+    color: #fff; font-size: 17px; cursor: pointer;
+}
+#login-msg { font-size: 13px; color: #ffd0d0; min-height: 18px; }
+#login-hint { font-size: 12px; color: rgba(255, 255, 255, .7); }
+
+/* ---------------- 蓝屏 ---------------- */
+#bsod {
+    position: fixed; inset: 0; z-index: 100400;
+    background: #0078d7;
+    color: #fff;
+    padding: 12vh 14vw;
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+#bsod.off { background: #000; padding: 48px 56px; }
+.bs-face { font-size: 120px; line-height: 1; margin-bottom: 24px; }
+.bs-body { font-size: 22px; max-width: 760px; line-height: 1.5; margin-bottom: 30px; }
+.bs-pct { font-size: 22px; margin-bottom: 60px; }
+.bs-code { font-size: 14px; opacity: .85; }
+.bs-boot { font-family: "Consolas", monospace; font-size: 14px; line-height: 2; color: #9aa89c; }
+
+/* ---------------- 右键菜单 ---------------- */
+#ctx-menu {
+    position: fixed; z-index: 10500;
+    min-width: 160px;
+    background: #f2f2f2;
+    border: 1px solid #a0a0a0;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, .35);
+    padding: 3px 0;
+    font-size: 13px;
+}
+#ctx-menu[hidden] { display: none; }
+.ctx-item { padding: 6px 28px 6px 24px; cursor: default; color: #111; }
+.ctx-item:hover { background: #91c9f7; }
+.ctx-item.danger { color: #8a1010; }
+
+/* ---------------- 病毒软件补充 ---------------- */
+.vx-log { margin-bottom: 14px; font-size: 12.5px; color: #ff6e6e; line-height: 1.9; }
+.vx-cred { margin: 0 0 14px; padding: 8px 12px; border: 1px dashed #2c7a44; font-size: 13px; color: #d9ffe6; letter-spacing: .5px; }
+.vx-cred span { color: #2fbf58; margin-right: 12px; font-size: 11.5px; }
+
+/* ---------------- 假课件站（源头） ---------------- */
+.st-root { background: #f7f9fc; min-height: 100%; font-family: "Microsoft YaHei", sans-serif; }
+.st-nav { display: flex; align-items: baseline; gap: 12px; padding: 14px 32px; background: #fff; border-bottom: 1px solid #e6e9ef; }
+.st-nav b { font-size: 20px; color: #1656c7; }
+.st-nav span { font-size: 12px; color: #888; }
+.st-hero { padding: 46px 32px 30px; background: linear-gradient(120deg, #1656c7, #3d8bff); color: #fff; }
+.st-hero h1 { margin: 0 0 10px; font-size: 26px; font-weight: 600; }
+.st-hero p { margin: 0; font-size: 14px; opacity: .9; }
+.st-card { margin: 26px 32px; background: #fff; border: 1px solid #e6e9ef; border-radius: 6px; padding: 20px 24px; max-width: 520px; }
+.st-card h3 { margin: 0 0 12px; font-size: 15px; color: #333; }
+.st-card ul { list-style: none; margin: 0 0 18px; padding: 0; }
+.st-card li { font-size: 13.5px; color: #444; line-height: 2; border-bottom: 1px dashed #eee; }
+.st-dl { background: #ff7a1a; color: #fff; border: 0; border-radius: 4px; padding: 10px 22px; font-size: 14px; cursor: pointer; }
+.st-dl:hover { background: #e86a0c; }
+.st-foot { padding: 30px 32px; font-size: 11px; color: #aaa; }
+
+/* ---------------- 假 B 站 ---------------- */
+.bl-root { background: #f1f2f3; min-height: 100%; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #18191c; }
+.bl-bar { display: flex; align-items: center; gap: 20px; height: 56px; padding: 0 24px; background: #fff; border-bottom: 1px solid #e3e5e7; }
+.bl-logo { font-size: 22px; font-weight: 800; color: #00aeec; cursor: pointer; letter-spacing: -.5px; }
+.bl-me { margin-left: auto; font-size: 12.5px; color: #61666d; }
+.bl-tabs { display: flex; gap: 22px; padding: 0 24px; background: #fff; border-bottom: 1px solid #e3e5e7; font-size: 14px; }
+.bl-tabs span { padding: 12px 0; cursor: pointer; color: #61666d; border-bottom: 2px solid transparent; }
+.bl-tabs span.on { color: #00aeec; border-bottom-color: #00aeec; }
+.bl-list { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.bl-row { display: flex; gap: 14px; background: #fff; border-radius: 6px; padding: 10px; cursor: pointer; }
+.bl-row:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, .08); }
+.bl-row img { width: 180px; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 4px; flex: none; }
+.bl-r-title { font-size: 15px; color: #18191c; margin-bottom: 8px; line-height: 1.5; }
+.bl-r-meta { font-size: 12.5px; color: #9499a0; }
+.bl-player { position: relative; margin: 20px 24px 0; aspect-ratio: 16 / 9; max-height: 380px; background: #000; overflow: hidden; }
+.bl-player img { width: 100%; height: 100%; object-fit: cover; opacity: .35; filter: blur(2px); }
+.bl-err { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; background: rgba(0, 0, 0, .45); }
+.bl-title { padding: 16px 24px 4px; font-size: 19px; font-weight: 500; }
+.bl-meta { padding: 0 24px 14px; font-size: 12.5px; color: #9499a0; }
+.bl-comments { margin: 0 24px 40px; background: #fff; border-radius: 6px; padding: 14px 18px; }
+.bl-comments h4 { margin: 0 0 8px; font-size: 15px; }
+.bl-c { padding: 12px 0; border-bottom: 1px solid #f1f2f3; }
+.bl-c b { display: block; font-size: 12.5px; color: #61666d; margin-bottom: 4px; }
+.bl-c p { margin: 0; font-size: 14px; line-height: 1.6; }
+.bl-c em { display: block; font-style: normal; font-size: 12px; color: #9499a0; margin-top: 6px; }
+.bl-c.me { background: #fff5f7; margin: 0 -18px; padding: 12px 18px; border-left: 3px solid #fb7299; }
+.bl-c.me b { color: #fb7299; }
+
+/* ---------------- 开机前警示 ---------------- */
+#boot-warn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #000; }
+
+/* 警示 = Windows 消息框 */
+.bw-dialog { width: 460px; }
+.bw-dialog .d-body { display: flex; gap: 16px; align-items: flex-start; }
+.bw-ico { flex: none; width: 32px; height: 32px; border-radius: 50%; background: #f2c200; color: #000; font: 700 22px/32px "Segoe UI", sans-serif; text-align: center; }
+/* 断开按钮：随时能看见、随时能按 */
+#monitor-exit { background: #8a1010; border-color: #ff6e6e; color: #fff; font-size: 12px; padding: 4px 14px; font-weight: 600; }
+#monitor-exit:hover { background: #b51515; }

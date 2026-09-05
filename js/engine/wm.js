@@ -2,8 +2,10 @@
    窗口系统（沿用 ningning 式做法：窗口预置在 HTML、display 切换、
    z-index 递增、#task-<app> 任务栏项、标题栏拖拽）。
    额外职责：
-   - [data-show-flag] 元素按 flag 显隐（如病毒图标"被发现"后才出现）
-   - app-open 事件广播（app 借此上报 STATE.emit）
+   - 双桌面：WM.setDevice(id) 切壁纸 / 图标集 / 关闭全部窗口 / 切数据源
+   - [data-show-flag] 元素按 flag 显隐（病毒图标"被发现"后才出现）
+   - [data-t] 静态文字全部来自文案表（规则 6）
+   - 桌面图标右键菜单（病毒图标：卸载 / 删除 → 蓝屏）
    ===================================================================== */
 (function () {
     function $(s) { return document.querySelector(s); }
@@ -11,9 +13,7 @@
     var windowsState = {};
     var zCounter = 100;
 
-    function appTitle(appId) {
-        return T("app." + appId + ".title");
-    }
+    function appTitle(appId) { return T("app." + appId + ".title"); }
 
     function bringToFront(appId) {
         var win = document.getElementById("win-" + appId);
@@ -70,7 +70,6 @@
         document.dispatchEvent(new CustomEvent("app-open", { detail: appId }));
         STATE.emit("open-app:" + appId);
     }
-
     function minimizeApp(appId) {
         var st = windowsState[appId];
         if (!st.isOpen) return;
@@ -79,9 +78,9 @@
         var t = document.getElementById("task-" + appId);
         if (t) t.classList.remove("active");
     }
-
     function closeApp(appId) {
         var st = windowsState[appId];
+        if (!st) return;
         st.isOpen = false;
         st.isMinimized = false;
         var win = document.getElementById("win-" + appId);
@@ -90,7 +89,7 @@
         var t = document.getElementById("task-" + appId);
         if (t) t.remove();
     }
-
+    function closeAll() { Object.keys(windowsState).forEach(closeApp); }
     function toggleMax(appId) {
         document.getElementById("win-" + appId).classList.toggle("maximized");
         bringToFront(appId);
@@ -146,14 +145,56 @@
     window.sysDialog = sysDialog;
     window.openApp = openApp;
 
-    /* [data-show-flag]：flag 为真才显示 */
+    /* ---------------- 双桌面 ---------------- */
     function applyVisibility() {
-        document.querySelectorAll("[data-show-flag]").forEach(function (el) {
+        var dev = DB.DEVICES[STATE.source()] || DB.DEVICES.own;
+        var icons = dev.desktop.icons || [];
+        document.querySelectorAll(".desktop-icon[data-app]").forEach(function (el) {
+            var ok = icons.indexOf(el.dataset.app) >= 0;
+            var f = el.getAttribute("data-show-flag");
+            if (f && !STATE.get(f)) ok = false;
+            el.style.display = ok ? "" : "none";
+        });
+        document.querySelectorAll("[data-show-flag]:not(.desktop-icon)").forEach(function (el) {
             el.style.display = STATE.get(el.getAttribute("data-show-flag")) ? "" : "none";
         });
     }
+    function applyDevice() {
+        var id = STATE.source();
+        var dev = DB.DEVICES[id] || DB.DEVICES.own;
+        document.body.setAttribute("data-device", id);
+        document.body.style.backgroundImage = "url(" + dev.desktop.wallpaper + ")";
+        var on = id !== "own";
+        document.body.classList.toggle("monitoring", on);
+        $("#monitor-bar").hidden = !on;
+        if (window.FX) { if (on) FX.ambient.start(); else FX.ambient.stop(); }
+        applyVisibility();
+    }
+    function setDevice(id) {
+        closeAll();
+        STATE.setSource(id);      /* 触发 source-change，各 app 重渲染 */
+        applyDevice();
+    }
+    window.WM = { setDevice: setDevice, closeAll: closeAll, applyDevice: applyDevice };
 
-    /* [data-t]：静态 HTML 上的文字全部来自文案表（规则 6） */
+    /* ---------------- 右键菜单 ---------------- */
+    function hideCtx() { var m = $("#ctx-menu"); if (m) m.hidden = true; }
+    function showCtx(x, y, items) {
+        var m = $("#ctx-menu");
+        m.innerHTML = items.map(function (it, i) {
+            return '<div class="ctx-item' + (it.danger ? " danger" : "") + '" data-i="' + i + '">' + T(it.ref) + "</div>";
+        }).join("");
+        m.hidden = false;
+        m.style.left = Math.min(x, window.innerWidth - 170) + "px";
+        m.style.top = Math.min(y, window.innerHeight - 44 - items.length * 30) + "px";
+        m.onclick = function (e) {
+            var it = e.target.closest(".ctx-item");
+            if (!it) return;
+            hideCtx();
+            items[+it.dataset.i].fn();
+        };
+    }
+
     function applyText() {
         document.querySelectorAll("[data-t]").forEach(function (el) {
             el.textContent = T(el.getAttribute("data-t"));
@@ -163,7 +204,6 @@
     /* ---------------- 初始化 ---------------- */
     document.addEventListener("DOMContentLoaded", function () {
         applyText();
-
         document.querySelectorAll(".window").forEach(function (win) {
             windowsState[win.dataset.app] = { isOpen: false, isMinimized: false };
         });
@@ -176,11 +216,37 @@
             });
             icon.addEventListener("dblclick", function () { openApp(app); });
         });
-        $("#desktop").addEventListener("click", function (e) {
+        var desktop = $("#desktop");
+        desktop.addEventListener("click", function (e) {
             if (e.target === e.currentTarget) {
                 document.querySelectorAll(".desktop-icon").forEach(function (i) { i.classList.remove("selected"); });
             }
         });
+        desktop.addEventListener("contextmenu", function (e) {
+            var icon = e.target.closest(".desktop-icon");
+            e.preventDefault();
+            if (!icon) { hideCtx(); return; }
+            var app = icon.dataset.app, file = icon.dataset.file;
+            var items = [];
+            if (app) {
+                items.push({ ref: "ctx.open", fn: function () { openApp(app); } });
+                if (app === "virus") {
+                    var nuke = function () {
+                        STATE.emit("virus-uninstall");
+                        FX.bsod(function () { STATE.emit("bsod-done"); });
+                    };
+                    items.push({ ref: "ctx.uninstall", fn: nuke, danger: true });
+                    items.push({ ref: "ctx.delete", fn: nuke, danger: true });
+                }
+            } else if (file) {
+                items.push({ ref: "ctx.open", fn: function () { FILES.openById(file); } });
+            }
+            showCtx(e.clientX, e.clientY, items);
+        });
+        document.addEventListener("mousedown", function (e) {
+            if (e.button === 0 && !e.target.closest("#ctx-menu")) hideCtx();
+        });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") hideCtx(); });
 
         document.querySelectorAll(".window").forEach(function (win) {
             var app = win.dataset.app;
@@ -194,7 +260,6 @@
             });
         });
 
-        /* 开始菜单 */
         var startMenu = $("#start-menu");
         $("#start-btn").addEventListener("click", function (e) {
             e.stopPropagation();
@@ -217,7 +282,9 @@
             ]);
         });
 
-        applyVisibility();
+        $("#monitor-exit").addEventListener("click", function () { HACK.disconnect(); });
+
+        applyDevice();
         STATE.on(applyVisibility);
     });
 })();

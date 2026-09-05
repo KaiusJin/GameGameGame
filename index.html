@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/browser.css">
     <link rel="stylesheet" href="css/system.css">
     <link rel="stylesheet" href="css/virus.css">
+    <link rel="stylesheet" href="css/xhs.css">
 </head>
 <body>
 
@@ -22,8 +23,25 @@
     <div id="monitor-bar" hidden>
         <span class="mb-dot"></span>
         <b data-t="virus.monitor.bar"></b>
-        <button id="monitor-exit" data-t="virus.exit.btn"></button>
+        <button id="monitor-exit" data-t="virus.exit.btn" data-hint="monitor:exit"></button>
     </div>
+
+    <!-- 目标电脑的登录界面（黑入过场之后） -->
+    <div id="login-screen" hidden>
+        <div class="lg-card">
+            <img id="login-ava" src="" alt="">
+            <div id="login-name"></div>
+            <div class="lg-row">
+                <input id="login-pwd" type="password" autocomplete="off">
+                <button id="login-go">→</button>
+            </div>
+            <div id="login-msg"></div>
+            <div id="login-hint"></div>
+        </div>
+    </div>
+
+    <!-- 右键菜单 -->
+    <div id="ctx-menu" hidden></div>
 
     <div class="desktop" id="desktop">
 
@@ -39,6 +57,10 @@
         <div class="desktop-icon" id="icon-files" data-app="files">
             <img class="ic" src="image/folder.png" alt="">
             <div class="label" data-t="app.files.title"></div>
+        </div>
+        <div class="desktop-icon" id="icon-xhs" data-app="xhs">
+            <div class="ic ic-wrap xhs"><img src="image/xiaohongshu.svg" alt=""></div>
+            <div class="label" data-t="app.xhs.title"></div>
         </div>
         <div class="desktop-icon" id="icon-mypc" data-app="mypc">
             <img class="ic" src="image/myPc.png" alt="">
@@ -126,10 +148,7 @@
                             <input autocomplete="off" spellcheck="false">
                         </div>
                     </div>
-                    <div class="br-bookmarks">
-                        <span class="bm" id="bm-news"><i class="bm-ico">·</i><span data-t="news.site"></span></span>
-                        <span class="bm" id="bm-hist"><i class="bm-ico g">⟲</i><span data-t="browser.hist.title"></span></span>
-                    </div>
+                    <div class="br-bookmarks" id="br-bookmarks"></div>
                     <div class="br-view" id="br-view"></div>
                 </div>
             </div>
@@ -200,6 +219,19 @@
             </div>
         </div>
 
+        <!-- 窗口：小红书（她的电脑上才有） -->
+        <div class="window" id="win-xhs" data-app="xhs" style="width:1000px;height:680px;">
+            <div class="title-bar">
+                <div class="title-text"><div class="ic-wrap xhs sm"><img src="image/xiaohongshu.svg" alt=""></div><span data-t="app.xhs.title"></span></div>
+                <div class="window-controls">
+                    <button class="btn-min">─</button><button class="btn-max">▢</button><button class="btn-close">✕</button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div id="xhs-root"></div>
+            </div>
+        </div>
+
         <!-- 窗口：病毒软件 -->
         <div class="window vx-window" id="win-virus" data-app="virus" style="width:860px;height:600px;">
             <div class="title-bar">
@@ -252,10 +284,12 @@
     <script src="js/engine/state.js"></script>
     <script src="js/engine/notify.js"></script>
     <script src="js/engine/wm.js"></script>
+    <script src="js/engine/hack.js"></script>
     <script src="js/apps/files.js"></script>
     <script src="js/apps/viewer.js"></script>
     <script src="js/apps/chat.js"></script>
     <script src="js/apps/browser.js"></script>
+    <script src="js/apps/xhs.js"></script>
     <script src="js/apps/virus.js"></script>
     <script src="js/engine/boot.js"></script>
 </body>

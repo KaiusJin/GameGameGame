@@ -1,8 +1,8 @@
 /* =====================================================================
-   文件管理器：读当前数据源的虚拟文件树（DEVICES[source].files）。
-   - own 设备的 desktop 文件同时渲染成桌面图标
-   - 灰态可见：locked 条件未满足的文件显示但发灰，双击弹"无法打开"
-   - txt/img/pdf 交给查看器（viewer.js），exe 弹属性对话框
+   文件管理器：读当前电脑的虚拟文件树（DEVICES[source].files）。
+   - desktop 文件夹的文件同时渲染成桌面图标（跟随当前电脑）
+   - 灰态可见：locked 未满足的文件显示但发灰，双击弹"无法打开"
+   - txt/img/pdf 交给查看器，exe 弹属性对话框
    ===================================================================== */
 (function () {
     function $(s) { return document.querySelector(s); }
@@ -10,16 +10,15 @@
         return String(s == null ? "" : s)
             .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
-
     var ICONS = { txt: "image/file.png", pdf: "image/file.png", img: "image/file.png", exe: "image/exe.png" };
 
-    function deviceFiles() {
-        var dev = DB.DEVICES[STATE.source()] || { files: [] };
-        return dev.files.filter(function (f) { return STATE.cond(f.visible); });
-    }
+    function allFiles() { return (DB.DEVICES[STATE.source()] || { files: [] }).files; }
+    function deviceFiles() { return allFiles().filter(function (f) { return STATE.cond(f.visible); }); }
     function isLocked(f) { return f.locked && !STATE.cond(f.locked); }
+    function byId(id) { return allFiles().filter(function (x) { return x.id === id; })[0]; }
 
     function openFile(f) {
+        if (!f) return;
         if (isLocked(f)) {
             FX.sound("windowsError.mp3");
             sysDialog(T("ui.dlg.locked.title"), T("ui.dlg.locked.body"), [{ label: T("ui.ok"), primary: true }]);
@@ -33,15 +32,13 @@
         if (f.sets) STATE.set(f.sets);
         STATE.emit("read-file:" + f.id);
     }
-    window.FILES = { open: openFile };
+    window.FILES = { open: openFile, openById: function (id) { openFile(byId(id)); } };
 
-    /* ---------------- 桌面文件图标（永远是 own 的桌面）---------------- */
+    /* 桌面文件图标 */
     function renderDesktop() {
         var host = $("#desktop-files");
         if (!host) return;
-        var files = DB.DEVICES.own.files.filter(function (f) {
-            return f.folder === "desktop" && STATE.cond(f.visible);
-        });
+        var files = deviceFiles().filter(function (f) { return f.folder === "desktop"; });
         host.innerHTML = files.map(function (f) {
             return (
                 '<div class="desktop-icon file-icon' + (isLocked(f) ? " locked" : "") + '" data-file="' + f.id + '" data-hint="file:' + f.id + '">' +
@@ -50,25 +47,22 @@
             );
         }).join("");
         host.querySelectorAll("[data-file]").forEach(function (el) {
-            var f = DB.DEVICES.own.files.filter(function (x) { return x.id === el.dataset.file; })[0];
             el.addEventListener("click", function () {
                 document.querySelectorAll(".desktop-icon").forEach(function (i) { i.classList.remove("selected"); });
                 el.classList.add("selected");
             });
-            el.addEventListener("dblclick", function () { openFile(f); });
+            el.addEventListener("dblclick", function () { openFile(byId(el.dataset.file)); });
         });
         NOTIFY.hints();
     }
 
-    /* ---------------- 文件窗口 ---------------- */
+    /* 文件窗口 */
     function renderWindow() {
         var host = $("#fx-list");
         if (!host) return;
         var files = deviceFiles();
         var folders = [];
-        files.forEach(function (f) {
-            if (folders.indexOf(f.folder) < 0) folders.push(f.folder);
-        });
+        files.forEach(function (f) { if (folders.indexOf(f.folder) < 0) folders.push(f.folder); });
         var html = "";
         folders.forEach(function (fo) {
             html += '<div class="fx-group">' + esc(T("folder." + fo)) + "</div>";
@@ -82,8 +76,7 @@
         });
         host.innerHTML = html;
         host.querySelectorAll("[data-file]").forEach(function (el) {
-            var f = files.filter(function (x) { return x.id === el.dataset.file; })[0];
-            el.addEventListener("dblclick", function () { openFile(f); });
+            el.addEventListener("dblclick", function () { openFile(byId(el.dataset.file)); });
             el.addEventListener("click", function () {
                 host.querySelectorAll(".fx-row").forEach(function (r) { r.classList.remove("selected"); });
                 el.classList.add("selected");
@@ -92,10 +85,8 @@
         NOTIFY.hints();
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        renderDesktop();
-        renderWindow();
-    });
-    STATE.on(function () { renderDesktop(); renderWindow(); });
-    document.addEventListener("source-change", renderWindow);
+    function rerender() { renderDesktop(); renderWindow(); }
+    document.addEventListener("DOMContentLoaded", rerender);
+    STATE.on(rerender);
+    document.addEventListener("source-change", rerender);
 })();

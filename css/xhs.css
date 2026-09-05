@@ -1,0 +1,29 @@
+/* 小红书（她的电脑）：白底 + 品牌红，瀑布流笔记 + 详情弹层 */
+#xhs-root { flex: 1; min-height: 0; overflow-y: auto; position: relative; background: #fff; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #333; }
+.xh-empty { padding: 60px; text-align: center; color: #999; font-size: 13px; }
+.xh-head { display: flex; align-items: center; gap: 22px; padding: 28px 36px 16px; }
+.xh-ava { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; }
+.xh-name { font-size: 22px; font-weight: 600; color: #333; }
+.xh-id { font-size: 12px; color: #999; margin: 4px 0 10px; }
+.xh-stats { font-size: 13px; color: #666; }
+.xh-tabs { padding: 0 36px; border-bottom: 1px solid #f0f0f0; display: flex; gap: 24px; font-size: 14px; }
+.xh-tabs span { padding: 10px 2px; color: #999; border-bottom: 2px solid transparent; }
+.xh-tabs span.on { color: #333; border-bottom-color: #ff2442; font-weight: 600; }
+.xh-gap { padding: 14px 36px 0; font-size: 12px; color: #bbb; text-align: center; letter-spacing: 2px; }
+.xh-grid { columns: 4; column-gap: 14px; padding: 14px 36px 40px; }
+.xh-card { break-inside: avoid; margin-bottom: 14px; border-radius: 10px; overflow: hidden; background: #fff; border: 1px solid #f0f0f0; cursor: pointer; }
+.xh-card:hover { box-shadow: 0 4px 16px rgba(0, 0, 0, .1); }
+.xh-card img { width: 100%; display: block; }
+.xh-title { padding: 10px 12px 6px; font-size: 13.5px; line-height: 1.45; color: #333; min-height: 1.4em; }
+.xh-foot { display: flex; justify-content: space-between; padding: 0 12px 10px; font-size: 11.5px; color: #999; }
+.xh-modal { position: absolute; inset: 0; background: rgba(0, 0, 0, .55); display: flex; align-items: center; justify-content: center; z-index: 5; }
+.xh-detail { position: relative; width: 820px; max-width: 94%; height: 88%; background: #fff; border-radius: 14px; display: flex; overflow: hidden; }
+.xh-d-img { flex: 1; background: #111; display: flex; align-items: center; justify-content: center; }
+.xh-d-img img { max-width: 100%; max-height: 100%; }
+.xh-d-body { width: 320px; flex: none; padding: 22px 22px 20px; overflow-y: auto; }
+.xh-d-author { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+.xh-d-author img { width: 36px; height: 36px; border-radius: 50%; }
+.xh-d-body h3 { margin: 0 0 10px; font-size: 16px; line-height: 1.5; }
+.xh-d-body pre { margin: 0; font-family: inherit; font-size: 14px; line-height: 1.8; white-space: pre-wrap; color: #333; }
+.xh-d-date { margin-top: 18px; font-size: 12px; color: #999; }
+.xh-close { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(0, 0, 0, .35); color: #fff; cursor: pointer; }

@@ -11,6 +11,12 @@ audio/windows-10-notify-system-sound.mp3   ← A/audio/  用途：toast 通知�
 audio/windowsError.mp3                     ← A/audio/  用途：报错弹窗（卸载失败、文件打不开）
 audio/windows-10-foreground-earrape.mp3    ← A/audio/  用途：ARGUS_9 现身的爆音刺声
 audio/message.mp3                          ← A/audio/  用途：备用（聊天新消息音，暂未接线）
+audio/windows-10-bsod-sound.mp3            ← A/audio/  用途：蓝屏 + 黑入过场第二层音
+audio/zilizili-error.mp3                   ← A/audio/  用途：B 站视频页"加载失败"错误音
+
+说明：以上 mp3 除直接播放外，还被 js/engine/fx.js 的 scare() 在运行时做变速/失真/倒放，
+派生出黑入过场、蓝屏、病毒现身、断开等处的恐怖变体；接入期间的底噪是 Web Audio 实时合成的，无素材。
+替换音效时只需换文件名，变体参数在 fx.js 与 data.js 的 ["scare", ...] 动作里。
 
 二、借鉴的做法（没有复制文件，替换时无需处理）
 ----------------------------------------------------------------
@@ -23,3 +29,12 @@ audio/message.mp3                          ← A/audio/  用途：备用（聊�
 - A bluescreen.html：蓝屏死机整页（第二三案"软件失效"可参考）
 - A js/support-glitch.js：正文文字逐渐"腐化"（繁体→生僻字→重复），结局可参考
 - B vids/*.mp4：实拍视频素材的用法（正式美术阶段再看）
+
+四、第三方公开素材（非朋友项目，可保留，标注来源即可）
+----------------------------------------------------------------
+image/bilibili.svg      ← simple-icons（CC0），bilibili 书签图标。
+                          B 站页面做法参考 A：视频页播放器故意加载失败 + 错误音 + 信息放评论区。
+image/xiaohongshu.svg   ← simple-icons（CC0），小红书桌面图标（红底白标）。
+                          小红书窗口形态参考 A js/pc/xhs.js（瀑布流 + 详情弹层）。
+image/cat-wallpaper.jpg ← Wikimedia Commons "Cat03.jpg"（CC BY-SA 3.0，作者 Von.grzanka）。
+                          林晚电脑的壁纸 + 她的猫"橘子"的照片。正式版换自己的猫图。

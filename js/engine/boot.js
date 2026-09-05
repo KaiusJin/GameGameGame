@@ -23,9 +23,25 @@
             return;
         }
 
+        /* 警示页：首次进入必看，点一下才开机（顺带解锁浏览器的音频自动播放） */
+        var warn = document.createElement("div");
+        warn.id = "boot-warn";
+        /* 长得像 Windows 自带的消息框（复用 .sys-dialog 样式），黑屏上只有它 */
+        warn.innerHTML =
+            '<div class="sys-dialog bw-dialog">' +
+            '<div class="d-title">' + T("warn.title") + "</div>" +
+            '<div class="d-body"><div class="bw-ico">!</div><div>' + T("warn.body").split("\n").join("<br>") + "</div></div>" +
+            '<div class="d-footer"><button class="primary" id="bw-go">' + T("warn.btn") + "</button></div></div>";
+        ov.appendChild(warn);
+        document.getElementById("bw-go").addEventListener("click", function () {
+            warn.remove();
+            startLines();
+        });
+
         var lines = ["boot.l1", "boot.l2", "boot.l3", "boot.l4"];
         var i = 0;
-        (function next() {
+        function startLines() { next(); }
+        function next() {
             if (i >= lines.length) { setTimeout(finish, 1100); return; }
             var div = document.createElement("div");
             div.textContent = T(lines[i]);
@@ -33,6 +49,6 @@
             linesEl.appendChild(div);
             i++;
             setTimeout(next, i === lines.length ? 1300 : 650);
-        })();
+        }
     });
 })();

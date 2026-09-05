@@ -63,18 +63,21 @@
        DB.HINTS: [ { if:<cond>, target:"<data-hint 值>" } ]，首个命中者发光。 */
     function hints() {
         var list = (window.DB && DB.HINTS) || [];
-        var target = null;
+        var targets = [];
         for (var i = 0; i < list.length; i++) {
-            if (STATE.cond(list[i].if)) { target = list[i].target; break; }
+            if (STATE.cond(list[i].if)) {
+                targets = [].concat(list[i].target);   /* 允许一条规则点亮多个元素（桌面图标 + 窗口内条目） */
+                break;
+            }
         }
         document.querySelectorAll(".hotspot").forEach(function (el) {
-            if (el.getAttribute("data-hint") !== target) el.classList.remove("hotspot");
+            if (targets.indexOf(el.getAttribute("data-hint")) < 0) el.classList.remove("hotspot");
         });
-        if (target) {
-            document.querySelectorAll('[data-hint="' + target + '"]').forEach(function (el) {
+        targets.forEach(function (t) {
+            document.querySelectorAll('[data-hint="' + t + '"]').forEach(function (el) {
                 el.classList.add("hotspot");
             });
-        }
+        });
     }
 
     /* ---------------- 任务栏时钟（游戏内时间） ---------------- */
