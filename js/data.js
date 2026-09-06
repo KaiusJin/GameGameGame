@@ -182,12 +182,15 @@ window.DB = (function () {
         "chat.input": "", "chat.send": "发送", "chat.search": "搜索", "chat.call.unavail": "对方未开启语音通话。",
         "chat.typing": "对方正在输入…",
         "chat.draft.tag": "草稿",
-        "chat.prev.img": "[图片]", "chat.prev.file": "[文件]", "chat.prev.call": "[语音通话]",
+        "chat.prev.img": "[图片]", "chat.prev.file": "[文件]", "chat.prev.call": "[语音通话]", "chat.prev.voice": "[语音]", "chat.prev.draft": "[草稿]",
         "chat.file.foot": "微信电脑版",
         "chat.tag.new": "新的朋友",
-        "chat.sys.added": "你已添加了对方，现在可以开始聊天了。",
-        "chat.sys.recall": "对方撤回了一条消息",
-        "chat.call.voice": "语音通话",
+        "chat.sys.added": "你已添加了{n}，现在可以开始聊天了。",
+        "chat.sys.recall": "\"{n}\" 撤回了一条消息",
+        "chat.call.done": "通话时长 {dur}", "chat.call.cancel.them": "对方已取消", "chat.call.cancel.me": "已取消",
+        "chat.call.noanswer": "对方无应答", "chat.call.declined.me": "已拒绝", "chat.call.declined.them": "对方已拒绝",
+        "time.yesterday": "昨天", "time.week.0": "星期日", "time.week.1": "星期一", "time.week.2": "星期二", "time.week.3": "星期三", "time.week.4": "星期四", "time.week.5": "星期五", "time.week.6": "星期六",
+        "time.fmt.md": "{m}月{d}日 {hm}", "time.fmt.ymd": "{y}年{m}月{d}日 {hm}", "time.fmt.list": "{yy}/{m}/{d}",
         "chat.call.missed": "对方已取消",
         "call.invite": "邀请你语音通话", "call.accept": "接听", "call.decline": "拒绝",
         "zip.title": "解压缩", "zip.body": "此压缩文件受密码保护。请输入密码：", "zip.hint.label": "密码提示：", "zip.ph": "密码",
@@ -391,7 +394,7 @@ window.DB = (function () {
 
         /* 林晚（自己的微信里，软件注入的） */
         "chat.lin.name": "林晚",
-        "chat.lin.c1": "你在 8 月 29 日凌晨写过一条没发出去的话：“妈，我好像被骗了。你先别骂我。”",
+        "chat.lin.c1": "你在 10 月 1 日凌晨写过一条没发出去的话：“妈，我好像被骗了。你先别骂我。”",
         "chat.lin.c2": "王警官第一次打给你时报出的学校、住址、你妈妈的名字，全是你 7 月 9 日在 EnglishFree 申请奖学金时自己填的。\n那份通知书也不是“为你单独签发”的——早一版上还留着别人的名字。",
         "chat.lin.r1a": "我知道有些地方不对。",
         "chat.lin.r1b": "可是他说，如果我告诉别人，我妈也会出事。",
@@ -492,7 +495,8 @@ window.DB = (function () {
         "t1.doc2.p3": "四、暂时中断与亲友的一切联系。如亲友反复询问，统一回复：“" + S_REPLY + "”；五、如违反上述条款，本人自愿承担全部法律后果。",
         "t1.doc2.date": "承诺人：林晚  二〇二四年七月二十一日",
         "t1.video.name": "VID_20241002_2214.mp4",
-        "t1.video.body": "〔无法播放：缺少解码器〕\n\n文件属性\n时长：0:47\n创建时间：2024/10/2 22:14\n设备：iPhone 13\n原始文件名：配合调查_模拟视频_按脚本念.mp4",
+        "t1.video.meta1": "时长：0:47", "t1.video.meta2": "创建时间：2024/10/2 22:14", "t1.video.meta3": "设备：iPhone 13", "t1.video.meta4": "原始文件名：配合调查_模拟视频_按脚本念.mp4",
+        "video.err.title": "无法播放", "video.err.body": "此项目采用的格式不受支持。", "video.err.code": "0xC00D36C4",
         "t1.cat.name": "橘子.jpg",
         "t1.cat.meta1": "拍摄设备：iPhone 13",
         "t1.cat.meta2": "拍摄时间：2023/10/8 19:02",
@@ -525,10 +529,9 @@ window.DB = (function () {
         "t1.chat.scam.m12": "很好。收拾随身物品和护照，明天入住我发你的旅馆，用现金，不要登记真名。等通知。",
         "t1.chat.scam.m13": "明晚 22:00 拍一段配合调查的模拟视频，按我发的脚本念。这是保护你母亲的程序。",
         "t1.chat.scam.m14": "好",
-        "t1.chat.scam.blocked": "你已将“临江市公安局-王警官”加入黑名单",
         "t1.chat.mom.name": "妈妈",
         "t1.chat.mom.m0": "晚晚 期末考完没",
-        "t1.chat.mom.m0b": "〔语音消息 1:12〕考完啦！口语老师说我进步大，下学期能进正课了。宿舍楼下那只流浪猫又来了，我给它买了罐头，橘子吃醋……",
+        "t1.chat.mom.m0b": "考完啦！口语老师说我进步大，下学期能进正课了。宿舍楼下那只流浪猫又来了，我给它买了罐头，橘子吃醋……",
         "t1.chat.mom.m1": "周末视频吗 给你看你种的辣椒",
         "t1.chat.mom.m2": "这周不行 在忙",
         "t1.chat.mom.m3": "钱够不够用 妈给你转点",
@@ -538,13 +541,11 @@ window.DB = (function () {
         "t1.chat.mom.m7": "妈 " + S_REPLY,
         "t1.chat.mom.m8": "怎么了 出什么事了",
         "t1.chat.mom.m9": "晚晚？",
-        "t1.chat.mom.m10": "〔未接语音通话（17）〕",
         "t1.chat.mom.m11": "妈妈不问了 你回个话就行",
-        "t1.chat.mom.draft": "妈，我好像被骗了。你先别骂我。　（8月29日 03:12）",
+        "t1.chat.mom.draft": "妈，我好像被骗了。你先别骂我。",
         "t1.chat.mom.n1": "妈，我好像被骗了。",
         "t1.chat.mom.n2": "你先别打钱。",
         "t1.chat.mom.n3": "我想回去。",
-        "t1.chat.mom.call": "语音通话 12:31",
         "t1.chat.mom.n4": "你先跟妈妈说话。",
         "t1.chat.qing.name": "许青",
         "t1.chat.qing.m1": "橘子的猫粮我买了 这周还帮你带吗",
@@ -570,13 +571,13 @@ window.DB = (function () {
         "xhs.p3.date": "2023-12-16",
         "xhs.p3b.title": "给室友过生日｜地下室也能有仪式感",
         "xhs.p3b.body": "蛋糕是超市打折的，蜡烛是我上次生日剩的。她哭了，说来加拿大第一次有人给她过生日。",
-        "xhs.p3b.date": "2024-04-21",
+        "xhs.p3b.date": "04-21",
         "xhs.p4.title": "分享一个免费英语课件网站！雅思托福都有",
         "xhs.p4.body": "真的免费，我已经领了 Unit1，做得很认真。\n注册要填一些资料（说是发奖学金用的），我填了。\n链接放评论区。",
-        "xhs.p4.date": "2024-07-09",
+        "xhs.p4.date": "07-09",
         "xhs.p5.title": "最近有点累",
         "xhs.p5.body": "不想说话。\n橘子最近老是半夜盯着门口看。",
-        "xhs.p5.date": "2024-07-28",
+        "xhs.p5.date": "07-28",
         "xhs.c.qing.who": "青青不吃香菜",
         "xhs.c.qing.text": "这周还帮你带猫粮吗？",
         "xhs.c.qing.date": "09-27",
@@ -590,7 +591,7 @@ window.DB = (function () {
         "t1.hist.site.title": "EnglishFree · 免费雅思托福课件 · 永久免费",
         "t1.hist.site.when": "7月9日",
         "t1.hist.bili.title": "留学生在加拿大亲历“公检法”诈骗全过程｜亲述_哔哩哔哩_bilibili",
-        "t1.hist.bili.when": "8月29日 02:40",
+        "t1.hist.bili.when": "10月1日 02:40",
         "t1.hist.s1.title": "安全账户 是什么 公安 - Google 搜索",
         "t1.hist.s1.when": "8月16日",
         "t1.hist.s2.title": "逮捕令 真的假的 - Google 搜索",
@@ -630,7 +631,7 @@ window.DB = (function () {
         "bili.c3.text": "如果你正在看这条：给家里打个电话。就现在。",
         "bili.c4.who": "晚晚在多伦多",
         "bili.c4.text": "看到这里不敢看了",
-        "bili.c4.time": "8月29日 02:44",
+        "bili.c4.time": "10月1日 02:44",
         "bili.h2.title": "考前冥想｜放松白噪音 2小时", "bili.h2.up": "SleepLab", "bili.h2.when": "8月24日",
         "bili.h3.title": "宿舍快手菜：十分钟番茄牛腩饭", "bili.h3.up": "小灶台", "bili.h3.when": "7月4日",
         "mail.hotel.from": "Cedar Inn Scarborough <reservations@cedarinn-scarborough.ca>",
@@ -647,6 +648,9 @@ window.DB = (function () {
         "mail.cra.body": "Dear taxpayer,\nWe were unable to process your refund. Please confirm your banking details within 24 hours by clicking the link below.\n（此邮件已被标记为可疑）",
 
         /* ================= 第二案 ================= */
+        "page.google.site": "www.google.com",
+        "page.s1.body": "约 1,240,000 条结果\n\n公安机关提醒：不存在“安全账户”！凡要求转账到“安全账户”的都是诈骗 - 公安部刑事侦查局\n警方从不设立所谓的“安全账户”“核查账户”，也不会通过电话、网络要求群众转账汇款。凡是以“清查资金”“证明清白”为由要求转账的，一律是诈骗……\n\n“安全账户”骗局全解析：冒充公检法诈骗的最后一步 - 国家反诈中心\n骗子先以“涉嫌洗钱”“涉案”恐吓受害人，再以“配合调查”为由要求保密、切断与家人的联系，最后要求把钱转入所谓的安全账户……\n\n公检法会通过电话、微信办案吗？ - 知乎\n不会。公安机关办案必须当面出示证件和法律文书，不会通过网络发送任何文书，更不会要求转账……",
+        "page.s2.body": "约 3,560,000 条结果\n\n我国没有“逮捕令”这种文书！收到就是诈骗 - 反诈中心\n刑事诉讼中使用的是《逮捕证》，由公安机关当面出示并宣读，不会通过微信、QQ 发送图片。所谓“逮捕令”“通缉令”图片，全部是诈骗分子伪造……\n\n网上收到“逮捕令”“刑事拘留通知书”怎么办 - 中国普法网\n立即停止联系，不要透露任何个人信息，拨打 96110 或联系当地警方核实……\n\n留学生被“逮捕令”吓到转账 30 万 家属：孩子两个月不敢跟我们说话 - 环球时报\n……",
         "hist.lizimu.title": "男子与家人恢复联系后溺亡 家属称其数日前刚报平安 - 本地新闻（已保存网页）",
         "hist.lizimu.when": "2021年11月13日（保存于 2021/11/14）",
         "page.lizimu.title": "男子与家人恢复联系后溺亡 家属称其数日前刚报平安",
@@ -1106,45 +1110,45 @@ window.DB = (function () {
             desktop: { wallpaper: "image/wallpaper.jpg", homeRef: "own.home", icons: ["browser", "chat", "files", "mypc", "recycle", "virus"] },
             bookmarks: [{ page: "pg_news", labelRef: "news.site" }, { page: "pg_market", labelRef: "market.site" }],
             files: [
-                { id: "note1", folder: "desktop", nameRef: "file.note1.name", type: "txt", bodyRef: "file.note1.body", sets: "read_note1", dateRef: "zip.date" },
-                { id: "note2", folder: "desktop", nameRef: "file.note2.name", type: "txt", bodyRef: "file.note2.body", locked: { flag: "read_note1" }, sets: "read_note2", dateRef: "zip.date" },
-                { id: "note3", folder: "desktop", nameRef: "file.note3.name", type: "txt", bodyRef: "file.note3.body", locked: { flag: "read_note2" }, sets: "read_note3" },
-                { id: "photo_anan", folder: "downloads", nameRef: "file.anan.name", type: "img", img: IMG.anan, metaRefs: ["file.anan.meta1", "file.anan.meta2", "file.anan.meta3", "file.anan.meta4"], sets: "anan_photo_read" },
-                { id: "installer", folder: "downloads", nameRef: "file.installer.name", type: "exe", dlgTitleRef: "file.installer.dlg.title", dlgBodyRef: "file.installer.dlg.body" },
+                { id: "note1", date: "2024/9/28 3:10", size: "1 KB", folder: "desktop", nameRef: "file.note1.name", type: "txt", bodyRef: "file.note1.body", sets: "read_note1" },
+                { id: "note2", date: "2024/9/28 3:12", size: "1 KB", folder: "desktop", nameRef: "file.note2.name", type: "txt", bodyRef: "file.note2.body", locked: { flag: "read_note1" }, sets: "read_note2" },
+                { id: "note3", date: "2024/3/14 23:41", size: "1 KB", folder: "desktop", nameRef: "file.note3.name", type: "txt", bodyRef: "file.note3.body", locked: { flag: "read_note2" }, sets: "read_note3" },
+                { id: "photo_anan", date: "2019/6/2 14:31", size: "2.8 MB", folder: "downloads", nameRef: "file.anan.name", type: "img", img: IMG.anan, metaRefs: ["file.anan.meta1", "file.anan.meta2", "file.anan.meta3", "file.anan.meta4"], sets: "anan_photo_read" },
+                { id: "installer", date: "2009/11/30 4:44", size: "6.2 MB", folder: "downloads", nameRef: "file.installer.name", type: "exe", dlgTitleRef: "file.installer.dlg.title", dlgBodyRef: "file.installer.dlg.body" },
                 /* 第二案：旧任务 */
-                { id: "wu_log", folder: "oldcase", nameRef: "wu.log.name", type: "txt", bodyRef: "wu.log.body", visible: { flag: "task2_active" }, sets: "wu_log_read" },
-                { id: "wu_chat", folder: "oldcase", nameRef: "wu.chat.name", type: "txt", bodyRef: "wu.chat.body", visible: { flag: "task2_active" }, sets: "wu_chat_read" },
-                { id: "wu_news", folder: "oldcase", nameRef: "wu.news.name", type: "txt", bodyRef: "wu.news.body", visible: { flag: "task2_active" }, sets: "wu_news_read" },
+                { id: "wu_log", date: "2024/5/24 1:07", size: "2 KB", folder: "oldcase", nameRef: "wu.log.name", type: "txt", bodyRef: "wu.log.body", visible: { flag: "task2_active" }, sets: "wu_log_read" },
+                { id: "wu_chat", date: "2024/5/24 0:51", size: "3 KB", folder: "oldcase", nameRef: "wu.chat.name", type: "txt", bodyRef: "wu.chat.body", visible: { flag: "task2_active" }, sets: "wu_chat_read" },
+                { id: "wu_news", date: "2024/5/23 22:16", size: "1 KB", folder: "oldcase", nameRef: "wu.news.name", type: "txt", bodyRef: "wu.news.body", visible: { flag: "task2_active" }, sets: "wu_news_read" },
                 /* 回收站里的加密备份 */
                 { id: "backup_zip", folder: "recycle", nameRef: "zip.name", type: "zip", dateRef: "zip.date", sizeRef: "zip.size", zip: { passwordRef: "zip.pwd", hintRef: "zip.hint", unlocks: "backup_open" }, deletable: "del_backup", visible: { not: "del_backup" } },
-                { id: "rec_sun", folder: "backup", nameRef: "rec.name", type: "audio", visible: { all: [{ flag: "backup_open" }, { not: "del_backup" }] }, sets: "rec_read", audio: { dur: 58, doneFlag: "rec_done", lines: [{ at: 1, ref: "rec.l1" }, { at: 7, ref: "rec.l2" }, { at: 15, ref: "rec.l3" }, { at: 22, ref: "rec.l4" }, { at: 30, ref: "rec.l5", pause: true }, { at: 42, ref: "rec.l6" }, { at: 52, ref: "rec.l7" }] } },
-                { id: "wu_raw", folder: "backup", nameRef: "wuraw.name", type: "pdf", visible: { all: [{ flag: "backup_open" }, { not: "del_backup" }] }, sets: "wu_raw_read", doc: { orgRef: "wuraw.org", titleRef: "wuraw.title", bodyRefs: ["wuraw.p1", "wuraw.p2", "wuraw.p3", "wuraw.p4"], dateRef: "wuraw.date", noteRef: "wuraw.note" } },
-                { id: "mail_ning", folder: "backup", nameRef: "ningmail.name", type: "eml", visible: { all: [{ flag: "backup_open" }, { not: "del_backup" }] }, sets: "ning_mail_read", mail: { fromRef: "ningmail.from", toRef: "ningmail.to", dateRef: "ningmail.date", subjRef: "ningmail.subj", bodyRef: "ningmail.body", sigRef: "ningmail.sig" } },
+                { id: "rec_sun", date: "2024/9/27 23:58", size: "1.4 MB", folder: "backup", nameRef: "rec.name", type: "audio", visible: { all: [{ flag: "backup_open" }, { not: "del_backup" }] }, sets: "rec_read", audio: { dur: 58, doneFlag: "rec_done", lines: [{ at: 1, ref: "rec.l1" }, { at: 7, ref: "rec.l2" }, { at: 15, ref: "rec.l3" }, { at: 22, ref: "rec.l4" }, { at: 30, ref: "rec.l5", pause: true }, { at: 42, ref: "rec.l6" }, { at: 52, ref: "rec.l7" }] } },
+                { id: "wu_raw", date: "2024/5/2 17:20", size: "318 KB", folder: "backup", nameRef: "wuraw.name", type: "pdf", visible: { all: [{ flag: "backup_open" }, { not: "del_backup" }] }, sets: "wu_raw_read", doc: { orgRef: "wuraw.org", titleRef: "wuraw.title", bodyRefs: ["wuraw.p1", "wuraw.p2", "wuraw.p3", "wuraw.p4"], dateRef: "wuraw.date", noteRef: "wuraw.note" } },
+                { id: "mail_ning", date: "2024/9/26 23:40", size: "9 KB", folder: "backup", nameRef: "ningmail.name", type: "eml", visible: { all: [{ flag: "backup_open" }, { not: "del_backup" }] }, sets: "ning_mail_read", mail: { fromRef: "ningmail.from", toRef: "ningmail.to", dateRef: "ningmail.date", subjRef: "ningmail.subj", bodyRef: "ningmail.body", sigRef: "ningmail.sig" } },
                 /* 证据 */
-                { id: "env_scan", folder: "evidence", nameRef: "env.name", type: "pdf", visible: { all: [{ flag: "evidence_half2" }, { flag: "sun_dead" }, { not: "del_half2" }] }, deletable: "del_half2", doc: { titleRef: "half2.title", bodyRefs: ["half2.p1", "half2.p2", "half2.p3", "half2.p4", "half2.p5"], dateRef: "half2.date" } },
-                { id: "half2_b", folder: "evidence", nameRef: "half2.name", type: "pdf", visible: { all: [{ flag: "evidence_half2" }, { not: "sun_dead" }, { not: "del_half2" }] }, deletable: "del_half2", doc: { titleRef: "half2.title", bodyRefs: ["half2.p1", "half2.p2", "half2.p3", "half2.p4", "half2.p5"], dateRef: "half2.date" } },
-                { id: "record", folder: "evidence", nameRef: "record.name", type: "pdf", visible: { all: [{ flag: "evidence_half2" }, { not: "del_record" }] }, deletable: "del_record", sets: "record_read", doc: { titleRef: "record.title", bodyRefs: ["record.p1", "record.p2", "record.p3", "record.p4", "record.p5"], noteRef: "record.note" } },
+                { id: "env_scan", date: "2024/10/9 20:12", size: "2.4 MB", folder: "evidence", nameRef: "env.name", type: "pdf", visible: { all: [{ flag: "evidence_half2" }, { flag: "sun_dead" }, { not: "del_half2" }] }, deletable: "del_half2", doc: { titleRef: "half2.title", bodyRefs: ["half2.p1", "half2.p2", "half2.p3", "half2.p4", "half2.p5"], dateRef: "half2.date" } },
+                { id: "half2_b", date: "2024/10/7 22:45", size: "2.4 MB", folder: "evidence", nameRef: "half2.name", type: "pdf", visible: { all: [{ flag: "evidence_half2" }, { not: "sun_dead" }, { not: "del_half2" }] }, deletable: "del_half2", doc: { titleRef: "half2.title", bodyRefs: ["half2.p1", "half2.p2", "half2.p3", "half2.p4", "half2.p5"], dateRef: "half2.date" } },
+                { id: "record", date: "2024/9/27 22:03", size: "88 KB", folder: "evidence", nameRef: "record.name", type: "pdf", visible: { all: [{ flag: "evidence_half2" }, { not: "del_record" }] }, deletable: "del_record", sets: "record_read", doc: { titleRef: "record.title", bodyRefs: ["record.p1", "record.p2", "record.p3", "record.p4", "record.p5"], noteRef: "record.note" } },
                 /* 软件附件 */
-                { id: "fam_short", folder: "argus", nameRef: "fam.short.name", type: "txt", bodyRef: "fam.short.body", visible: { flag: "task1_active" } },
-                { id: "fam_full", folder: "argus", nameRef: "fam.full.name", type: "txt", bodyRef: "fam.full.body", visible: { flag: "truth_unlock" } }
+                { id: "fam_short", date: "2024/10/3 21:24", size: "1 KB", folder: "argus", nameRef: "fam.short.name", type: "txt", bodyRef: "fam.short.body", visible: { flag: "task1_active" } },
+                { id: "fam_full", date: "2024/10/3 21:24", size: "1 KB", folder: "argus", nameRef: "fam.full.name", type: "txt", bodyRef: "fam.full.body", visible: { flag: "truth_unlock" } }
             ],
             chats: [
                 {
                     id: "c_seller", mode: "own", nameRef: "chat.seller.name", avatar: IMG.sea,
                     typing: { any: [{ all: [{ flag: "ask_letters" }, { not: "seller_r1" }] }, { all: [{ flag: "ask_lin" }, { not: "seller_r2" }] }, { all: [{ flag: "ask_sys" }, { not: "seller_r3" }] }] },
                     messages: [
-                        { day: "9月27日", from: "me", ref: "chat.seller.m1" }, { from: "them", ref: "chat.seller.m2" },
+                        { at: "2024-09-27 20:14", from: "me", ref: "chat.seller.m1" }, { from: "them", ref: "chat.seller.m2" },
                         { from: "me", ref: "chat.seller.m3" }, { from: "them", ref: "chat.seller.m4" }, { from: "them", ref: "chat.seller.m5" },
-                        { from: "me", ref: "chat.seller.m6" },
-                        { day: "10月2日", from: "them", ref: "chat.seller.m7" }, { from: "me", ref: "chat.seller.m8" }, { from: "them", ref: "chat.seller.m9" },
+                        { at: "2024-09-27 20:31", from: "me", ref: "chat.seller.m6" },
+                        { at: "2024-10-02 17:02", from: "them", ref: "chat.seller.m7" }, { from: "me", ref: "chat.seller.m8" }, { from: "them", ref: "chat.seller.m9" },
                         { from: "sys", ref: "chat.sys.recall" }, { from: "them", ref: "chat.seller.m10" },
-                        { from: "me", type: "img", img: IMG.receipt, ref: "chat.seller.m11" }, { from: "me", ref: "chat.seller.m12" },
+                        { at: "2024-10-02 18:46", from: "me", type: "img", img: IMG.receipt, ref: "chat.seller.m11" }, { from: "me", ref: "chat.seller.m12" },
                         { from: "me", ref: "chat.seller.m13" }, { from: "them", ref: "chat.seller.m14" },
-                        { from: "me", ref: "chat.seller.m15" }, { from: "them", ref: "chat.seller.m16" },
+                        { at: "2024-10-02 19:05", from: "me", ref: "chat.seller.m15" }, { from: "them", ref: "chat.seller.m16" },
                         { from: "me", ref: "chat.seller.c1", if: { flag: "ask_letters" } }, { from: "them", ref: "chat.seller.r1", if: { flag: "seller_r1" } },
-                        { day: "10月6日", from: "me", ref: "chat.seller.c2", if: { flag: "ask_lin" } }, { from: "them", ref: "chat.seller.r2", if: { flag: "seller_r2" } },
+                        { from: "me", ref: "chat.seller.c2", if: { flag: "ask_lin" } }, { from: "them", ref: "chat.seller.r2", if: { flag: "seller_r2" } },
                         { from: "me", ref: "chat.seller.c3", if: { flag: "ask_sys" } }, { from: "them", ref: "chat.seller.r3", if: { flag: "seller_r3" } },
-                        { day: "10月8日", from: "them", ref: "chat.seller.m17", if: { flag: "seller_msg_down" } },
+                        { from: "them", ref: "chat.seller.m17", if: { flag: "seller_msg_down" } },
                         { from: "me", ref: "chat.seller.c4", if: { flag: "seller_down" } }
                     ],
                     choices: [
@@ -1155,14 +1159,13 @@ window.DB = (function () {
                     ]
                 },
                 {
-                    id: "c_chen", mode: "own", nameRef: "chat.chen.name", avatar: IMG.chen, unread: 1,
+                    id: "c_chen", mode: "own", nameRef: "chat.chen.name", avatar: IMG.chen, unread: 1, callId: "call_chen",
                     messages: [
-                        { day: "10月2日", from: "them", ref: "chat.chen.m1" }, { from: "me", ref: "chat.chen.m2" },
-                        { day: "10月6日", from: "them", ref: "chat.chen.m3", if: { flag: "days_after1" } },
-                        { day: "10月8日", from: "them", ref: "chat.chen.m4", if: { flag: "sun_routed" } },
+                        { at: "2024-10-02 19:40", from: "them", ref: "chat.chen.m1" }, { from: "me", ref: "chat.chen.m2" },
+                        { from: "them", ref: "chat.chen.m3", if: { flag: "days_after1" } },
+                        { from: "them", ref: "chat.chen.m4", if: { flag: "sun_routed" } },
                         { from: "them", ref: "chat.chen.m5", if: { flag: "chen_msg_pick" } },
                         { from: "them", ref: "chat.chen.m6", if: { flag: "chen_text" } }, { from: "them", ref: "chat.chen.m7", if: { flag: "chen_text" } },
-                        { from: "them", type: "call", ref: "chat.call.voice", if: { flag: "chen_call_done" } },
                         { from: "them", ref: "chat.chen.m8", if: { flag: "chen_plan" } },
                         { from: "me", ref: "chat.chen.c1", if: { flag: "evidence_sent" } }, { from: "them", ref: "chat.chen.r1", if: { flag: "chen_r_send" } },
                         { from: "them", ref: "chat.chen.m9", if: { flag: "chen_arrived" } },
@@ -1178,9 +1181,9 @@ window.DB = (function () {
                     id: "c_mom", mode: "own", nameRef: "chat.mom.name", avatar: IMG.mom,
                     prefill: { ref: "chat.mom.prefill", if: { all: [{ flag: "mom_prefill" }, { not: "mom_replied" }] } },
                     messages: [
-                        { day: "9月29日", from: "them", ref: "chat.mom.m1" }, { from: "me", ref: "chat.mom.m2" },
+                        { at: "2024-09-29 09:12", from: "them", ref: "chat.mom.m1" }, { at: "2024-09-29 09:30", from: "me", ref: "chat.mom.m2" },
                         { from: "them", ref: "chat.mom.m3" }, { from: "me", ref: "chat.mom.m4" },
-                        { day: "10月8日", from: "them", ref: "chat.mom.m5", if: { flag: "task3_active" } },
+                        { from: "them", ref: "chat.mom.m5", if: { flag: "task3_active" } },
                         { from: "me", ref: "chat.mom.me.lie", if: { flag: "mom_lie" } }, { from: "them", ref: "chat.mom.r.lie", if: { flag: "mom_r_lie" } },
                         { from: "me", ref: "chat.mom.me.honest", if: { flag: "mom_honest" } },
                         { from: "them", ref: "chat.mom.r.honest1", if: { flag: "mom_r_honest" } }, { from: "them", ref: "chat.mom.r.honest2", if: { flag: "mom_r_honest" } }
@@ -1193,8 +1196,8 @@ window.DB = (function () {
                 {
                     id: "c_courier", mode: "own", nameRef: "chat.courier.name", avatar: IMG.courier, sets: "courier_read",
                     messages: [
-                        { day: "10月2日", from: "them", ref: "chat.courier.m1" }, { from: "me", ref: "chat.courier.m2" },
-                        { from: "them", ref: "chat.courier.m3" }, { from: "me", ref: "chat.courier.m4" }, { from: "them", ref: "chat.courier.m5" }
+                        { at: "2024-10-02 18:02", from: "them", ref: "chat.courier.m1" }, { from: "me", ref: "chat.courier.m2" },
+                        { at: "2024-10-02 18:19", from: "them", ref: "chat.courier.m3" }, { from: "me", ref: "chat.courier.m4" }, { from: "them", ref: "chat.courier.m5" }
                     ]
                 },
                 {
@@ -1212,7 +1215,7 @@ window.DB = (function () {
                         { from: "them", ref: "chat.lin.rA1", if: { flag: "lin_a_r1" } }, { from: "them", ref: "chat.lin.rA2", if: { flag: "lin_a_r2" } },
                         { from: "me", ref: "chat.lin.cB", if: { flag: "lin_route_b" } },
                         { from: "them", ref: "chat.lin.rB1", if: { flag: "lin_b_r1" } },
-                        { day: "10月6日", from: "them", type: "img", img: IMG.catBed, ref: "chat.lin.catimg", if: { flag: "lin_cat" } },
+                        { from: "them", type: "img", img: IMG.catBed, ref: "chat.lin.catimg", if: { flag: "lin_cat" } },
                         { from: "them", ref: "chat.lin.cat", if: { flag: "lin_cat" } }
                     ],
                     choices: [
@@ -1240,7 +1243,7 @@ window.DB = (function () {
                         { from: "me", ref: "chat.ning.cB", if: { flag: "ning_route_b" } },
                         { from: "them", ref: "chat.ning.rB1", if: { flag: "ning_b_r1" } }, { from: "them", ref: "chat.ning.rB2", if: { flag: "ning_b_r2" } },
                         { from: "them", ref: "chat.ning.rA1", if: { flag: "ning_a_r1" } }, { from: "them", ref: "chat.ning.rA2", if: { flag: "ning_a_r1" } },
-                        { day: "10月9日", from: "them", ref: "chat.ning.rA3", if: { flag: "ning_a_r2" } }, { from: "them", ref: "chat.ning.rA4", if: { flag: "ning_a_r2" } },
+                        { from: "them", ref: "chat.ning.rA3", if: { flag: "ning_a_r2" } }, { from: "them", ref: "chat.ning.rA4", if: { flag: "ning_a_r2" } },
                         { from: "them", type: "file", ref: "chat.ning.file", sizeRef: "chat.file.size", file: "env_scan", if: { flag: "ning_a_r2" } },
                         { from: "them", ref: "chat.ning.rA5", if: { flag: "ning_a_r2" } },
                         { from: "me", ref: "chat.ning.cA1", if: { flag: "ning_sorry" } }, { from: "me", ref: "chat.ning.cA2", if: { flag: "ning_blame" } },
@@ -1256,11 +1259,9 @@ window.DB = (function () {
                     ]
                 },
                 {
-                    id: "c_sun", mode: "own", nameRef: "chat.sun.name", tagRef: "chat.tag.new", avatar: IMG.sun2, visible: { flag: "sun_contact" },
+                    id: "c_sun", mode: "own", nameRef: "chat.sun.name", tagRef: "chat.tag.new", avatar: IMG.sun2, visible: { flag: "sun_contact" }, callId: "call_sun",
                     messages: [
                         SYS_ADDED,
-                        { from: "them", type: "call", ref: "chat.call.voice", if: { flag: "sun_call_done" } },
-                        { from: "them", type: "call", ref: "chat.call.missed", missed: true, if: { flag: "sun_call_skipped" } },
                         { from: "them", type: "file", ref: "chat.sun.file", sizeRef: "chat.file.size", file: "half2_b", if: { flag: "sun_file" } },
                         { from: "them", ref: "chat.sun.m1", if: { all: [{ flag: "sun_file" }, { not: "sun_call_skipped" }] } },
                         { from: "them", ref: "chat.sun.m2", if: { flag: "sun_call_skipped" } }
@@ -1298,7 +1299,7 @@ window.DB = (function () {
                 }
             ],
             history: [
-                { id: "e_lizimu", titleRef: "hist.lizimu.title", url: "news.local.example/2021/11/13/lakeshore", whenRef: "hist.lizimu.when", visible: { flag: "task2_active" }, open: { page: "pg_lizimu" } }
+                { id: "e_lizimu", titleRef: "hist.lizimu.title", url: "www.torontochinese.news/2021/11/13/lakeshore", whenRef: "hist.lizimu.when", visible: { flag: "task2_active" }, open: { page: "pg_lizimu" } }
             ]
         },
         t1: {
@@ -1309,73 +1310,89 @@ window.DB = (function () {
             },
             bookmarks: [{ page: "pg_site", labelRef: "site.name" }, { page: "pg_bili", labelRef: "bili.name" }, { page: "pg_mail", labelRef: "mail.site" }],
             files: [
-                { id: "t1_course", folder: "desktop", nameRef: "t1.file.course.name", type: "exe", dlgTitleRef: "t1.file.course.dlg.title", dlgBodyRef: "t1.file.course.dlg.body" },
-                { id: "t1_diary", folder: "documents", nameRef: "t1.diary.name", type: "txt", bodyRef: "t1.diary.body", sets: "t1_diary_read" },
+                { id: "t1_course", date: "2024/7/9 22:14", size: "88.4 MB", folder: "desktop", nameRef: "t1.file.course.name", type: "exe", dlgTitleRef: "t1.file.course.dlg.title", dlgBodyRef: "t1.file.course.dlg.body" },
+                { id: "t1_diary", date: "2024/8/19 1:12", size: "2 KB", folder: "documents", nameRef: "t1.diary.name", type: "txt", bodyRef: "t1.diary.body", sets: "t1_diary_read" },
                 {
-                    id: "t1_doc_old", folder: "downloads", nameRef: "t1.docold.name", type: "pdf", sets: "t1_doc_read",
+                    id: "t1_doc_old", date: "2024/7/13 21:58", size: "412 KB", folder: "downloads", nameRef: "t1.docold.name", type: "pdf", sets: "t1_doc_read",
                     doc: { orgRef: "t1.doc.org", serialRef: "t1.docold.serial", titleRef: "t1.doc.title", bodyRefs: ["t1.docold.p1", "t1.doc.p2", "t1.doc.p3", "t1.doc.p4"], dateRef: "t1.docold.date", stamp: true, noteRef: "t1.docold.note" }
                 },
                 {
-                    id: "t1_doc", folder: "downloads", nameRef: "t1.doc.name", type: "pdf",
+                    id: "t1_doc", date: "2024/7/14 10:32", size: "415 KB", folder: "downloads", nameRef: "t1.doc.name", type: "pdf",
                     doc: { orgRef: "t1.doc.org", serialRef: "t1.doc.serial", titleRef: "t1.doc.title", bodyRefs: ["t1.doc.p1", "t1.doc.p2", "t1.doc.p3", "t1.doc.p4"], dateRef: "t1.doc.date", stamp: true }
                 },
                 {
-                    id: "t1_doc2", folder: "downloads", nameRef: "t1.doc2.name", type: "pdf",
+                    id: "t1_doc2", date: "2024/7/21 9:16", size: "36 KB", folder: "downloads", nameRef: "t1.doc2.name", type: "pdf",
                     doc: { serialRef: "t1.doc2.serial", titleRef: "t1.doc2.title", bodyRefs: ["t1.doc2.p1", "t1.doc2.p2", "t1.doc2.p3"], dateRef: "t1.doc2.date" }
                 },
-                { id: "t1_video", folder: "downloads", nameRef: "t1.video.name", type: "video", bodyRef: "t1.video.body" },
-                { id: "t1_cat", folder: "pictures", nameRef: "t1.cat.name", type: "img", img: IMG.cat, metaRefs: ["t1.cat.meta1", "t1.cat.meta2", "t1.cat.meta3"] },
-                { id: "t1_window", folder: "pictures", nameRef: "t1.window.name", type: "img", img: IMG.window, metaRefs: ["t1.window.meta1", "t1.window.meta2", "t1.window.meta3", "t1.window.meta4"], sets: "t1_photo_read" }
+                { id: "t1_video", date: "2024/10/2 22:14", size: "58.2 MB", folder: "downloads", nameRef: "t1.video.name", type: "video", metaRefs: ["t1.video.meta1", "t1.video.meta2", "t1.video.meta3", "t1.video.meta4"] },
+                { id: "t1_cat", date: "2023/10/8 19:02", size: "3.1 MB", folder: "pictures", nameRef: "t1.cat.name", type: "img", img: IMG.cat, metaRefs: ["t1.cat.meta1", "t1.cat.meta2", "t1.cat.meta3"] },
+                { id: "t1_window", date: "2024/10/1 7:40", size: "2.6 MB", folder: "pictures", nameRef: "t1.window.name", type: "img", img: IMG.window, metaRefs: ["t1.window.meta1", "t1.window.meta2", "t1.window.meta3", "t1.window.meta4"], sets: "t1_photo_read" }
             ],
             chats: [
                 {
                     id: "c_scam", mode: "monitor", nameRef: "t1.chat.scam.name", avatar: IMG.cop, unread: 0, sets: "t1_chat_read",
                     messages: [
-                        { day: "7月10日", from: "them", ref: "t1.chat.scam.m1" }, { from: "me", ref: "t1.chat.scam.m1b" },
+                        { at: "2024-07-10 14:02", from: "them", ref: "t1.chat.scam.m1" }, { from: "me", ref: "t1.chat.scam.m1b" },
                         { from: "them", ref: "t1.chat.scam.m2" }, { from: "me", ref: "t1.chat.scam.m3" },
                         { from: "them", ref: "t1.chat.scam.m4" }, { from: "me", ref: "t1.chat.scam.m5" },
-                        { day: "7月14日", from: "them", ref: "t1.chat.scam.m6" },
-                        { day: "7月21日", from: "them", ref: "t1.chat.scam.m7" },
-                        { day: "8月5日", from: "them", ref: "t1.chat.scam.m7b" }, { from: "me", ref: "t1.chat.scam.m7c" },
-                        { day: "8月18日", from: "me", ref: "t1.chat.scam.m7d" }, { from: "them", ref: "t1.chat.scam.m7e" }, { from: "me", ref: "t1.chat.scam.m7f" },
-                        { day: "9月27日", from: "them", ref: "t1.chat.scam.m8" }, { from: "me", ref: "t1.chat.scam.m9" }, { from: "them", ref: "t1.chat.scam.m10" },
-                        { day: "9月30日", from: "me", ref: "t1.chat.scam.m11" }, { from: "them", ref: "t1.chat.scam.m12" },
-                        { day: "10月2日", from: "them", ref: "t1.chat.scam.m13" }, { from: "me", ref: "t1.chat.scam.m14" },
-                        { day: "10月3日", from: "sys", ref: "t1.chat.scam.blocked", if: { flag: "lin_r3" } }
+                        { at: "2024-07-14 10:30", from: "them", ref: "t1.chat.scam.m6" },
+                        { at: "2024-07-21 09:15", from: "them", ref: "t1.chat.scam.m7" },
+                        { at: "2024-08-05 20:11", from: "them", ref: "t1.chat.scam.m7b" }, { from: "me", ref: "t1.chat.scam.m7c" },
+                        { at: "2024-08-18 16:40", from: "me", ref: "t1.chat.scam.m7d" }, { from: "them", ref: "t1.chat.scam.m7e" }, { from: "me", ref: "t1.chat.scam.m7f" },
+                        { at: "2024-09-27 20:02", from: "them", ref: "t1.chat.scam.m8" }, { from: "me", ref: "t1.chat.scam.m9" }, { from: "them", ref: "t1.chat.scam.m10" },
+                        { at: "2024-09-30 21:03", from: "me", ref: "t1.chat.scam.m11" }, { from: "them", ref: "t1.chat.scam.m12" },
+                        { at: "2024-10-02 09:10", from: "them", ref: "t1.chat.scam.m13" }, { from: "me", ref: "t1.chat.scam.m14" }
                     ]
                 },
                 {
                     id: "c_lmom", mode: "monitor", nameRef: "t1.chat.mom.name", avatar: IMG.linMom, unread: 43, sets: "t1_mom_read",
                     draft: { ref: "t1.chat.mom.draft", if: { not: "lin_r3" } },
                     messages: [
-                        { day: "6月20日", from: "them", ref: "t1.chat.mom.m0" }, { from: "me", ref: "t1.chat.mom.m0b" },
-                        { day: "7月19日", from: "them", ref: "t1.chat.mom.m1" }, { from: "me", ref: "t1.chat.mom.m2" },
-                        { day: "8月2日", from: "them", ref: "t1.chat.mom.m3" }, { from: "me", ref: "t1.chat.mom.m4" },
-                        { day: "8月20日", from: "them", ref: "t1.chat.mom.m5" }, { from: "me", ref: "t1.chat.mom.m6" },
-                        { day: "9月30日", from: "me", ref: "t1.chat.mom.m7" },
-                        { from: "them", ref: "t1.chat.mom.m8" }, { from: "them", ref: "t1.chat.mom.m9" },
-                        { from: "sys", ref: "t1.chat.mom.m10" },
-                        { day: "10月1日", from: "them", ref: "t1.chat.mom.m11" },
-                        { day: "10月3日", from: "me", ref: "t1.chat.mom.n1", if: { flag: "lin_r3" } }, { from: "me", ref: "t1.chat.mom.n2", if: { flag: "lin_r3" } }, { from: "me", ref: "t1.chat.mom.n3", if: { flag: "lin_r3" } },
-                        { from: "me", type: "call", ref: "t1.chat.mom.call", if: { flag: "lin_r3" } },
+                        { at: "2024-06-20 08:05", from: "them", ref: "t1.chat.mom.m0" },
+                        { at: "2024-06-20 08:31", from: "me", type: "voice", voice: { dur: 72 }, ref: "t1.chat.mom.m0b" },
+                        { at: "2024-07-19 09:02", from: "them", ref: "t1.chat.mom.m1" }, { at: "2024-07-19 09:40", from: "me", ref: "t1.chat.mom.m2" },
+                        { at: "2024-08-02 21:15", from: "them", ref: "t1.chat.mom.m3" }, { at: "2024-08-02 21:16", from: "me", ref: "t1.chat.mom.m4" },
+                        { at: "2024-08-20 07:48", from: "them", ref: "t1.chat.mom.m5" }, { at: "2024-08-20 08:30", from: "me", ref: "t1.chat.mom.m6" },
+                        { at: "2024-09-30 21:20", from: "me", ref: "t1.chat.mom.m7" },
+                        { at: "2024-09-30 21:21", from: "them", ref: "t1.chat.mom.m8" }, { at: "2024-09-30 21:33", from: "them", ref: "t1.chat.mom.m9" },
+                        { at: "2024-09-30 21:52", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 22:05", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 22:19", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 22:31", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 22:47", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 23:05", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 23:20", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 23:41", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-09-30 23:58", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 00:16", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 00:34", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 00:52", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 01:10", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 01:29", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 01:48", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 02:07", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 02:25", from: "them", type: "call", kind: "cancel" },
+                        { at: "2024-10-01 08:12", from: "them", ref: "t1.chat.mom.m11" },
+                        { from: "me", ref: "t1.chat.mom.n1", if: { flag: "lin_r3" } }, { from: "me", ref: "t1.chat.mom.n2", if: { flag: "lin_r3" } }, { from: "me", ref: "t1.chat.mom.n3", if: { flag: "lin_r3" } },
+                        { from: "me", type: "call", kind: "done", dur: "12:31", if: { flag: "lin_r3" } },
                         { from: "them", ref: "t1.chat.mom.n4", if: { flag: "lin_r3" } }
                     ]
                 },
                 {
                     id: "c_qing1", mode: "monitor", nameRef: "t1.chat.qing.name", avatar: IMG.qing, unread: 2, sets: "t1_qing_read",
                     messages: [
-                        { day: "9月28日", from: "them", ref: "t1.chat.qing.m1" },
-                        { day: "9月30日", from: "me", ref: "t1.chat.qing.m2" }, { from: "them", ref: "t1.chat.qing.m3" }, { from: "me", ref: "t1.chat.qing.m4" }, { from: "them", ref: "t1.chat.qing.m5" },
-                        { day: "10月1日", from: "them", ref: "t1.chat.qing.m6" },
-                        { day: "10月2日", from: "them", ref: "t1.chat.qing.m7" }
+                        { at: "2024-09-28 12:20", from: "them", ref: "t1.chat.qing.m1" },
+                        { at: "2024-09-30 19:40", from: "me", ref: "t1.chat.qing.m2" }, { from: "them", ref: "t1.chat.qing.m3" }, { from: "me", ref: "t1.chat.qing.m4" }, { from: "them", ref: "t1.chat.qing.m5" },
+                        { at: "2024-10-01 18:05", from: "them", ref: "t1.chat.qing.m6" },
+                        { at: "2024-10-02 21:30", from: "them", ref: "t1.chat.qing.m7" }
                     ]
                 }
             ],
             history: [
                 { id: "e_mail", titleRef: "t1.hist.mail.title", url: "outlook.live.com/mail/inbox", whenRef: "t1.hist.mail.when", open: { page: "pg_mail" } },
                 { id: "e_bili", titleRef: "t1.hist.bili.title", url: "www.bilibili.com/video/BV1xy4y1a7Qk", whenRef: "t1.hist.bili.when", open: { bili: "v1" } },
-                { id: "e_s1", titleRef: "t1.hist.s1.title", url: "www.google.com/search?q=安全账户", whenRef: "t1.hist.s1.when" },
-                { id: "e_s2", titleRef: "t1.hist.s2.title", url: "www.google.com/search?q=逮捕令", whenRef: "t1.hist.s2.when" },
+                { id: "e_s1", titleRef: "t1.hist.s1.title", url: "www.google.com/search?q=安全账户", whenRef: "t1.hist.s1.when", open: { page: "pg_s1" } },
+                { id: "e_s2", titleRef: "t1.hist.s2.title", url: "www.google.com/search?q=逮捕令", whenRef: "t1.hist.s2.when", open: { page: "pg_s2" } },
                 { id: "e_site", titleRef: "t1.hist.site.title", url: "english-free.xyz", whenRef: "t1.hist.site.when", open: { page: "pg_site" } }
             ],
             xhs: {
@@ -1400,12 +1417,14 @@ window.DB = (function () {
 
     /* ================= 假网站 / 新闻 / B 站 / 邮箱 / 二手平台 ================= */
     var PAGES = [
-        { id: "pg_news", url: "www.morningwire.example", kind: "news", titleRef: "news.site" },
+        { id: "pg_news", url: "www.morningwire-gta.com", kind: "news", titleRef: "news.site" },
         { id: "pg_site", url: "english-free.xyz", kind: "site", titleRef: "site.name", sets: "t1_site_read" },
         { id: "pg_bili", url: "www.bilibili.com", kind: "bili", titleRef: "bili.name" },
         { id: "pg_mail", url: "outlook.live.com/mail", kind: "mail", titleRef: "mail.site" },
-        { id: "pg_market", url: "www.maple2hand.example", kind: "market", titleRef: "market.site" },
-        { id: "pg_lizimu", url: "news.local.example/2021/11/13/lakeshore", kind: "article", titleRef: "page.lizimu.title", siteRef: "page.lizimu.site", bodyRef: "page.lizimu.body", sets: "lizimu_read" }
+        { id: "pg_market", url: "www.maple2hand.com", kind: "market", titleRef: "market.site" },
+        { id: "pg_s1", url: "www.google.com/search?q=安全账户", kind: "article", titleRef: "t1.hist.s1.title", siteRef: "page.google.site", bodyRef: "page.s1.body" },
+        { id: "pg_s2", url: "www.google.com/search?q=逮捕令", kind: "article", titleRef: "t1.hist.s2.title", siteRef: "page.google.site", bodyRef: "page.s2.body" },
+        { id: "pg_lizimu", url: "www.torontochinese.news/2021/11/13/lakeshore", kind: "article", titleRef: "page.lizimu.title", siteRef: "page.lizimu.site", bodyRef: "page.lizimu.body", sets: "lizimu_read" }
     ];
     var NEWS = [
         { id: "n_sun", headRef: "news.sun.head", dateRef: "news.sun.date", bodyRef: "news.sun.body", appears: { all: [{ flag: "sun_dead" }, { flag: "sun_news_out" }] }, hot: true },

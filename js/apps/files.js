@@ -115,7 +115,7 @@
         return '<div class="fx-row' + (isLocked(f) ? " locked" : "") + '" data-file="' + f.id + '" data-hint="file:' + f.id + '">' +
             '<span class="c-name"><img src="' + icon(f) + '" alt=""><span>' + esc(T(f.nameRef)) + "</span>" +
             (isLocked(f) ? ' <i class="fx-lock">' + esc(T("ui.locked.tag")) + "</i>" : "") + "</span>" +
-            '<span class="c-date">' + esc(f.dateRef ? T(f.dateRef) : "") + '</span><span class="c-size">' + esc(f.sizeRef ? T(f.sizeRef) : "") + "</span></div>";
+            '<span class="c-date">' + esc(f.dateRef ? T(f.dateRef) : (f.date || "")) + '</span><span class="c-size">' + esc(f.sizeRef ? T(f.sizeRef) : (f.size || "")) + "</span></div>";
     }
     /* 文件窗口：按 DB.FOLDERS 顺序分组 */
     function renderWindow() {

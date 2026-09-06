@@ -54,6 +54,14 @@
                 return '<div class="au-line" data-at="' + l.at + '">' + (l.pause ? '<em>' + esc(T(l.ref)) + "</em>" : esc(T(l.ref))) + "</div>";
             }).join("") + "</div></div>";
     }
+    /* 视频：Windows"电影和电视"式的播放失败页 + 右侧属性面板（时长 / 创建时间 / 设备 / 原始文件名是线索） */
+    function videoHtml(f) {
+        var meta = (f.metaRefs || []).map(function (r) { return "<li>" + esc(T(r)) + "</li>"; }).join("");
+        return '<div class="viewer-split">' +
+            '<div class="viewer-stage vv"><div class="vv-err"><div class="vv-ico">!</div><b>' + esc(T("video.err.title")) + "</b><p>" + esc(T("video.err.body")) + "</p><small>" + esc(T("video.err.code")) + "</small></div></div>" +
+            (meta ? '<div class="viewer-meta"><h4>' + esc(T("file.photo.metaTitle")) + "</h4><ul>" + meta + "</ul></div>" : "") +
+            "</div>";
+    }
     function fmt(s) { return ("0" + Math.floor(s / 60)).slice(-2) + ":" + ("0" + (s % 60)).slice(-2); }
     function runAudio(f) {
         var a = f.audio, t = 0, playing = true;
@@ -85,12 +93,13 @@
             $("#viewer-title").textContent = T(f.nameRef);
             var body = $("#viewer-body");
             clearInterval(audioTimer);
-            body.className = "viewer-body" + (f.type === "img" ? "" : " vb-light") + (f.type === "txt" || f.type === "video" ? " vb-txt" : "") + (f.type === "eml" ? " vb-mail" : "");
+            body.className = "viewer-body" + (f.type === "img" || f.type === "video" ? "" : " vb-light") + (f.type === "txt" ? " vb-txt" : "") + (f.type === "eml" ? " vb-mail" : "");
             if (f.type === "txt") body.innerHTML = txtHtml(f);
             else if (f.type === "img") body.innerHTML = imgHtml(f.img, f.metaRefs);
             else if (f.type === "pdf" && f.doc) body.innerHTML = docHtml(f);
             else if (f.type === "eml") body.innerHTML = mailHtml(f);
             else if (f.type === "audio") body.innerHTML = audioHtml(f);
+            else if (f.type === "video") body.innerHTML = videoHtml(f);
             else body.innerHTML = '<pre class="viewer-txt">' + esc(T(f.bodyRef)) + "</pre>";
             openApp("viewer");
             body.scrollTop = 0;

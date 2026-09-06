@@ -71,9 +71,11 @@ TRIGGERS  [{ id, on:"event:x"|"change", if, do, repeat? }]
 HINTS     [{ if, target }]  首个命中 = 唯一亮点
 FOLDERS   文件夹顺序 + 路径（{home} 按设备替换）
 DEVICES   own / t1：desktop, bookmarks, files, chats, history, xhs
-  chats[]    { id, mode, nameRef, avatar, visible, typing, draft, prefill,
-               messages:[{day, from, ref, if, type:img|file|call}], choices:[{id, ref, if, sets, emit, matchPrefill}] }
-               （choice 的 ref = 要发出去的那句话；玩家自由输入的话存在 flags.sent_<chatId>）
+  chats[]    { id, mode, nameRef, avatar, visible, typing, draft, prefill, callId,
+               messages:[{at:"YYYY-MM-DD HH:MM", from, ref, if, type:img|file|voice|call, voice:{dur}, kind:done|cancel|noanswer|declined, dur}],
+               choices:[{id, ref, if, sets, emit, matchPrefill}] }
+               （历史消息写 at；带 if 的动态消息第一次出现时用游戏内时钟盖戳；时间分隔与列表时间按微信规则自动生成；
+                 通话记录从 flags.callres_<callId> 按时间插入；choice 的 ref = 要发出去的那句话；自由输入存在 flags.sent_<chatId>）
   files[]    { id, folder, type:txt|img|pdf|exe|zip|audio|eml|video, visible, locked, sets, deletable, zip, audio, mail, doc }
 PAGES / NEWS / BILI / MAIL / MARKET
 TASKS     [{ id, target, visible, status[], steps[], log[], files[], enter, form, actions[] }]
@@ -102,3 +104,7 @@ ENDINGS   { id: { tagRef, titleRef, lines:[{ref, hold} | {typewrite:[[ref, del]]
 - 美术：全部占位图（编号见 ASSETS.md）。
 - 音效：沿用 BORROWED_ASSETS.txt 里的借用素材；来电铃声与录音底噪为 Web Audio 实时合成。
 - 时序：对方回复的延时按"像真人"设计（6–48 秒）；二周目 / 循环结局的再开机钩子未做。
+- 2026-09-06 整改（Aaron："别自作聪明"）：微信里不再出现手写日期 / 灰色"未接来电（17）"之类的伪内容，
+  一律照真实微信：时间分隔自动生成、未接来电 = 红字"对方已取消"气泡（打电话那一方看到的才是"对方无应答"）、
+  语音 = 喇叭气泡 + 转文字、"X" 撤回了一条消息、草稿留在输入框且列表显示红色[草稿]；文件都有修改日期和大小；
+  假域名不用 .example；视频文件打开是"无法播放 0xC00D36C4"。

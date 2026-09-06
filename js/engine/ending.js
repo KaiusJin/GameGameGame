@@ -24,7 +24,7 @@
         ov.id = "end-overlay";
         ov.innerHTML = '<div class="eo-stage" id="eo-stage"></div>';
         document.body.appendChild(ov);
-        requestAnimationFrame(function () { if (ov) ov.classList.add("show"); });
+        requestAnimationFrame(function () { if (ov && ov.parentNode) ov.classList.add("show"); });
         var stage = ov.querySelector("#eo-stage");
         var lines = e.lines || [];
         var i = 0;

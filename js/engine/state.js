@@ -189,6 +189,7 @@
             settle();
         },
         clockDate: clockDate,
+        clockMin: function () { return clockMin; },
         on: function (fn) { subs.push(fn); },  /* 状态变化订阅（app 借此重渲染） */
         reset: function () { STORE.clear(); location.reload(); },
         _store: STORE                          /* 存档接口出口（云端替换点） */

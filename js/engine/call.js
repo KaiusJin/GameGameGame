@@ -21,6 +21,13 @@
         cur = null;
     }
     function fmt(sec) { return ("0" + Math.floor(sec / 60)).slice(-2) + ":" + ("0" + (sec % 60)).slice(-2); }
+    /* 每次来电的结果写进 flags.callres_<id>：微信会话里按时间插入"通话时长 / 已拒绝 / 对方已取消"气泡 */
+    function record(id, entry) {
+        var arr = (STATE.get("callres_" + id) || []).slice();
+        entry.t = STATE.clockMin();
+        arr.push(entry);
+        STATE.set("callres_" + id, arr);
+    }
 
     function incoming(id) {
         var def = DB.CALLS && DB.CALLS[id];
@@ -40,11 +47,11 @@
         document.body.appendChild(ov);
         if (window.FX) FX.ringStart();
         ov.querySelector("#cl-decline").addEventListener("click", function () {
-            var cid = cur.id; teardown(); STATE.emit("call-decline:" + cid);
+            var cid = cur.id; teardown(); record(cid, { k: "declined" }); STATE.emit("call-decline:" + cid);
         });
         ov.querySelector("#cl-accept").addEventListener("click", accept);
         ringTimer = setTimeout(function () {
-            var cid = cur.id; teardown(); STATE.emit("call-missed:" + cid);
+            var cid = cur.id; teardown(); record(cid, { k: "missed" }); STATE.emit("call-missed:" + cid);
         }, def.ringMs || 32000);
         STATE.emit("call-ring:" + id);
     }
@@ -111,6 +118,7 @@
         var dur = Math.floor((Date.now() - startAt) / 1000);
         STATE.set("call_dur_" + cid, fmt(dur));
         teardown();
+        record(cid, { k: "done", dur: fmt(dur) });
         if (window.FX) FX.sound("message.mp3", 0.5);
         STATE.emit("call-end:" + cid);
     }
