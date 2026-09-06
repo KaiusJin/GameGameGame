@@ -5,7 +5,7 @@
 
    结构：
    TEXT      文案表（所有 *Ref 指向这里；缺失时显示〔ref〕，不报错；{name} = 玩家在 Windows 设置页输的名字）
-   CONFIG    全局配置        OOBE  Windows 首次设置页用的列表
+   CONFIG    全局配置
    TRIGGERS  触发器：条件 → 动作        HINTS  亮点表：首个命中的条件决定当前发光元素
    FOLDERS   文件夹顺序与路径
    DEVICES   两台电脑：own = 玩家的二手电脑；t1 = 林晚的电脑（黑进去的那台）
@@ -73,7 +73,7 @@ window.DB = (function () {
         "ui.sm.restart": "重新开始（清除进度）", "ui.sm.shutdown": "关机",
         "browser.snapshot": "〔占位：页面快照〕",
         "ctx.open": "打开", "ctx.uninstall": "卸载", "ctx.delete": "删除", "ctx.props": "属性", "ctx.destroy": "彻底删除（不经回收站）",
-        "own.home": "C:\\Users\\zhouyan", "t1.home": "C:\\Users\\linwan",
+        "own.home": "C:\\Users\\{name}", "t1.home": "C:\\Users\\linwan",
         "folder.desktop": "桌面", "folder.desktop.path": "{home}\\Desktop",
         "folder.downloads": "下载", "folder.downloads.path": "{home}\\Downloads",
         "folder.documents": "文档", "folder.documents.path": "{home}\\Documents",
@@ -95,38 +95,12 @@ window.DB = (function () {
         "boot.l1": "AMIBIOS (C) 2011  ...  Memory Test: 16384MB OK",
         "boot.l2": "Detecting SATA drives ... WDC WD5000AAKX",
         "boot.l3": "Boot from Hard Disk ...",
-        "boot.l4": "zhouyan 正在登录…",
-        "tip.boot": "你刚设置的账户不见了。登录名是 zhouyan——不是你。桌面上有前任机主留下的东西。",
+        "tip.boot": "这台二手电脑没重装过系统。桌面上有前任机主留下的东西。",
 
-        /* Windows 首次设置（OOBE） */
-        "oobe.yes": "是", "oobe.no": "否", "oobe.next": "下一步", "oobe.skip": "跳过", "oobe.back": "返回", "oobe.accept": "接受",
-        "oobe.ease": "轻松使用", "oobe.volume": "音量", "oobe.power": "电源", "oobe.on": "开", "oobe.off": "关",
-        "oobe.region.title": "让我们从区域设置开始，对吗？",
-        "oobe.kb.title": "这是正确的键盘布局吗？", "oobe.kb.sub": "如果你还使用其他键盘布局，可以在下一步添加。",
-        "oobe.kb2.title": "是否想要添加第二种键盘布局？", "oobe.kb2.add": "添加布局",
-        "oobe.net.title": "让我们为你连接到网络",
-        "oobe.net.sub": "你需要连接到 Internet 才能继续设置设备。连接后，你将获得最新功能和安全更新。",
-        "oobe.net.none": "我没有 Internet 连接", "oobe.net.secured": "安全", "oobe.net.open": "开放",
-        "oobe.net.key": "输入网络安全密钥", "oobe.net.connect": "连接", "oobe.net.connecting": "正在验证并连接…", "oobe.net.fail": "无法连接到此网络。",
-        "oobe.limited.title": "通过连接到 Internet 可以获得更多功能", "oobe.limited.sub": "连接到 Internet 后，你可以：",
-        "oobe.limited.b1": "获取安全更新和最新功能", "oobe.limited.b2": "使用 Microsoft 帐户跨设备同步你的设置", "oobe.limited.b3": "从 Microsoft Store 获取应用",
-        "oobe.limited.go": "继续执行有限设置",
-        "oobe.eula.title": "Windows 10 许可协议",
-        "oobe.eula.body": "最后更新时间：2021 年 6 月\nMICROSOFT 软件许可条款\nWINDOWS 操作系统\n如果你居住在（或者企业的主要营业地点在）美国，请阅读第 11 条中具有约束力的仲裁条款和集体诉讼弃权声明。这将影响争议的解决方式。\n感谢你选择 Microsoft！\n根据你获取 Windows 软件的方式，本文是你与以下各方之间达成的许可协议：(i) 与你的设备一起分发本软件的设备制造商或软件安装商；或者 (ii) Microsoft Corporation（或其关联公司）（如果你是直接从 Microsoft 获取本软件）。本协议描述了你对 Windows 软件的使用权利与条件。你应当阅读整个协议，包括任何补充许可条款和链接条款，因为所有这些条款都很重要，并共同构成适用于你的协议。\n1. 概述。\na. 适用范围。本协议适用于预装在设备上或者从零售商处获取并由你安装的 Windows 软件、软件接收的任何更新或补充、以及任何 Microsoft 服务或软件更新。\nb. 其他条款。你对本软件中包含的某些功能、服务和应用的使用可能受其他条款的约束。\n2. 安装和使用权利。\na. 许可。本软件是许可使用而非出售给你的。根据本协议，我们授予你在设备上安装和运行一个软件实例的权利，供设备的一个用户同时使用。\nb. 设备。在本协议中，“设备”是指具有可运行本软件的内部存储设备的硬件系统。\n3. 隐私；同意使用数据。你的隐私对我们很重要。本软件的某些功能会发送或接收信息。使用这些功能时，即表示你同意传输此类信息。\n4. 传输。本节的规定不适用于你从零售商处购买的软件。\n5. 授权软件和激活。仅当你获得相应的许可并且软件已使用正版产品密钥正确激活时，你才有权使用本软件。",
-        "oobe.eula.note": "选择“接受”即表示你同意 Microsoft 软件许可条款。",
-        "oobe.name.title": "谁将会使用这台电脑？", "oobe.name.sub": "你想使用什么名字？", "oobe.name.ph": "名称",
-        "oobe.pwd.title": "创建容易记住的密码", "oobe.pwd.sub": "请确保选择你一定能记住的密码。", "oobe.pwd.ph": "密码",
-        "oobe.pwd2.title": "确认你的密码", "oobe.pwd2.sub": "再次输入你的密码。", "oobe.pwd2.ph": "确认密码", "oobe.pwd2.mismatch": "密码不匹配。请重试。",
-        "oobe.q.title": "为此帐户创建安全问题", "oobe.q.sub": "如果你忘记了密码，回答这些问题可以帮助你重置密码。", "oobe.q.label": "安全问题 ({n}/3)", "oobe.q.ph": "你的答案",
-        "oobe.act.title": "使用你的活动历史记录在各设备间执行更多操作",
-        "oobe.act.sub": "将你的活动历史记录发送给 Microsoft 后，即可在此设备或其他 Windows 设备上继续执行之前的操作，包括你使用过的应用、访问过的网站和打开过的文件。",
-        "oobe.cortana.title": "让 Cortana 帮助你完成任务",
-        "oobe.cortana.sub": "Cortana 可以帮助你设置提醒、回答问题，以及在不同设备上继续你的工作。要让 Cortana 提供个性化体验，Microsoft 会收集和使用你的位置、联系人、语音输入、搜索历史记录、日历详细信息以及你使用的应用和服务中的内容。",
-        "oobe.cortana.later": "暂时拒绝", "oobe.cortana.note": "你可以随时在“设置”中更改这些选项。",
-        "oobe.priv.title": "为你的设备选择隐私设置",
-        "oobe.priv.sub": "Microsoft 让你控制自己的隐私。选择你的设置，然后选择“接受”进行保存。你可以随时更改这些设置。",
-        "oobe.priv.note": "在“设置”中了解有关这些设置的详细信息。", "oobe.priv.more": "了解更多",
-        "oobe.fin.hi": "嗨", "oobe.fin.wait": "这可能需要几分钟", "oobe.fin.noff": "请不要关闭电脑", "oobe.fin.prep": "正在为你准备一切", "oobe.fin.ready": "一切即将就绪",
+        /* Windows 登录界面（自己的电脑） */
+        "signin.other": "其他用户", "signin.user.ph": "用户名", "signin.pwd.ph": "密码",
+        "signin.to": "登录到：DESKTOP-K3R7QM", "signin.welcome": "欢迎", "signin.empty": "请输入用户名。",
+        "signin.net": "网络", "signin.ease": "轻松使用", "signin.power": "电源",
 
         /* 应用名 */
         "app.mypc.title": "此电脑", "app.recycle.title": "回收站",
@@ -136,7 +110,7 @@ window.DB = (function () {
 
         /* 前任机主的三封留言（大纲 4.2） */
         "file.note1.name": "给下一位机主.txt",
-        "file.note1.body": "我接手的时候，它就在。\n\n卖给你之前我重置过一次系统。如果你开机时又走了一遍“设置”，然后发现桌面上还是这些东西——那就对了，我第一次也是这样。\n\n如果你也收到了那些东西，先把剩下两封看完。\n\n——屿",
+        "file.note1.body": "我接手的时候，它就在。\n\n这台电脑我没重装。不是懒，是重装了它也在，第二封里有记录。桌面上的东西你先别动。\n\n如果你也收到了那些东西，先把剩下两封看完。\n\n——屿",
         "file.note2.name": "我试过的.txt",
         "file.note2.body": "记一下，省得你再走一遍。\n\n8月3日  安全模式 → 删掉 argus 目录 → 重启 → 它在。\n8月9日  格式化 C 盘，重装 → 装完第二天早上 04:44，它在。\n8月20日 换了一块新硬盘 → 三天后，它在。我没插过网线。\n9月1日  恢复出厂备份 → 备份里就有它。\n9月27日 拖进回收站 → 蓝屏两次。别试了。\n\n它有一张“关于”页，说自己是什么人道组织做的。exe 的属性里写的是另一回事。她的信里写的又是一回事。三个说法我都不信。\n\n我留了一份加密备份在回收站里，密码提示写在压缩包上。\n\n它会把你想做的事，变成它要你做的事。",
         "file.note3.name": "如果它给你派单.txt",
@@ -205,7 +179,7 @@ window.DB = (function () {
         /* 通用：聊天 / 通话 / 压缩包 / 邮件 / 录音 / 结局 */
         "chat.own.empty": "暂无会话。",
         "chat.monitor.input": "对方设备 · 只读",
-        "chat.input": "",
+        "chat.input": "", "chat.send": "发送", "chat.search": "搜索", "chat.call.unavail": "对方未开启语音通话。",
         "chat.typing": "对方正在输入…",
         "chat.draft.tag": "草稿",
         "chat.prev.img": "[图片]", "chat.prev.file": "[文件]", "chat.prev.call": "[语音通话]",
@@ -369,7 +343,7 @@ window.DB = (function () {
         "chat.seller.m12": "收到了，尾款已转。",
         "chat.seller.m13": "电脑里有你女儿的照片，要我删吗？",
         "chat.seller.m14": "小雨的照片。删掉吧。",
-        "chat.seller.m15": "开机让我重新设置了一遍，可是桌面上全是旧东西？",
+        "chat.seller.m15": "开了。系统没重装啊？桌面上全是你的东西",
         "chat.seller.m16": "请确认设备已开机。",
         "chat.seller.c1": "桌面那几封信是怎么回事？",
         "chat.seller.r1": "旧东西了。你自己看着办。",
@@ -409,8 +383,6 @@ window.DB = (function () {
         "chat.mom.m4": "够的，别担心。",
         "chat.mom.m5": "这两天怎么不回消息？看到回一下。",
         "chat.mom.prefill": S_REPLY,
-        "chat.mom.c1": "发送这句话",
-        "chat.mom.c2": "删掉。改成：妈，前几天出了点事。我想从头跟你说。",
         "chat.mom.me.lie": S_REPLY,
         "chat.mom.me.honest": "妈，前几天出了点事。我想从头跟你说。",
         "chat.mom.r.lie": "好，你忙。妈妈不打扰你。",
@@ -873,30 +845,6 @@ window.DB = (function () {
         "end.hidden.5": "发送时间下面，一直没有出现回复。"
     };
 
-    /* ================= Windows 首次设置用的列表 ================= */
-    var OOBE = {
-        regions: ["阿富汗", "阿尔巴尼亚", "阿尔及利亚", "阿根廷", "澳大利亚", "奥地利", "巴西", "德国", "法国", "菲律宾", "韩国", "加拿大", "马来西亚", "美国", "日本", "泰国", "新加坡", "新西兰", "英国", "越南", "赞比亚", "乍得", "智利", "中非共和国", "中国", "中国澳门特别行政区", "中国台湾", "中国香港特别行政区"],
-        regionDefault: 24,
-        keyboards: ["微软拼音", "微软五笔", "美式键盘"],
-        wifi: [
-            { ssid: "BELL482", bars: 4, secured: true },
-            { ssid: "TP-LINK_Basement", bars: 4, secured: true },
-            { ssid: "Rogers_2B_5G", bars: 3, secured: true },
-            { ssid: "Chen_Family", bars: 2, secured: true },
-            { ssid: "DIRECT-9F-HP OfficeJet", bars: 1, secured: true },
-            { ssid: "Bell_Public_WiFi", bars: 1, secured: false }
-        ],
-        questions: ["你第一个宠物的名字是什么？", "你出生的城市名称是什么？", "你儿时的昵称是什么？", "你父母相识的城市名称是什么？", "你的大表哥或大表姐的名字是什么？", "你上的第一所学校的名称是什么？"],
-        privacy: [
-            { title: "位置", desc: "获取基于位置的体验，例如天气和路线。允许 Windows 和应用请求你的位置，并将位置数据发送给 Microsoft 以改进位置服务。" },
-            { title: "查找我的设备", desc: "使用你设备的位置数据帮助你在丢失设备时找到它。你必须使用 Microsoft 帐户登录 Windows 才能使用此功能。" },
-            { title: "诊断数据", desc: "发送有关你访问的网站、如何使用应用和功能的信息，以及其他诊断数据（包括增强的错误报告），帮助 Microsoft 修复问题并改进产品和服务。" },
-            { title: "改进墨迹书写和键入", desc: "将墨迹书写和键入数据发送给 Microsoft，以改进使用你所用语言的语言识别和建议功能。" },
-            { title: "定制体验", desc: "允许 Microsoft 使用你的诊断数据（不包括有关你访问的网站的信息）来提供个性化提示、广告和建议。" },
-            { title: "广告 ID", desc: "应用可以使用广告 ID 根据你的应用使用情况提供更加个性化的广告。" }
-        ]
-    };
-
     /* ================= 触发器 =================
        全部一次性（repeat:true 除外）。change 触发器在每次状态变化后评估。 */
     var TRIGGERS = [
@@ -1238,8 +1186,8 @@ window.DB = (function () {
                         { from: "them", ref: "chat.mom.r.honest1", if: { flag: "mom_r_honest" } }, { from: "them", ref: "chat.mom.r.honest2", if: { flag: "mom_r_honest" } }
                     ],
                     choices: [
-                        { id: "mom_lie", ref: "chat.mom.c1", if: { all: [{ flag: "mom_prefill" }, { not: "mom_replied" }] }, danger: true },
-                        { id: "mom_honest", ref: "chat.mom.c2", if: { all: [{ flag: "mom_prefill" }, { not: "mom_replied" }] } }
+                        { id: "mom_lie", ref: "chat.mom.me.lie", if: { all: [{ flag: "mom_prefill" }, { not: "mom_replied" }] }, matchPrefill: true },
+                        { id: "mom_honest", ref: "chat.mom.me.honest", if: { all: [{ flag: "mom_prefill" }, { not: "mom_replied" }] } }
                     ]
                 },
                 {
@@ -1685,11 +1633,11 @@ window.DB = (function () {
     var OWNERS = [
         { id: "o3", order: 3, name: "孙屿", notes: ["note1", "note2"] },
         { id: "o2", order: 2, name: "何静", notes: ["note3"] },
-        { id: "o1", order: 1, name: "周衍（登录名 zhouyan）", notes: [] }
+        { id: "o1", order: 1, name: "周衍（首任协助者 zhouyan）", notes: [] }
     ];
 
     return {
-        ph: ph, IMG: IMG, TEXT: TEXT, CONFIG: CONFIG, S_REPLY: S_REPLY, OOBE: OOBE,
+        ph: ph, IMG: IMG, TEXT: TEXT, CONFIG: CONFIG, S_REPLY: S_REPLY,
         TRIGGERS: TRIGGERS, HINTS: HINTS, FOLDERS: FOLDERS,
         DEVICES: DEVICES, PAGES: PAGES, NEWS: NEWS, BILI: BILI, MAIL: MAIL, MARKET: MARKET,
         TASKS: TASKS, VIRUS_LOG: VIRUS_LOG, VIRUS_TICKER: VIRUS_TICKER, ARCHIVE_IF: ARCHIVE_IF, ARCHIVE: ARCHIVE,

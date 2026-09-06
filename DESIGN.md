@@ -13,15 +13,16 @@
 
 - 大纲全盘采用；旧稿《一周目流程.md》（张岚案 / 回溯·定位·介入页签）作废，只留档。
 - **不做手机**：大纲里"主人公自己的手机"全部走电脑上的微信；来电做成微信语音通话弹窗。
-- **玩家名字**来自开机时的 Windows 首次设置页（OOBE，"谁将会使用这台电脑？"），存 `flags.player_name`，文案里用 `{name}`。
-  设置完成后登录名仍是前任机主 `zhouyan`（大纲 4.2）——系统没被真正重装，这是第一个"有人在操作"的信号。
+- **玩家名字**来自开机后的 Windows 登录界面（"其他用户"：用户名 + 密码，密码可空），存 `flags.player_name`，文案里用 `{name}`。
+  不做"首次设置"注册流程（Aaron 2026-09-06：全新注册和电脑里留着别人的东西说不通）。登录名就是玩家自己，用户目录 `C:\Users\{name}`；`zhouyan` 只作为首任协助者出现在设备流转记录里。
+- **微信照 ningning 做**（Aaron 2026-09-06）：会话列表顺序固定、未读是小红点、可打字的输入框 + 发送按钮；候选句点一下填进输入框再发送；自由输入原样发出去没人回。
 - 一次做完，能从头玩到任一结局；大纲没给原句的地方由我补写，可逐条替换。
 
 ## 流程（结构级）
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
-| 0 序章 | 游玩须知 → BIOS → **Windows 首次设置**（区域/键盘/网络/许可/名字/密码/安全问题/隐私/"嗨，正在为你准备一切"）→ `zhouyan 正在登录` → 三封留言 → ARGUS_9 现身 → 打开 → 关闭时黑屏 → 求助单 001 弹在屏幕中央 | ✅ |
+| 0 序章 | 游玩须知 → BIOS → **Windows 登录界面**（输入用户名）→ 欢迎 → 三封留言 → ARGUS_9 现身 → 打开 → 关闭时黑屏 → 求助单 001 弹在屏幕中央 | ✅ |
 | 1 第一案 林晚 | 黑进她的电脑：小红书 → 王警官 + 日记《精神警察》→ 妈妈会话（草稿）+ B 站评论 → 课件站注册表 / 两版通知书 / 旅馆邮件 → 定位 → 回自己电脑，软件把她的微信注入 → 三句话让她回话 → 她给妈妈打电话 → **分支**：软件的接应表单（A，她死）/ 让许青接（B，她活） | ✅ |
 | 1.5 余波 | A：三天后新闻 + 许青在她最后一条笔记下留言；B："接应失败" + 橘子照片 | ✅ |
 | 2 第二案 孙屿 | 全在自己电脑：二手帖编辑时间 / 代取小哥 / "请先确认设备是否仍在你手中" → 李子牧新闻 + 旧任务_吴晓 → 档案页签（"完成"= 已接触那一刻）→ 女儿生日解压备份（录音 / 交接清单 / 孙宁邮件）→ 联系孙宁 → **分支**：向软件提交进展（A，他死；孙宁寄来信封）/ 告诉孙宁软件在问（B，他活；孙屿来电） | ✅ |
@@ -45,15 +46,15 @@
 ```
 index.html            单页：开机遮罩 + 桌面 + 全部窗口（预置，display 切换）
 js/engine/state.js    状态机：flags + phase + triggers + 时钟 + 存档 STORE；T() 文案（{name} 替换）
-js/engine/oobe.js     Windows 10 首次设置页（画面顺序与文案照真实 OOBE）
-js/engine/boot.js     游玩须知 → BIOS → OOBE → 登录行 → 桌面
+js/engine/signin.js   Windows 10 登录界面（其他用户：用户名 / 密码）
+js/engine/boot.js     游玩须知 → BIOS → 登录 → 欢迎 → 桌面
 js/engine/wm.js       窗口/任务栏/右键菜单/系统弹窗 sysDialog·sysPrompt/双桌面/被接入模式(own_watched)
 js/engine/notify.js   toast / 红点 / 闪烁 / 唯一亮点 HINTS
 js/engine/fx.js       音效变体 / 故障 / 黑入过场 / 蓝屏 / 黑屏 / 来电铃声（合成）
 js/engine/hack.js     黑进目标电脑：过场 → 登录 → 切桌面
 js/engine/call.js     微信语音来电：响铃 → 接听 → 逐句转写 + 候选回话 → 结束（DB.CALLS）
 js/engine/ending.js   结局序列：逐句浮现 / 记事本打字 / 标题 + 重新开始（DB.ENDINGS）
-js/apps/chat.js       微信：消息按 if 出现、候选句 choices、正在输入、草稿、预填、来电记录、未读数
+js/apps/chat.js       微信（形态照 ningning）：消息按 if 出现、候选句填入输入框再发送、自由输入、正在输入、草稿、预填、来电记录、未读红点、新消息弹窗
 js/apps/virus.js      ARGUS_9：求助单（步骤/日志/附件/表单/按钮）、档案、关于、滚动记录、求助单弹窗
 js/apps/files.js      文件：多文件夹 + 回收站 + 加密 zip + 录音 + 右键彻底删除
 js/apps/viewer.js     查看器：txt / 图片元数据 / 红头文书 / 邮件 / 录音播放器
@@ -66,13 +67,13 @@ js/data.js            唯一剧情源
 
 ```
 TEXT      { ref: 文案 }  全部界面文字；{name} = 玩家名
-OOBE      首次设置页的列表（区域 / 键盘 / Wi-Fi / 安全问题 / 隐私项）
 TRIGGERS  [{ id, on:"event:x"|"change", if, do, repeat? }]
 HINTS     [{ if, target }]  首个命中 = 唯一亮点
 FOLDERS   文件夹顺序 + 路径（{home} 按设备替换）
 DEVICES   own / t1：desktop, bookmarks, files, chats, history, xhs
   chats[]    { id, mode, nameRef, avatar, visible, typing, draft, prefill,
-               messages:[{day, from, ref, if, type:img|file|call}], choices:[{id, ref, if, sets, emit}] }
+               messages:[{day, from, ref, if, type:img|file|call}], choices:[{id, ref, if, sets, emit, matchPrefill}] }
+               （choice 的 ref = 要发出去的那句话；玩家自由输入的话存在 flags.sent_<chatId>）
   files[]    { id, folder, type:txt|img|pdf|exe|zip|audio|eml|video, visible, locked, sets, deletable, zip, audio, mail, doc }
 PAGES / NEWS / BILI / MAIL / MARKET
 TASKS     [{ id, target, visible, status[], steps[], log[], files[], enter, form, actions[] }]

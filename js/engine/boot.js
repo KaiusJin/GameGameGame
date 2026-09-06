@@ -1,8 +1,6 @@
 /* =====================================================================
-   开机序列：游玩须知 → BIOS 行 → Windows 首次设置（OOBE，见 oobe.js）
-   → "正在为你准备一切" → 登录行 → 桌面。
-   登录行写的是前任机主的用户名（zhouyan），不是玩家刚在设置页输入的名字——
-   系统从来没被真正重装过，这是第一个"有人在操作"的信号（规则 1）。
+   开机序列：游玩须知 → BIOS 行 → Windows 登录界面（输入你的用户名，见 signin.js）
+   → "欢迎" → 桌面。系统没重装，桌面上全是前任机主留下的东西。
    首次完整播放；此后加载只闪一下黑屏。boot-done 事件交给触发器接管。
    ===================================================================== */
 (function () {
@@ -59,19 +57,9 @@
             setTimeout(next, 650);
         }
         function afterBios() {
-            if (STATE.get("oobe_done") || !window.OOBE) { loginLine(); return; }
-            OOBE.run(function () {
-                STATE.set("oobe_done");
-                loginLine();
-            });
-        }
-        function loginLine() {
+            if (STATE.get("player_name") || !window.SIGNIN) { finish(); return; }
             linesEl.innerHTML = "";
-            var div = document.createElement("div");
-            div.className = "boot-login";
-            div.textContent = T("boot.l4");
-            linesEl.appendChild(div);
-            setTimeout(finish, 1900);
+            SIGNIN.show(finish);
         }
     });
 })();

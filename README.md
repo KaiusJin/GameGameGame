@@ -16,7 +16,7 @@ python3 -m http.server 8940
 
 ## 当前进度：全流程可玩（占位美术，文案待逐条正式化）
 
-游玩须知 → BIOS → Windows 首次设置（输入你的名字）→ `zhouyan 正在登录` → 三封留言 → ARGUS_9 →
+游玩须知 → BIOS → Windows 登录（输入你的名字）→ 三封留言 → ARGUS_9 →
 求助单 001 → 黑进林晚的电脑 → 定位 → 用微信把她劝回来 → 分支（软件接应 / 许青接应）→ 新闻或橘子的照片 →
 求助单 002 → 二手帖 / 旧任务 / 档案 / 加密备份 / 孙宁 → 分支（向软件回报 / 与孙宁一起接住他）→
 设备流转记录 → 求助单 003（目标是你）→ 安全专员 / 妈妈的预填消息 / 三条同时来的消息 / 阿澄来电 →
@@ -28,7 +28,7 @@ python3 -m http.server 8940
 |---|---|
 | `index.html` | 单页：开机遮罩 + 桌面 + 全部窗口 |
 | `js/engine/state.js` | 状态机（flags/phase/triggers/时钟/存档）· 六条设计规则在文件头 |
-| `js/engine/oobe.js` | Windows 10 首次设置页 |
+| `js/engine/signin.js` | Windows 10 登录界面 |
 | `js/engine/boot.js` | 开机序列 |
 | `js/engine/wm.js` | 窗口系统 + 文案应用 + 按 flag 显隐 + 右键菜单 + 弹窗 |
 | `js/engine/notify.js` | toast / 红点 / 任务栏闪烁 / 唯一亮点 |
@@ -38,7 +38,7 @@ python3 -m http.server 8940
 | `js/engine/ending.js` | 结局序列 |
 | `js/apps/*.js` | 文件 / 查看器 / 微信 / 浏览器 / 小红书 / ARGUS_9 |
 | `js/data.js` | **全部剧情与文案**（唯一要改的文件） |
-| `css/*.css` | 样式（`oobe.css` 为首次设置页） |
+| `css/*.css` | 样式 |
 | `BORROWED_ASSETS.txt` | 借来的占位资源清单，正式版逐条替换后删除 |
 | `一周目流程.md` | 旧稿，已作废，仅留档 |
 

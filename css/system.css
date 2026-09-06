@@ -617,3 +617,113 @@ body.watched .mb-dot { background: #ff6e6e; }
 /* 非图片类查看（录音 / 邮件 / 文书）一律白底 */
 .viewer-body.vb-light { background: #fff; display: block; padding: 0; }
 .viewer-body.vb-light .doc-page { margin: 18px auto; }
+
+/* =====================================================================
+   微信（形态照 ningning）：固定顺序的会话列表 + 小红点 / 20px 标题 / 气泡 / 可打字的输入区 + 发送
+   ===================================================================== */
+.wc-root { background: #f5f5f5; }
+.wc-nav { width: 60px; flex: none; background: #2e2e2e; display: flex; flex-direction: column; align-items: center; padding-top: 35px; gap: 0; }
+.wc-nav-ava { width: 36px; height: 36px; border-radius: 4px; margin-bottom: 30px; overflow: hidden; background: #555; }
+.wc-nav-ava img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wc-nav-btn { width: 36px; height: 36px; border-radius: 4px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: #8c8c8c; cursor: pointer; }
+.wc-nav-btn.active { background: #4a4a4a; color: #07c160; }
+.wc-nav-btn.dim { cursor: default; }
+.wc-side { width: 250px; flex: none; background: #e6e6e6; border-right: 1px solid #d6d6d6; display: flex; flex-direction: column; min-height: 0; }
+.wc-search { padding: 25px 12px 12px; background: #f7f7f7; }
+.wc-search > div { display: flex; align-items: center; background: #e2e2e2; border-radius: 4px; padding: 4px 8px; }
+.wc-search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font-size: 12px; color: #333; padding-left: 6px; font-family: inherit; }
+.wc-list { flex: 1; width: auto; overflow-y: auto; border: 0; background: transparent; }
+.wc-item { display: flex; align-items: center; gap: 10px; padding: 12px 15px; cursor: pointer; background: transparent; border: 0; }
+.wc-item:hover { background: #d9d9d9; }
+.wc-item.on { background: #c6c6c6; }
+.wc-item .i-ava { position: relative; width: 40px; height: 40px; border-radius: 4px; flex: none; overflow: visible; background: #ddd; }
+.wc-item .i-ava img { width: 100%; height: 100%; border-radius: 4px; object-fit: cover; display: block; }
+.wc-item .i-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: #ff3b30; border-radius: 50%; }
+.wc-item .i-main { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 0; }
+.wc-item .i-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.wc-item .i-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; display: block; }
+.wc-item .i-time { font-size: 11px; color: #b2b2b2; flex: none; margin-left: 5px; }
+.wc-item .i-prev { font-size: 12px; color: #999; white-space: nowrap; overflow: hidden; -webkit-mask-image: linear-gradient(to right, #000 70%, transparent 100%); mask-image: linear-gradient(to right, #000 70%, transparent 100%); }
+.wc-item .i-badge { display: none; }
+.wc-panel { flex: 1; display: flex; flex-direction: column; min-width: 0; background: #f5f5f5; }
+.wc-panel-head { height: auto; padding: 20px 30px; border-bottom: 1px solid #e7e7e7; font-size: 20px; font-weight: 500; color: #000; letter-spacing: .5px; display: block; }
+.wc-panel-head:empty { padding: 31px 30px; }
+.wc-panel-body { flex: 1; padding: 20px 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 0; }
+.wc-day { align-self: center; text-align: center; color: #b2b2b2; font-size: 12px; margin-bottom: 10px; padding: 0; }
+.wc-sys { align-self: center; text-align: center; color: #b2b2b2; font-size: 12px; margin: 5px 0 15px; background: none; padding: 0; max-width: none; border-radius: 0; }
+.wcm-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 15px; }
+.wcm-row.me { flex-direction: row-reverse; }
+.wcm-ava { width: 36px; height: 36px; border-radius: 4px; flex: none; object-fit: cover; background: #ddd; }
+.wcm-col { display: flex; flex-direction: column; max-width: 250px; gap: 0; }
+.wcm-row.me .wcm-col { align-items: flex-end; }
+.wcm-bubble { background: #fff; padding: 10px 14px; border-radius: 0 4px 4px 4px; font-size: 14px; line-height: 1.4; box-shadow: 0 1px 3px rgba(0, 0, 0, .05); color: #000; word-break: break-word; white-space: pre-wrap; width: auto; }
+.wcm-row.me .wcm-bubble { background: #95ec69; border-radius: 4px 0 4px 4px; }
+.wcm-call, .wcm-file { border-radius: 0 4px 4px 4px; box-shadow: 0 1px 3px rgba(0, 0, 0, .05); }
+.wcm-row.me .wcm-call { border-radius: 4px 0 4px 4px; }
+.wcm-pic { width: 200px; }
+.wc-panel-foot { flex: none; min-height: 160px; border-top: 1px solid #ececec; background: #f5f5f5; padding: 12px 30px 14px; display: flex; flex-direction: column; gap: 0; }
+.wc-panel-foot[hidden] { display: none; }
+.wc-tools { display: flex; gap: 18px; margin-bottom: 8px; padding-left: 2px; color: #777; }
+.wc-tools span { display: flex; align-items: center; cursor: pointer; }
+.wc-tools span:hover { color: #07c160; }
+.wc-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.wc-chips[hidden] { display: none; }
+.wc-chip { background: #fff; border: 1px solid #dcdcdc; border-radius: 14px; color: #111; font-size: 12.5px; padding: 4px 12px; cursor: pointer; line-height: 1.5; text-align: left; max-width: 100%; white-space: pre-wrap; font-family: inherit; }
+.wc-chip:hover { border-color: #07c160; background: #eafaf0; }
+#wc-input { flex: 1; width: 100%; border: 0; outline: 0; resize: none; background: transparent; font-size: 14px; font-family: inherit; color: #000; line-height: 1.6; min-height: 40px; max-height: 120px; padding: 0; }
+#wc-input:disabled { color: #555; cursor: not-allowed; }
+.wc-send-row { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 8px; }
+.wc-draft-tag { font-size: 11px; color: #b45309; background: #fff3d6; border-radius: 3px; padding: 1px 6px; }
+.wc-draft-tag[hidden] { display: none; }
+#wc-send { padding: 6px 24px; background: #e9e9e9; color: #07c160; border: 0; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500; font-family: inherit; transition: all .2s; }
+#wc-send:hover { background: #07c160; color: #fff; }
+#wc-send:disabled { opacity: .45; cursor: default; background: #e9e9e9; color: #07c160; }
+.wc-typing { font-size: 12px; color: #999; font-weight: 400; margin-left: 10px; animation: wc-typing 1.2s steps(2) infinite; }
+.wc-empty { padding: 40px 18px; font-size: 12.5px; color: #9a9a98; text-align: center; }
+
+/* 微信新消息弹窗（右下角，照 ningning 的 win-toast） */
+#wx-toast { position: fixed; bottom: 56px; right: -350px; width: 320px; background: #1f1f1f; border: 1px solid #444; color: #fff; padding: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, .5); transition: right .4s cubic-bezier(.175, .885, .32, 1.275); z-index: 10250; cursor: pointer; font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif; }
+#wx-toast.show { right: 20px; }
+.wxt-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12px; color: #aaa; }
+.wxt-body { display: flex; gap: 10px; align-items: flex-start; }
+.wxt-body img { width: 36px; height: 36px; border-radius: 4px; object-fit: cover; flex: none; }
+.wxt-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.wxt-text { font-size: 12px; color: #ccc; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* =====================================================================
+   自己这台电脑的 Windows 登录界面（signin.js）
+   ===================================================================== */
+#signin-screen {
+    position: fixed; inset: 0; z-index: 100550;
+    background: #123 center / cover no-repeat;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    transition: opacity .8s;
+}
+#signin-screen::before { content: ""; position: absolute; inset: 0; backdrop-filter: blur(18px) brightness(.5); }
+#signin-screen.off { opacity: 0; pointer-events: none; }
+#signin-screen.shake .si-card { animation: lg-shake .4s; }
+#signin-screen.busy .si-card, #signin-screen.busy .si-users, #signin-screen.busy .si-tray { opacity: 0; transition: opacity .3s; }
+.si-card { position: relative; display: flex; flex-direction: column; align-items: center; color: #fff; text-align: center; transform: translateY(-20px); }
+.si-ava { width: 168px; height: 168px; border-radius: 50%; background: rgba(255, 255, 255, .22); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(0, 0, 0, .45); }
+.si-title { font-size: 30px; font-weight: 300; letter-spacing: 1px; margin: 18px 0 20px; }
+.si-fields { display: flex; flex-direction: column; gap: 8px; width: 284px; }
+.si-fields input { height: 34px; border: 2px solid rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .92); padding: 0 10px; font-size: 15px; outline: none; color: #111; font-family: inherit; width: 100%; }
+.si-fields input:focus { border-color: #fff; }
+.si-row { display: flex; }
+.si-row input { flex: 1; }
+#si-go { width: 34px; height: 34px; flex: none; border: 2px solid rgba(255, 255, 255, .6); border-left: 0; background: rgba(0, 0, 0, .35); color: #fff; font-size: 17px; cursor: pointer; }
+#si-go:hover { background: rgba(0, 0, 0, .55); }
+.si-msg { font-size: 13px; color: #ffd0d0; min-height: 18px; margin-top: 8px; }
+.si-to { font-size: 12px; color: rgba(255, 255, 255, .75); margin-top: 6px; }
+.si-users { position: absolute; left: 24px; bottom: 24px; display: flex; flex-direction: column; gap: 6px; }
+.si-user { display: flex; align-items: center; gap: 10px; padding: 8px 12px; color: #fff; font-size: 13px; border-radius: 3px; cursor: default; }
+.si-user.on { background: rgba(255, 255, 255, .16); }
+.si-user svg { width: 30px; height: 30px; padding: 5px; border-radius: 50%; background: rgba(255, 255, 255, .22); }
+.si-tray { position: absolute; right: 24px; bottom: 24px; display: flex; gap: 18px; }
+.si-tray span { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 3px; cursor: default; }
+.si-tray span:hover { background: rgba(255, 255, 255, .12); }
+.si-welcome { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; color: #fff; font-size: 30px; font-weight: 300; letter-spacing: 2px; }
+.si-welcome[hidden] { display: none; }
+.si-spin { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .25); border-top-color: #fff; animation: si-spin 1s linear infinite; }
+@keyframes si-spin { to { transform: rotate(360deg); } }
