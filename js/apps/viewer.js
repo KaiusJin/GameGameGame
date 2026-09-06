@@ -1,5 +1,6 @@
 /* =====================================================================
    查看器：txt（记事本白底）/ 图片（假元数据面板）/ pdf（红头文书 .doc-*）
+   / eml（邮件）/ audio（录音播放器 + 逐句转写）
    ===================================================================== */
 (function () {
     function $(s) { return document.querySelector(s); }
@@ -7,12 +8,14 @@
         return String(s == null ? "" : s)
             .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
+    var audioTimer = null;
+
     function txtHtml(f) { return '<pre class="viewer-txt">' + esc(T(f.bodyRef)) + "</pre>"; }
-    function imgHtml(f) {
-        var meta = (f.metaRefs || []).map(function (r) { return "<li>" + esc(T(r)) + "</li>"; }).join("");
+    function imgHtml(src, metaRefs) {
+        var meta = (metaRefs || []).map(function (r) { return "<li>" + esc(T(r)) + "</li>"; }).join("");
         return (
             '<div class="viewer-split">' +
-            '<div class="viewer-stage"><img class="viewer-img" src="' + f.img + '" alt=""></div>' +
+            '<div class="viewer-stage"><img class="viewer-img" src="' + src + '" alt=""></div>' +
             (meta ? '<div class="viewer-meta"><h4>' + esc(T("file.photo.metaTitle")) + "</h4><ul>" + meta + "</ul></div>" : "") +
             "</div>"
         );
@@ -26,20 +29,80 @@
         html += '<div class="doc-body">' + d.bodyRefs.map(function (r) { return "<p>" + esc(T(r)) + "</p>"; }).join("") + "</div>";
         if (d.dateRef) html += '<div class="doc-date">' + esc(T(d.dateRef)) + "</div>";
         if (d.stamp && d.orgRef) html += '<div class="doc-stamp"><span>' + esc(T(d.orgRef)) + "</span></div>";
+        if (d.noteRef) html += '<div class="doc-note">' + esc(T(d.noteRef)) + "</div>";
         html += "</div>";
         return html;
     }
+    function mailHtml(f) {
+        var m = f.mail;
+        return '<div class="viewer-mail">' +
+            '<div class="vm-subj">' + esc(T(m.subjRef)) + "</div>" +
+            '<div class="vm-head"><div><b>' + esc(T("mail.from")) + "</b>" + esc(T(m.fromRef)) + "</div>" +
+            '<div><b>' + esc(T("mail.to")) + "</b>" + esc(T(m.toRef)) + "</div>" +
+            '<div><b>' + esc(T("mail.date")) + "</b>" + esc(T(m.dateRef)) + "</div></div>" +
+            '<pre class="vm-body">' + esc(T(m.bodyRef)) + "</pre>" +
+            (m.sigRef ? '<pre class="vm-sig">' + esc(T(m.sigRef)) + "</pre>" : "") +
+            "</div>";
+    }
+    function audioHtml(f) {
+        var a = f.audio;
+        return '<div class="viewer-audio">' +
+            '<div class="au-player"><button class="au-play" id="au-play">▶</button><div class="au-bar"><i id="au-fill"></i></div><span class="au-time" id="au-time">00:00 / ' + esc(fmt(a.dur)) + "</span></div>" +
+            '<div class="au-name">' + esc(T(f.nameRef)) + "</div>" +
+            '<h4>' + esc(T("audio.transcript")) + "</h4>" +
+            '<div class="au-lines" id="au-lines">' + a.lines.map(function (l, i) {
+                return '<div class="au-line" data-at="' + l.at + '">' + (l.pause ? '<em>' + esc(T(l.ref)) + "</em>" : esc(T(l.ref))) + "</div>";
+            }).join("") + "</div></div>";
+    }
+    function fmt(s) { return ("0" + Math.floor(s / 60)).slice(-2) + ":" + ("0" + (s % 60)).slice(-2); }
+    function runAudio(f) {
+        var a = f.audio, t = 0, playing = true;
+        var fill = $("#au-fill"), time = $("#au-time"), btn = $("#au-play"), lines = $("#au-lines");
+        clearInterval(audioTimer);
+        function paint() {
+            fill.style.width = Math.min(100, t / a.dur * 100) + "%";
+            time.textContent = fmt(Math.min(t, a.dur)) + " / " + fmt(a.dur);
+            lines.querySelectorAll(".au-line").forEach(function (el) { if (+el.dataset.at <= t) el.classList.add("show"); });
+            btn.textContent = playing ? "❚❚" : "▶";
+        }
+        paint();
+        audioTimer = setInterval(function () {
+            if (!playing) return;
+            t += 1;
+            paint();
+            if (t >= a.dur) {
+                clearInterval(audioTimer); playing = false; paint();
+                if (a.doneFlag) STATE.set(a.doneFlag);
+                STATE.emit("audio-end:" + f.id);
+            }
+        }, 1000);
+        btn.addEventListener("click", function () { playing = !playing; paint(); });
+        if (window.FX) FX.scare("message.mp3", { rate: 0.3, drive: 3, gain: 0.25 });
+    }
+
     window.VIEWER = {
         open: function (f) {
             $("#viewer-title").textContent = T(f.nameRef);
             var body = $("#viewer-body");
-            body.classList.toggle("vb-txt", f.type === "txt");
+            clearInterval(audioTimer);
+            body.className = "viewer-body" + (f.type === "img" ? "" : " vb-light") + (f.type === "txt" || f.type === "video" ? " vb-txt" : "") + (f.type === "eml" ? " vb-mail" : "");
             if (f.type === "txt") body.innerHTML = txtHtml(f);
-            else if (f.type === "img") body.innerHTML = imgHtml(f);
+            else if (f.type === "img") body.innerHTML = imgHtml(f.img, f.metaRefs);
             else if (f.type === "pdf" && f.doc) body.innerHTML = docHtml(f);
+            else if (f.type === "eml") body.innerHTML = mailHtml(f);
+            else if (f.type === "audio") body.innerHTML = audioHtml(f);
             else body.innerHTML = '<pre class="viewer-txt">' + esc(T(f.bodyRef)) + "</pre>";
             openApp("viewer");
             body.scrollTop = 0;
+            if (f.type === "audio") runAudio(f);
+        },
+        openImg: function (src, title, metaRefs) {
+            $("#viewer-title").textContent = title || "";
+            var body = $("#viewer-body");
+            clearInterval(audioTimer);
+            body.className = "viewer-body";
+            body.innerHTML = imgHtml(src, metaRefs);
+            openApp("viewer");
         }
     };
 })();

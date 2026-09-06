@@ -422,3 +422,198 @@ body.monitoring .desktop { box-shadow: inset 0 0 0 3px rgba(57, 255, 110, .35); 
 /* 断开按钮：随时能看见、随时能按 */
 #monitor-exit { background: #8a1010; border-color: #ff6e6e; color: #fff; font-size: 12px; padding: 4px 14px; font-weight: 600; }
 #monitor-exit:hover { background: #b51515; }
+
+/* =====================================================================
+   v3（按 Kaius 大纲）新增：黑屏 / 被接入的自己桌面 / 输入弹窗 / 微信候选句与来电 /
+   结局序列 / 邮件与录音查看器 / 网页邮箱 / 二手平台 / 小红书评论
+   ===================================================================== */
+
+/* 短暂黑屏 */
+#fx-black { position: fixed; inset: 0; z-index: 100350; background: #000; }
+
+/* 第三案：自己的桌面被接入 */
+body.watched .desktop { box-shadow: inset 0 0 0 3px rgba(57, 255, 110, .45); }
+body.watched #monitor-bar { border-bottom-color: #2fbf58; }
+body.watched .mb-dot { background: #ff6e6e; }
+
+/* 带输入框的系统弹窗 */
+.d-input { margin-top: 12px; }
+.d-input input { width: 100%; height: 30px; border: 1px solid #8a8a8a; padding: 0 8px; font-size: 13px; outline: none; }
+.d-input input:focus { border-color: #0078d7; }
+.zip-hint { color: #7a5a10; font-size: 12px; }
+
+/* 文件窗口：分组行带路径 */
+.fx-group { display: flex; align-items: baseline; gap: 10px; padding: 10px 14px 4px; font-size: 11.5px; color: #666; }
+.fx-group i { font-style: normal; color: #aaa; font-size: 11px; }
+#rc-list .empty-pane { padding: 60px 0; }
+
+/* ---------------- 微信：候选句 / 正在输入 / 草稿 / 预填 / 图片 ---------------- */
+.wc-typing { margin-left: 10px; font-size: 12px; color: #9b9b9b; font-weight: 400; animation: wc-typing 1.2s steps(2) infinite; }
+@keyframes wc-typing { 50% { opacity: .35; } }
+.wc-input.own { color: #333; cursor: text; min-height: 22px; }
+.wc-prefill { font-size: 13px; color: #111; background: #fff; border: 1px solid #e2e1e0; border-radius: 4px; padding: 8px 10px; line-height: 1.6; white-space: pre-wrap; }
+.wc-draft { font-size: 12.5px; color: #333; background: #fff; border: 1px dashed #c8c8c8; border-radius: 4px; padding: 8px 10px; line-height: 1.6; white-space: pre-wrap; }
+.wc-draft span { display: inline-block; font-size: 10.5px; color: #b45309; background: #fff3d6; border-radius: 3px; padding: 0 5px; margin-right: 8px; vertical-align: 1px; }
+.wc-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.wc-choice {
+    background: #fff; border: 1px solid #cfe9d8; border-radius: 16px;
+    color: #111; font-size: 12.5px; line-height: 1.5;
+    padding: 6px 14px; cursor: pointer; text-align: left; max-width: 100%;
+    white-space: pre-wrap;
+}
+.wc-choice:hover { background: #eafaf0; border-color: #07c160; }
+.wc-choice:disabled { opacity: .5; cursor: default; }
+.wc-choice.danger { border-color: #f0c9c9; }
+.wc-choice.danger:hover { background: #fdf0f0; border-color: #e64340; }
+.wcm-pic { width: 190px; border-radius: 6px; overflow: hidden; cursor: pointer; background: #ddd; }
+.wcm-pic img { width: 100%; display: block; }
+.wc-item .i-name em { font-style: normal; font-size: 11px; color: #a8a7a5; margin-left: 6px; }
+
+/* ---------------- 微信语音来电 ---------------- */
+#call-overlay { position: fixed; inset: 0; z-index: 10800; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.cl-card {
+    pointer-events: auto;
+    width: 300px; background: #2b2b2b; color: #eee; border-radius: 10px;
+    box-shadow: 0 16px 50px rgba(0, 0, 0, .6);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 28px 22px 22px;
+    font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    animation: cl-in .25s ease-out;
+}
+@keyframes cl-in { from { transform: translateY(20px); opacity: 0; } }
+.cl-card.ringing .cl-ava { animation: cl-ring 1.2s ease-in-out infinite; }
+@keyframes cl-ring { 0%, 100% { transform: none; } 20% { transform: rotate(-6deg); } 40% { transform: rotate(6deg); } 60% { transform: rotate(-4deg); } 80% { transform: rotate(4deg); } }
+.cl-ava { width: 92px; height: 92px; border-radius: 10px; object-fit: cover; }
+.cl-ava.sm { width: 44px; height: 44px; border-radius: 6px; }
+.cl-name { font-size: 18px; font-weight: 500; }
+.cl-sub { font-size: 12.5px; color: #aaa; margin-bottom: 18px; }
+.cl-btns { display: flex; gap: 46px; }
+.cl-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: 0; color: #ccc; font-size: 12px; cursor: pointer; }
+.cl-btn svg { width: 58px; height: 58px; padding: 15px; border-radius: 50%; }
+.cl-btn.red svg { background: #e64340; }
+.cl-btn.green svg { background: #07c160; }
+.cl-btn:hover svg { filter: brightness(1.12); }
+.cl-card.connected { width: 440px; align-items: stretch; padding: 16px 18px 14px; gap: 12px; }
+.cl-head { display: flex; align-items: center; gap: 12px; }
+.cl-timer { font-size: 12px; color: #9a9a9a; font-variant-numeric: tabular-nums; }
+.cl-lines { min-height: 150px; max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 6px 2px; }
+.cl-line { font-size: 13.5px; line-height: 1.55; padding: 7px 11px; border-radius: 8px; max-width: 82%; white-space: pre-wrap; animation: cl-in .2s; }
+.cl-line.them { background: #3a3a3a; align-self: flex-start; }
+.cl-line.me { background: #2f6a3f; align-self: flex-end; }
+.cl-choices { display: flex; flex-wrap: wrap; gap: 8px; min-height: 4px; }
+.cl-choice { background: #1f1f1f; border: 1px solid #4b4b4b; border-radius: 16px; color: #eee; font-size: 12.5px; padding: 6px 14px; cursor: pointer; text-align: left; }
+.cl-choice:hover { border-color: #07c160; background: #203a28; }
+.cl-foot { display: flex; justify-content: center; }
+.cl-foot .cl-btn svg { width: 46px; height: 46px; padding: 12px; }
+
+/* ---------------- 结局序列 ---------------- */
+#end-overlay {
+    position: fixed; inset: 0; z-index: 100700; background: #000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 2.2s ease;
+    font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+#end-overlay.show { opacity: 1; }
+.eo-stage { width: min(760px, 88vw); display: flex; align-items: center; justify-content: center; min-height: 240px; }
+.eo-line { font-size: 21px; line-height: 2; color: #d9d9d9; letter-spacing: 1.5px; text-align: center; opacity: 0; transition: opacity 1.3s ease; }
+.eo-line.show { opacity: 1; }
+.eo-final { display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: 0; transition: opacity 2s ease; }
+.eo-final.show { opacity: 1; }
+.eo-tag { font-size: 12px; letter-spacing: 8px; color: #6a6a6a; }
+.eo-title { font-size: 30px; color: #e6e6e6; letter-spacing: 6px; font-weight: 300; }
+.eo-btns { margin-top: 44px; }
+.eo-btns button { border: 1px solid #3a3a3a; background: transparent; color: #9a9a9a; font-size: 13px; padding: 8px 26px; cursor: pointer; border-radius: 3px; }
+.eo-btns button:hover { border-color: #888; color: #ddd; }
+.eo-notepad { width: min(620px, 86vw); background: #fff; border: 1px solid #7a7a7a; box-shadow: 0 10px 40px rgba(0, 0, 0, .6); opacity: 0; transition: opacity 1s; }
+.eo-notepad.show { opacity: 1; }
+.eo-np-bar { height: 30px; line-height: 30px; padding: 0 10px; font-size: 12px; color: #444; border-bottom: 1px solid #e6e6e6; background: #fff; }
+.eo-np-body { min-height: 220px; margin: 0; padding: 18px 22px; font-family: "SimSun", "Consolas", monospace; font-size: 15px; line-height: 1.9; color: #111; white-space: pre-wrap; }
+.eo-np-body::after { content: "▏"; animation: vx-blink 1s steps(2) infinite; color: #333; }
+
+/* ---------------- 查看器：邮件 / 录音 / 文书附注 ---------------- */
+.viewer-body.vb-mail { background: #fff; display: block; padding: 0; }
+.viewer-mail { padding: 22px 28px; font-size: 13.5px; color: #222; }
+.vm-subj { font-size: 19px; font-weight: 600; margin-bottom: 12px; }
+.vm-head { border: 1px solid #eee; background: #fafafa; padding: 10px 14px; font-size: 12.5px; color: #555; line-height: 1.9; margin-bottom: 16px; }
+.vm-head b { color: #888; font-weight: 400; margin-right: 6px; }
+.vm-body { margin: 0; font-family: inherit; font-size: 14px; line-height: 1.9; white-space: pre-wrap; }
+.vm-sig { margin: 20px 0 0; padding-top: 12px; border-top: 1px solid #eee; font-family: inherit; font-size: 12.5px; line-height: 1.8; color: #666; white-space: pre-wrap; }
+.viewer-audio { padding: 26px 30px; }
+.au-player { display: flex; align-items: center; gap: 14px; background: #f2f2f2; border-radius: 8px; padding: 12px 16px; }
+.au-play { width: 40px; height: 40px; border-radius: 50%; border: 0; background: #0078d7; color: #fff; font-size: 14px; cursor: pointer; }
+.au-bar { flex: 1; height: 6px; background: #d6d6d6; border-radius: 3px; overflow: hidden; }
+.au-bar i { display: block; height: 100%; width: 0; background: #0078d7; transition: width 1s linear; }
+.au-time { font-size: 12px; color: #666; font-variant-numeric: tabular-nums; }
+.au-name { margin: 10px 2px 22px; font-size: 12.5px; color: #888; }
+.viewer-audio h4 { font-size: 12.5px; color: #888; font-weight: 500; margin: 0 0 10px; letter-spacing: 2px; }
+.au-lines { display: flex; flex-direction: column; gap: 10px; }
+.au-line { font-size: 15px; line-height: 1.8; color: #222; opacity: 0; transform: translateY(6px); transition: opacity .8s, transform .8s; white-space: pre-wrap; }
+.au-line.show { opacity: 1; transform: none; }
+.au-line em { font-style: normal; color: #aaa; font-size: 13px; }
+.doc-note { margin-top: 26px; font-size: 11px; color: #b0b0b0; font-style: italic; }
+
+/* ---------------- 浏览器：文章页 / 新闻站补充 ---------------- */
+.br-page { max-width: 720px; margin: 0 auto; padding: 34px 24px 70px; }
+.br-page h1 { font-size: 24px; line-height: 1.4; color: #1a1a1a; margin: 0 0 8px; }
+.br-page .p-site { font-size: 12px; color: #888; margin-bottom: 22px; }
+.br-page p { font-size: 15px; line-height: 1.9; color: #222; margin: 0 0 14px; }
+.nw-site small { display: block; font-size: 11px; font-weight: 400; color: #999; letter-spacing: 2px; margin-top: 4px; }
+.nw-row.fresh .nw-head::after { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #e33; margin-left: 8px; vertical-align: middle; }
+
+/* ---------------- 网页邮箱 ---------------- */
+.ml-root { min-height: 100%; display: flex; flex-direction: column; font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; }
+.ml-bar { display: flex; align-items: baseline; gap: 14px; padding: 12px 20px; background: #f6f8fc; border-bottom: 1px solid #e3e6ea; }
+.ml-bar b { font-size: 18px; color: #d93025; }
+.ml-bar span { margin-left: auto; font-size: 12px; color: #666; }
+.ml-split { flex: 1; display: flex; min-height: 0; }
+.ml-list { width: 340px; flex: none; border-right: 1px solid #e3e6ea; }
+.ml-folder { padding: 12px 16px 6px; font-size: 12px; color: #666; font-weight: 600; }
+.ml-row { padding: 10px 16px; border-bottom: 1px solid #f1f3f4; cursor: pointer; }
+.ml-row:hover { background: #f5f7fa; }
+.ml-row.on { background: #e8f0fe; }
+.ml-row.unread .ml-from, .ml-row.unread .ml-subj { font-weight: 700; }
+.ml-from { font-size: 13px; color: #202124; }
+.ml-subj { font-size: 12.5px; color: #3c4043; margin: 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ml-date { font-size: 11px; color: #80868b; }
+.ml-detail { flex: 1; padding: 24px 28px; min-width: 0; }
+.ml-detail.empty { color: #999; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+.ml-detail h2 { font-size: 20px; margin: 0 0 6px; color: #202124; }
+.ml-meta { font-size: 12px; color: #80868b; margin-bottom: 18px; }
+.ml-body { margin: 0; font-family: inherit; font-size: 14px; line-height: 1.85; white-space: pre-wrap; color: #222; }
+
+/* ---------------- 二手平台 ---------------- */
+.mk-root { min-height: 100%; background: #f7f7f7; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+.mk-bar { display: flex; align-items: baseline; gap: 12px; padding: 14px 24px; background: #fff; border-bottom: 1px solid #eee; }
+.mk-bar b { font-size: 20px; color: #ff5000; cursor: pointer; }
+.mk-bar span { font-size: 12px; color: #999; }
+.mk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 18px 24px; }
+.mk-card { background: #fff; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #eee; }
+.mk-card:hover { box-shadow: 0 4px 16px rgba(0, 0, 0, .08); }
+.mk-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #eee; }
+.mk-c-title { padding: 10px 12px 4px; font-size: 13.5px; line-height: 1.45; color: #333; min-height: 2.9em; }
+.mk-c-price { padding: 0 12px; font-size: 16px; font-weight: 700; color: #ff5000; }
+.mk-c-meta { padding: 4px 12px 12px; font-size: 11.5px; color: #999; }
+.mk-detail { max-width: 720px; margin: 0 auto; background: #fff; padding: 26px 30px 40px; border-radius: 0 0 8px 8px; }
+.mk-price { font-size: 26px; font-weight: 700; color: #ff5000; }
+.mk-detail h2 { font-size: 19px; margin: 6px 0 8px; color: #222; }
+.mk-meta { font-size: 12px; color: #999; margin-bottom: 14px; }
+.mk-seller { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #333; margin-bottom: 16px; }
+.mk-seller img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+.mk-body { margin: 0 0 16px; font-family: inherit; font-size: 14.5px; line-height: 1.9; white-space: pre-wrap; color: #222; }
+.mk-imgs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.mk-imgs img { width: 200px; border-radius: 6px; }
+.mk-btn { background: #ff5000; color: #fff; border: 0; border-radius: 20px; padding: 10px 26px; font-size: 14px; cursor: pointer; }
+
+/* ---------------- 小红书评论 ---------------- */
+.xh-cmts { margin-top: 20px; border-top: 1px solid #f0f0f0; padding-top: 14px; }
+.xh-cmts h4 { margin: 0 0 10px; font-size: 13px; color: #666; font-weight: 500; }
+.xh-c { padding: 8px 0; border-bottom: 1px solid #f5f5f5; }
+.xh-c b { display: block; font-size: 12px; color: #999; font-weight: 500; margin-bottom: 3px; }
+.xh-c p { margin: 0; font-size: 13.5px; line-height: 1.6; color: #333; }
+.xh-c em { display: block; font-style: normal; font-size: 11px; color: #bbb; margin-top: 4px; }
+.xh-c.hl { background: #fff5f7; margin: 0 -8px; padding: 8px; border-radius: 6px; }
+.xh-c-empty { font-size: 12.5px; color: #bbb; }
+
+/* 非图片类查看（录音 / 邮件 / 文书）一律白底 */
+.viewer-body.vb-light { background: #fff; display: block; padding: 0; }
+.viewer-body.vb-light .doc-page { margin: 18px auto; }

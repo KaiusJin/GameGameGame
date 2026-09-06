@@ -48,13 +48,14 @@
 
     /* ---------------- 条件表达式 ----------------
        null/undefined = 恒真
-       {flag:"x"} {not:"x"} {phase:"p1"} {source:"t1"} {all:[...]} {any:[...]} */
+       {flag:"x"} {not:"x"} {phase:"p1"} {source:"t1"} {eq:["x", v]} {all:[...]} {any:[...]} */
     function cond(c) {
         if (c == null) return true;
         if (c.flag !== undefined) return !!flags[c.flag];
         if (c.not !== undefined) return !flags[c.not];
         if (c.phase !== undefined) return phase === c.phase;
         if (c.source !== undefined) return source === c.source;
+        if (c.eq) return flags[c.eq[0]] === c.eq[1];
         if (c.all) return c.all.every(cond);
         if (c.any) return c.any.some(cond);
         return true;
@@ -68,11 +69,17 @@
        ["badge", app, n]          图标红点（n=0 清除）
        ["flash", app]             任务栏闪烁
        ["open", app]              打开窗口
+       ["close", app]             关闭窗口
        ["dialog", tRef, bRef]     系统弹窗
        ["source", id]             切换数据源（own = 退出监控）
        ["sound", file, vol?]      播放 audio/ 下的音效
        ["scare", file, opts]      恐怖变体（变速/失真/倒放，见 fx.js）
        ["fx", ms]                 全屏故障闪烁（见 fx.js）
+       ["blackout", ms]           桌面短暂黑屏
+       ["ticket", taskId]         求助单弹到屏幕中央（见 virus.js）
+       ["call", callId]           微信语音来电（见 call.js）
+       ["ending", id]             结局序列（见 ending.js）
+       ["emit", eventName]        触发一个事件（触发器链式调用）
        ["delay", ms, [actions]]   延迟执行一串动作 */
     function run(actions) {
         (actions || []).forEach(function (a) {
@@ -84,11 +91,18 @@
             else if (op === "badge") { if (window.NOTIFY) NOTIFY.badge(a[1], a[2]); }
             else if (op === "flash") { if (window.NOTIFY) NOTIFY.flash(a[1]); }
             else if (op === "open") { if (window.openApp) openApp(a[1]); }
+            else if (op === "close") { if (window.closeApp) closeApp(a[1]); }
             else if (op === "dialog") { if (window.sysDialog) sysDialog(T(a[1]), T(a[2]), [{ label: T("ui.ok"), primary: true }]); }
             else if (op === "source") { source = a[1]; document.dispatchEvent(new CustomEvent("source-change")); }
             else if (op === "sound") { if (window.FX) FX.sound(a[1], a[2]); }
             else if (op === "scare") { if (window.FX) FX.scare(a[1], a[2]); }
             else if (op === "fx") { if (window.FX) FX.glitch(a[1]); }
+            else if (op === "blackout") { if (window.FX) FX.blackout(a[1]); }
+            else if (op === "ticket") { if (window.VIRUS) VIRUS.popup(a[1]); }
+            else if (op === "call") { if (window.CALL) CALL.incoming(a[1]); }
+            else if (op === "ending") { if (window.ENDING) ENDING.play(a[1]); }
+            else if (op === "page") { if (window.openApp) openApp("browser"); if (window.BROWSER) BROWSER.openPage(a[1]); }
+            else if (op === "emit") { pending.push(a[1]); }
             else if (op === "delay") {
                 (function (ms, acts) {
                     setTimeout(function () { run(acts); settle(); }, ms);
@@ -96,6 +110,7 @@
             }
         });
     }
+    var pending = [];   /* ["emit", x] 收集在这里，settle 时再派发，避免递归 */
 
     /* ---------------- 触发器 ----------------
        DB.TRIGGERS: { id, on:"event:<名>"|"change", if:<cond>, do:[actions] }
@@ -108,7 +123,7 @@
             if (fired[t.id]) continue;
             var hit = eventName ? (t.on === "event:" + eventName) : (t.on === "change");
             if (!hit || !cond(t.if)) continue;
-            fired[t.id] = 1;
+            if (!t.repeat) fired[t.id] = 1;     /* repeat:true 的触发器每次都响（只用于事件触发器） */
             run(t.do);
             any = true;
         }
@@ -117,7 +132,11 @@
     function settle() {
         if (evaluating) return;
         evaluating = true;
-        for (var i = 0; i < 20 && evalTriggers(null); i++) { }
+        for (var i = 0; i < 20; i++) {
+            var again = evalTriggers(null);
+            while (pending.length) { evalTriggers(pending.shift()); again = true; }
+            if (!again) break;
+        }
         evaluating = false;
         persist();
         broadcast();
@@ -136,15 +155,28 @@
         document.dispatchEvent(new CustomEvent("clock-tick"));
     }, 60000);
 
-    /* ---------------- 对外 ---------------- */
+    /* ---------------- 文案 ----------------
+       T(ref)：查文案表；缺失显示〔ref〕不报错。
+       文案里的 {name} 替换为玩家在 Windows 设置页输入的名字。 */
+    function fill(s) {
+        if (typeof s !== "string" || s.indexOf("{") < 0) return s;
+        var t = (window.DB && DB.TEXT) || {};
+        var name = flags.player_name || t["player.default"] || "你";
+        return s.replace(/\{name\}/g, name);
+    }
     window.T = function (ref) {
         var t = (window.DB && DB.TEXT) || {};
-        return (t[ref] !== undefined) ? t[ref] : "〔" + ref + "〕";   /* 文案缺失显示占位符，不报错 */
+        return fill((t[ref] !== undefined) ? t[ref] : "〔" + ref + "〕");
     };
+    window.TF = fill;
+
+    /* ---------------- 对外 ---------------- */
     window.STATE = {
         get: function (k) { return flags[k]; },
         set: function (k, v) { flags[k] = (v === undefined ? true : v); settle(); },
+        setMany: function (obj) { Object.keys(obj).forEach(function (k) { flags[k] = obj[k]; }); settle(); },
         cond: cond,
+        run: function (actions) { run(actions); settle(); },
         phase: function () { return phase; },
         source: function () { return source; },
         setSource: function (id) {
@@ -152,7 +184,7 @@
             document.dispatchEvent(new CustomEvent("source-change"));
             settle();
         },
-        emit: function (eventName) {           /* app 上报事件："read-file:own/note1" 等 */
+        emit: function (eventName) {           /* app 上报事件："read-file:note1" 等 */
             evalTriggers(eventName);
             settle();
         },

@@ -206,5 +206,38 @@
         }, 2500);
     }
 
-    window.FX = { sound: sound, scare: scare, ambient: ambient, glitch: glitch, hackIn: hackIn, hackOut: hackOut, bsod: bsod };
+    /* ---------------- 短暂黑屏（求助单弹出前、第三案开场） ---------------- */
+    function blackout(ms, cb) {
+        var ov = document.createElement("div");
+        ov.id = "fx-black";
+        document.body.appendChild(ov);
+        scare("windows-10-bsod-sound.mp3", { rate: 0.4, drive: 6, gain: 0.5 });
+        setTimeout(function () { ov.remove(); if (cb) cb(); }, ms || 1000);
+    }
+
+    /* ---------------- 微信来电铃声（实时合成，无素材） ---------------- */
+    var ringTimer = null;
+    function ringOnce() {
+        var c = ctx();
+        if (!c) { sound("message.mp3", 0.8); return; }
+        var notes = [[880, 0], [1108, 0.16], [1318, 0.32], [1108, 0.62], [880, 0.78], [1318, 0.94]];
+        notes.forEach(function (n) {
+            var o = c.createOscillator(), g = c.createGain();
+            o.type = "sine"; o.frequency.value = n[0];
+            var t = c.currentTime + n[1];
+            g.gain.setValueAtTime(0.0001, t);
+            g.gain.exponentialRampToValueAtTime(0.22, t + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+            o.connect(g); g.connect(c.destination);
+            o.start(t); o.stop(t + 0.3);
+        });
+    }
+    function ringStart() {
+        if (ringTimer) return;
+        ringOnce();
+        ringTimer = setInterval(ringOnce, 2400);
+    }
+    function ringStop() { if (ringTimer) { clearInterval(ringTimer); ringTimer = null; } }
+
+    window.FX = { sound: sound, scare: scare, ambient: ambient, glitch: glitch, hackIn: hackIn, hackOut: hackOut, bsod: bsod, blackout: blackout, ringStart: ringStart, ringStop: ringStop };
 })();
