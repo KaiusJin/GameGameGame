@@ -80,7 +80,7 @@ window.DB = (function () {
         "folder.pictures": "图片", "folder.pictures.path": "{home}\\Pictures",
         "folder.oldcase": "旧任务_吴晓", "folder.oldcase.path": "{home}\\Documents\\旧任务_吴晓",
         "folder.backup": "备份_0928（已解压）", "folder.backup.path": "{home}\\Documents\\备份_0928",
-        "folder.evidence": "证据", "folder.evidence.path": "{home}\\Documents\\证据",
+        "folder.evidence": "微信文件", "folder.evidence.path": "{home}\\Documents\\WeChat Files\\FileStorage\\File\\2024-10",
         "folder.argus": "ARGUS_9 附件", "folder.argus.path": "C:\\ProgramData\\.argus\\attachments",
         "folder.recycle": "回收站", "folder.recycle.path": "回收站",
         "recycle.empty": "回收站是空的",
@@ -137,6 +137,7 @@ window.DB = (function () {
         "virus.log.repaired1": "[SYSTEM] 检测到宿主异常操作。已修复。",
         "virus.log.repaired2": "[SYSTEM] 请勿重复。",
         "virus.log.shutdown": "[SYSTEM] 宿主关机请求已拦截。会话保持。",
+        "virus.log.autostart": "[SYSTEM] 已随系统启动。节点在线。等待派单。",
         "virus.cred.label": "已获取凭据",
         "virus.enter.btn": "接入目标设备",
         "virus.reenter.btn": "再次接入",
@@ -180,6 +181,14 @@ window.DB = (function () {
         "chat.own.empty": "暂无会话。",
         "chat.monitor.input": "对方设备 · 只读",
         "chat.input": "", "chat.send": "发送", "chat.search": "搜索", "chat.call.unavail": "对方未开启语音通话。",
+        "chat.search.net": "网络查找", "chat.search.go": "搜一搜：", "chat.search.none": "该用户不存在",
+        "chat.profile.nick": "昵 称", "chat.profile.id": "微信号", "chat.profile.region": "地 区", "chat.profile.sign": "描 述", "chat.profile.src": "来 源", "chat.profile.srcval": "通过搜索微信号添加",
+        "chat.profile.add": "添加到通讯录", "chat.profile.added": "已添加", "chat.profile.msg": "发消息",
+        "contact.lin.id": "wanwan0315", "contact.lin.region": "加拿大 安大略", "contact.lin.sign": "橘子的妈妈",
+        "contact.ning.id": "sunning_maple", "contact.ning.region": "加拿大 安大略", "contact.ning.sign": "Maple Realty · 多伦多买房卖房找我",
+        "np.m1": "文件(F)", "np.m2": "编辑(E)", "np.m3": "格式(O)", "np.m4": "查看(V)", "np.m5": "帮助(H)",
+        "np.status.pos": "第 1 行，第 1 列", "np.status.zoom": "100%", "np.status.eol": "Windows (CRLF)", "np.status.enc": "UTF-8",
+        "app.notepad.suffix": " - 记事本",
         "chat.typing": "对方正在输入…",
         "chat.draft.tag": "草稿",
         "chat.prev.img": "[图片]", "chat.prev.file": "[文件]", "chat.prev.call": "[语音通话]", "chat.prev.voice": "[语音]", "chat.prev.draft": "[草稿]",
@@ -224,7 +233,7 @@ window.DB = (function () {
         "task1.step6": "接应：决定由谁去接她",
         "task1.status.active": "进行中", "task1.status.done": "已完成", "task1.status.fail": "接应失败",
         "task1.log.located": "已确认目标位置：雪松旅馆（士嘉堡，Kingston 路）。建议立即开展接应。",
-        "task1.log.contact": "目标通讯账号已注入宿主通讯录。请建立联系。",
+        "task1.log.contact": "家属留言含目标通讯账号（微信 wanwan0315）。请自行建立联系。",
         "task1.log.reconnected": "已恢复联系，等待接应。",
         "task1.log.pickup": "援助人员已在附近。请确认：目标离开房间的时间 · 旅馆出口 · 目的地。",
         "task1.log.doneA": "接应已安排。任务完成。",
@@ -243,7 +252,7 @@ window.DB = (function () {
 
         "task2.title": "求助单 002",
         "task2.target": "孙屿，27 岁。",
-        "task2.brief": "涉嫌携款失联。\n目标持有本设备的关键资料。\n找到目标后，可终止当前设备的监护程序。",
+        "task2.brief": "涉嫌携款失联。\n目标持有本设备的关键资料。\n找到目标后，可终止当前设备的监护程序。\n\n已开放本节点历史协助记录（档案）供核对。",
         "task2.step1": "两个孙屿：二手帖的编辑时间 · 代取小哥的话 · 问他为什么把系统留着",
         "task2.step2": "何静留下的旧事：保存的网页里那条新闻 · 文档里的“旧任务_吴晓”",
         "task2.step3": "“完成”的含义：打开档案，按时间把记录排一遍",
@@ -373,6 +382,8 @@ window.DB = (function () {
         "chat.chen.m6": "你怎么整晚不开灯？我在学校，刚看到咱们楼下停了辆车，一直没熄火。",
         "chat.chen.m7": "别下去。先跟我说话。我去找人帮忙。",
         "chat.chen.m8": "我联系到人了，二十分钟到。你把证据整理好，电话别挂。",
+        "chat.chen.news": "楼下华人群在转一条新闻，说士嘉堡有个留学生出事了。你看看晨间线报。",
+        "chat.chen.nudge": "还有，它派单时给你的那些附件，你都看全了吗？我这边的人说，家属原话里一般都会留一个能联系上的朋友。",
         "chat.chen.c1": "证据整理好了，先发你一份。",
         "chat.chen.c2": "我不等了。我现在就走。",
         "chat.chen.r1": "收到。别开门，等我。",
@@ -689,9 +700,9 @@ window.DB = (function () {
         "ningmail.body": "哥，\n信封我收到了，没拆。你说的话我记着：有人拿着那台电脑来找我，先让他回答回收站里的备份能不能打开。\n你到底在躲什么？安安问我你什么时候回国，我不知道怎么答。\n\n宁\n\n> 2024年9月26日 20:11，孙屿 写道：\n> 宁宁，\n> 明天我会把一个信封送到你公司前台。别拆，别放家里。\n> 我要换住处、换号，暂时不联系你。别报警，警察管不了这个。\n> 如果有人拿着我那台电脑来找你——先问他回收站里的备份能不能打开。能打开，说明他把我留的话都看了，你可以信他一半。\n> 安安的生日别忘了。\n> 哥",
         "ningmail.sig": "--\n孙宁 Ning Sun | 客户经理 Client Manager\n枫叶置业 Maple Realty · Toronto\n微信 / WeChat: sunning_maple · Tel: 416-5xx-xxxx",
         "fam.short.name": "家属留言.txt",
-        "fam.short.body": "求助人留言（家属 · 母亲 陈女士 · 10月3日）\n\n晚晚三天没有消息了。昨天收到一个视频，她被蒙着眼睛……对方要钱。我报了警，警察说视频像摆拍，不给立案。\n我不知道该信谁。求求你们帮我找到她。",
+        "fam.short.body": "求助人留言（家属 · 母亲 陈女士 · 10月3日）\n\n晚晚三天没有消息了。昨天收到一个视频，她被蒙着眼睛……对方要钱。我报了警，警察说视频像摆拍，不给立案。\n她微信号是 wanwan0315，我发什么她都不回。\n我不知道该信谁。求求你们帮我找到她。",
         "fam.full.name": "家属留言_原件.txt",
-        "fam.full.body": "求助人留言（家属 · 母亲 陈女士 · 10月3日）\n\n晚晚三天没有消息了。昨天收到一个视频，她被蒙着眼睛……对方要钱。我报了警，警察说视频像摆拍，不给立案。\n我不知道该信谁。求求你们帮我找到她。\n\n她在多伦多有个同学叫许青，住得近，猫就托给她了。许青电话 437-55x-xxxx。你们可以先找她，她可能知道晚晚去了哪。\n\n———\n[系统备注] 第 2 段已从派发版本中移除。原因：非必要联络渠道。",
+        "fam.full.body": "求助人留言（家属 · 母亲 陈女士 · 10月3日）\n\n晚晚三天没有消息了。昨天收到一个视频，她被蒙着眼睛……对方要钱。我报了警，警察说视频像摆拍，不给立案。\n她微信号是 wanwan0315，我发什么她都不回。\n我不知道该信谁。求求你们帮我找到她。\n\n她在多伦多有个同学叫许青，住得近，猫就托给她了。许青电话 437-55x-xxxx。你们可以先找她，她可能知道晚晚去了哪。\n\n———\n[系统备注] 第 2 段已从派发版本中移除。原因：非必要联络渠道。",
         "env.name": "信封扫描_孙宁.pdf",
         "half2.name": "证据_第二部分_孙屿.pdf",
         "half2.title": "我知道的（第二部分）",
@@ -852,59 +863,30 @@ window.DB = (function () {
     /* ================= 触发器 =================
        全部一次性（repeat:true 除外）。change 触发器在每次状态变化后评估。 */
     var TRIGGERS = [
-        /* ---------- 序章 ---------- */
-        { id: "tg-boot", on: "event:boot-done", do: [["phase", "p0"], ["delay", 1500, [["toast", "tip.boot"]]]] },
-        {
-            id: "tg-virus-found", on: "change",
-            if: { all: [{ flag: "read_note3" }, { not: "virus_found" }] },
-            do: [["delay", 500, [["fx", 1100], ["sound", "windows-10-foreground-earrape.mp3", 0.75],
-            ["scare", "windows-10-notify-system-sound.mp3", { rate: 0.3, drive: 22, gain: 1.1, reverse: true, at: 0.5 }]]],
-            ["delay", 1150, [["set", "virus_found"], ["badge", "virus", 1]]],
-            ["delay", 2100, [["toast", "tip.virus.found"]]],
-            ["delay", 9000, [["toast", "tip.virus.found2"]]]]
-        },
-        /* 问卖家那几封信 */
-        { id: "tg-seller-r1", on: "event:choice:ask_letters", do: [["delay", 6000, [["set", "seller_r1"]]]] },
-        /* 第一次打开软件：记下；30 秒没关也照样来单 */
-        {
-            id: "tg-virus-open", on: "event:open-app:virus", if: { flag: "virus_found" },
-            do: [["set", "virus_opened"], ["delay", 30000, [["emit", "close-app:virus"]]]]
-        },
-        /* 4.3 尝试关闭 → 桌面短暂黑屏 → 第一张求助单在中央 */
+        /* ---------- 序章：ARGUS_9 随开机自启动；你关掉它，第一张单子就来 ---------- */
+        { id: "tg-boot", on: "event:boot-done", do: [["phase", "p0"], ["set", "virus_found"]] },
+        { id: "tg-autostart", on: "event:boot-done", if: { not: "virus_opened" }, do: [["delay", 35000, [["emit", "autostart"]]]] },
+        { id: "tg-autostart-go", on: "event:autostart", if: { not: "virus_opened" }, do: [["set", "virus_autostart"], ["fx", 700], ["sound", "windows-10-notify-system-sound.mp3", 0.6], ["open", "virus"]] },
+        { id: "tg-virus-open", on: "event:open-app:virus", do: [["set", "virus_opened"], ["delay", 120000, [["emit", "close-app:virus"]]]] },
         {
             id: "tg-ticket1", on: "event:close-app:virus", if: { all: [{ flag: "virus_opened" }, { not: "task1_active" }] },
-            do: [["blackout", 1400], ["delay", 1400, [["set", "task1_active"], ["phase", "p1"], ["ticket", "task1"], ["badge", "virus", 1], ["flash", "virus"]]]]
+            do: [["blackout", 1400], ["delay", 1400, [["set", "task1_active"], ["phase", "p1"], ["ticket", "task1"], ["flash", "virus"]]]]
         },
         { id: "tg-ticket1-fallback", on: "event:boot-done", if: { all: [{ flag: "virus_opened" }, { not: "task1_active" }] }, do: [["set", "task1_active"], ["phase", "p1"], ["delay", 1200, [["ticket", "task1"]]]] },
-        { id: "tg-ticket1-seen", on: "event:ticket-open:task1", do: [["set", "ticket1_seen"]] },
-        /* 右键卸载/删除 → 蓝屏 → 重启 → 软件里多两行"已修复"（可选支线） */
+        { id: "tg-seller-r1", on: "event:choice:ask_letters", do: [["delay", 6000, [["set", "seller_r1"]]]] },
         { id: "tg-bsod-done", on: "event:bsod-done", do: [["set", "delete_attempted"], ["set", "sys_repaired"]] },
 
-        /* ---------- 第一案：她的电脑 ---------- */
-        { id: "tg-connected", on: "event:connected:t1", do: [["set", "entered_t1"], ["toast", "tip.connected"]] },
-        { id: "tg-bili-read", on: "event:bili-video:v1", do: [["set", "t1_bili_read"]] },
-        { id: "tg-to-chat", on: "change", if: { all: [{ flag: "t1_xhs_read" }, { not: "t1_chat_read" }] }, do: [["toast", "tip.chat", "chat"], ["badge", "chat", 1]] },
-        { id: "tg-to-diary", on: "change", if: { all: [{ flag: "t1_chat_read" }, { not: "t1_diary_read" }] }, do: [["toast", "tip.diary", "files"], ["badge", "files", 1]] },
-        { id: "tg-to-mom", on: "change", if: { all: [{ flag: "t1_chat_read" }, { flag: "t1_diary_read" }, { not: "t1_mom_read" }] }, do: [["toast", "tip.mom", "chat"], ["badge", "chat", 1]] },
-        { id: "tg-to-bili", on: "change", if: { all: [{ flag: "t1_mom_read" }, { not: "t1_bili_read" }] }, do: [["toast", "tip.bili", "browser"], ["badge", "browser", 1]] },
-        { id: "tg-to-site", on: "change", if: { all: [{ flag: "t1_mom_read" }, { flag: "t1_bili_read" }, { not: "t1_site_read" }] }, do: [["toast", "tip.site", "browser"], ["badge", "browser", 1]] },
-        { id: "tg-to-doc", on: "change", if: { all: [{ flag: "t1_site_read" }, { not: "t1_doc_read" }] }, do: [["toast", "tip.doc", "files"], ["badge", "files", 1]] },
-        { id: "tg-to-mail", on: "change", if: { all: [{ flag: "t1_doc_read" }, { not: "t1_mail_read" }] }, do: [["toast", "tip.mail", "browser"], ["badge", "browser", 1]] },
-        {
-            id: "tg-located", on: "change",
-            if: { all: [{ flag: "t1_xhs_read" }, { flag: "t1_chat_read" }, { flag: "t1_diary_read" }, { flag: "t1_mom_read" }, { flag: "t1_bili_read" }, { flag: "t1_site_read" }, { flag: "t1_doc_read" }, { flag: "t1_mail_read" }, { not: "task1_located" }] },
-            do: [["set", "task1_located"], ["toast", "tip.located"]]
-        },
-        { id: "tg-back-home", on: "event:connected:own", if: { all: [{ flag: "task1_located" }, { not: "lin_contact" }] }, do: [["badge", "virus", 1], ["flash", "virus"]] },
-        /* 5.5 联系她 */
-        { id: "tg-lin-contact", on: "change", if: { flag: "lin_contact" }, do: [["delay", 800, [["toast", "tip.lin.contact", "chat"]]]] },
-        { id: "tg-lin-c1", on: "event:choice:lin_c1", do: [["delay", 4500, [["set", "lin_c1_typed"], ["toast", "tip.lin.silent"]]]] },
+        /* ---------- 第一案：软件自己在她电脑里扫，扫到旅馆邮件（或接入满四分钟）就报"已确认位置" ---------- */
+        { id: "tg-connected", on: "event:connected:t1", do: [["set", "entered_t1"], ["delay", 240000, [["emit", "locate1"]]]] },
+        { id: "tg-locate-mail", on: "event:read-mail:m_hotel", do: [["delay", 20000, [["emit", "locate1"]]]] },
+        { id: "tg-locate1", on: "event:locate1", if: { not: "task1_located" }, do: [["set", "task1_located"], ["sound", "windows-10-notify-system-sound.mp3", 0.5], ["flash", "virus"], ["badge", "virus", 1]] },
+        { id: "tg-added-lin", on: "event:add-contact:c_lin", do: [["set", "lin_contact"]] },
+        { id: "tg-lin-c1", on: "event:choice:lin_c1", do: [["delay", 4500, [["set", "lin_c1_typed"]]]] },
         { id: "tg-lin-c2", on: "event:choice:lin_c2", do: [["delay", 15000, [["set", "lin_r1"]]]] },
         {
             id: "tg-lin-c3", on: "event:choice:lin_c3",
             do: [["delay", 18000, [["set", "lin_r2"]]],
-            ["delay", 48000, [["set", "lin_r3"], ["set", "lin_reconnected"], ["toast", "tip.lin.reconnected", "virus"], ["badge", "virus", 1], ["flash", "virus"]]],
-            ["delay", 56000, [["toast", "tip.lin.pick"]]]]
+            ["delay", 48000, [["set", "lin_r3"], ["set", "lin_reconnected"], ["flash", "virus"], ["badge", "virus", 1], ["sound", "windows-10-notify-system-sound.mp3", 0.5]]]]
         },
         /* 5.6 A：软件安排的人 */
         {
@@ -912,63 +894,49 @@ window.DB = (function () {
             do: [["set", "lin_routed"], ["set", "lin_route_a"], ["set", "lin_dead"],
             ["delay", 8000, [["set", "lin_a_r1"]]],
             ["delay", 45000, [["set", "lin_a_r2"]]],
-            ["delay", 70000, [["advance", 3], ["set", "days_after1"], ["toast", "tip.days"]]],
-            ["delay", 76000, [["set", "lin_news_out"], ["toast", "tip.news", "browser"], ["flash", "browser"]]]]
+            ["delay", 70000, [["advance", 3], ["set", "days_after1"]]],
+            ["delay", 76000, [["set", "lin_news_out"]]],
+            ["delay", 84000, [["set", "chen_news"]]]]
         },
         /* 5.6 B：她认识的人 */
         {
             id: "tg-lin-b", on: "event:choice:lin_route_b",
             do: [["set", "lin_routed"], ["set", "lin_route_b"], ["set", "lin_alive"],
             ["delay", 6000, [["set", "lin_b_r1"]]],
-            ["delay", 32000, [["set", "qing_contact"], ["toast", "tip.qing", "chat"]]],
+            ["delay", 32000, [["set", "qing_contact"]]],
             ["delay", 36000, [["set", "qing_r1"]]],
-            ["delay", 44000, [["set", "argus_fail1"], ["toast", "tip.fail", "virus"], ["badge", "virus", 1], ["flash", "virus"]]],
-            ["delay", 72000, [["advance", 3], ["set", "days_after1"], ["toast", "tip.days"]]],
-            ["delay", 78000, [["set", "lin_cat"], ["toast", "tip.cat", "chat"]]]]
+            ["delay", 44000, [["set", "argus_fail1"], ["flash", "virus"], ["badge", "virus", 1]]],
+            ["delay", 72000, [["advance", 3], ["set", "days_after1"]]],
+            ["delay", 78000, [["set", "lin_cat"]]]]
         },
-        { id: "tg-lin-supp", on: "event:virus-action:act_supp", do: [] },
         { id: "tg-news-lin", on: "event:read-news:n_lin", do: [["set", "lin_news_read"]] },
-        { id: "tg-cat-read", on: "event:open-chat:c_lin", if: { flag: "lin_cat" }, do: [["set", "lin_cat_read"]] },
-        /* 5.7 通向第二案 */
-        { id: "tg-seller2-avail", on: "change", if: { all: [{ any: [{ flag: "lin_news_read" }, { flag: "lin_cat_read" }] }, { not: "seller_ask2_avail" }] }, do: [["set", "seller_ask2_avail"], ["delay", 2500, [["toast", "tip.seller2", "chat"]]]] },
+        { id: "tg-seller2-avail", on: "change", if: { all: [{ any: [{ flag: "lin_news_read" }, { flag: "lin_cat" }] }, { not: "seller_ask2_avail" }] }, do: [["set", "seller_ask2_avail"]] },
         {
             id: "tg-seller-r2", on: "event:choice:ask_lin",
-            do: [["delay", 7000, [["set", "seller_r2"], ["toast", "tip.seller.odd"]]],
-            ["delay", 24000, [["set", "task2_active"], ["phase", "p2"], ["ticket", "task2"], ["badge", "virus", 1], ["flash", "virus"]]]]
+            do: [["delay", 7000, [["set", "seller_r2"]]],
+            ["delay", 24000, [["set", "task2_active"], ["set", "archive_open"], ["phase", "p2"], ["ticket", "task2"], ["flash", "virus"]]]]
         },
-        { id: "tg-ticket2-fallback", on: "event:boot-done", if: { all: [{ flag: "seller_r2" }, { not: "task2_active" }] }, do: [["set", "task2_active"], ["phase", "p2"], ["delay", 1200, [["ticket", "task2"]]]] },
-        { id: "tg-ticket2-seen", on: "event:ticket-open:task2", do: [["set", "ticket2_seen"], ["delay", 1500, [["toast", "tip.t2.start", "browser"]]]] },
+        { id: "tg-ticket2-fallback", on: "event:boot-done", if: { all: [{ flag: "seller_r2" }, { not: "task2_active" }] }, do: [["set", "task2_active"], ["set", "archive_open"], ["phase", "p2"], ["delay", 1200, [["ticket", "task2"]]]] },
 
         /* ---------- 第二案 ---------- */
-        { id: "tg-t2-courier", on: "change", if: { all: [{ flag: "mk_read" }, { not: "courier_read" }] }, do: [["toast", "tip.t2.courier", "chat"]] },
-        { id: "tg-t2-ask", on: "change", if: { all: [{ flag: "mk_read" }, { flag: "courier_read" }, { not: "ask_sys" }] }, do: [["toast", "tip.t2.ask", "chat"]] },
-        { id: "tg-seller-r3", on: "event:choice:ask_sys", do: [["delay", 6000, [["set", "seller_r3"], ["toast", "tip.seller.same"]]], ["delay", 12000, [["toast", "tip.t2.s2", "browser"]]]] },
-        { id: "tg-t2-wu", on: "change", if: { all: [{ flag: "lizimu_read" }, { not: "wu_log_read" }] }, do: [["toast", "tip.t2.wu", "files"], ["badge", "files", 1]] },
-        {
-            id: "tg-archive", on: "change",
-            if: { all: [{ flag: "lizimu_read" }, { flag: "wu_log_read" }, { flag: "wu_chat_read" }, { not: "archive_open" }] },
-            do: [["set", "archive_open"], ["toast", "tip.archive", "virus"], ["badge", "virus", 1], ["flash", "virus"]]
-        },
-        { id: "tg-archive-read", on: "event:virus-tab:archive", if: { flag: "archive_open" }, do: [["set", "archive_read"], ["delay", 9000, [["toast", "tip.t2.s4", "files"]]]] },
-        { id: "tg-zip-wrong", on: "event:zip-wrong:backup_zip", do: [["toast", "tip.zip.hint", "files"]] },
-        { id: "tg-zip-open", on: "event:zip-open:backup_zip", do: [["delay", 1500, [["toast", "tip.backup", "files"]]]] },
-        { id: "tg-ning-contact", on: "change", if: { all: [{ flag: "rec_done" }, { flag: "ning_mail_read" }, { not: "ning_contact" }] }, do: [["set", "ning_contact"], ["toast", "tip.ning", "chat"]] },
+        { id: "tg-seller-r3", on: "event:choice:ask_sys", do: [["delay", 6000, [["set", "seller_r3"]]]] },
+        { id: "tg-added-ning", on: "event:add-contact:c_ning", do: [["set", "ning_contact"]] },
         { id: "tg-ning-r1", on: "event:choice:ning_c1", do: [["delay", 9000, [["set", "ning_r1"]]]] },
         { id: "tg-ning-r2", on: "event:choice:ning_c2", do: [["delay", 12000, [["set", "ning_r2"]]]] },
         {
             id: "tg-ning-r3", on: "event:choice:ning_c3",
             do: [["delay", 9000, [["set", "ning_r3"], ["set", "ning_calling"]]],
-            ["delay", 15000, [["toast", "tip.argus.progress", "virus"], ["badge", "virus", 1], ["flash", "virus"]]],
-            ["delay", 24000, [["toast", "tip.ning.pick"]]]]
+            ["delay", 24000, [["flash", "virus"], ["badge", "virus", 1], ["sound", "windows-10-notify-system-sound.mp3", 0.5]]]]
         },
         /* 6.6 A：向软件回报 */
         {
             id: "tg-sun-a", on: "event:pickup:task2",
             do: [["set", "sun_routed"], ["set", "sun_route_a"], ["set", "sun_dead"],
             ["delay", 30000, [["set", "ning_a_r1"]]],
-            ["delay", 62000, [["advance", 2], ["set", "sun_news_out"], ["toast", "tip.news", "browser"], ["flash", "browser"]]]]
+            ["delay", 62000, [["advance", 2], ["set", "sun_news_out"]]],
+            ["delay", 72000, [["set", "ning_a_r2"], ["set", "evidence_half2"]]]]
         },
-        { id: "tg-news-sun", on: "event:read-news:n_sun", do: [["set", "sun_news_read"], ["delay", 6000, [["set", "ning_a_r2"], ["set", "evidence_half2"], ["toast", "tip.envelope", "files"]]]] },
+        { id: "tg-news-sun", on: "event:read-news:n_sun", do: [["set", "sun_news_read"]] },
         /* 6.6 B：与孙宁一起接住他 */
         {
             id: "tg-sun-b", on: "event:choice:ning_route_b",
@@ -979,33 +947,32 @@ window.DB = (function () {
         },
         { id: "tg-sun-dec1", on: "event:call-decline:call_sun", do: [["delay", 300, [["set", "sun_dec1"]]], ["delay", 14000, [["call", "call_sun"]]]] },
         { id: "tg-sun-miss1", on: "event:call-missed:call_sun", do: [["delay", 300, [["set", "sun_dec1"]]], ["delay", 14000, [["call", "call_sun"]]]] },
-        { id: "tg-sun-dec2", on: "event:call-decline:call_sun", if: { flag: "sun_dec1" }, do: [["delay", 8000, [["set", "sun_call_skipped"], ["set", "sun_file"], ["set", "evidence_half2"], ["toast", "tip.evidence", "files"]]]] },
-        { id: "tg-sun-miss2", on: "event:call-missed:call_sun", if: { flag: "sun_dec1" }, do: [["delay", 8000, [["set", "sun_call_skipped"], ["set", "sun_file"], ["set", "evidence_half2"], ["toast", "tip.evidence", "files"]]]] },
-        { id: "tg-sun-end", on: "event:call-end:call_sun", do: [["set", "sun_call_done"], ["delay", 5000, [["set", "sun_file"], ["set", "evidence_half2"], ["toast", "tip.evidence", "files"]]]] },
-        /* 6.7 通向第三案 */
-        { id: "tg-record", on: "change", if: { flag: "evidence_half2" }, do: [["delay", 9000, [["toast", "tip.record", "files"], ["badge", "files", 1]]]] },
+        { id: "tg-sun-dec2", on: "event:call-decline:call_sun", if: { flag: "sun_dec1" }, do: [["delay", 8000, [["set", "sun_call_skipped"], ["set", "sun_file"], ["set", "evidence_half2"]]]] },
+        { id: "tg-sun-miss2", on: "event:call-missed:call_sun", if: { flag: "sun_dec1" }, do: [["delay", 8000, [["set", "sun_call_skipped"], ["set", "sun_file"], ["set", "evidence_half2"]]]] },
+        { id: "tg-sun-end", on: "event:call-end:call_sun", do: [["set", "sun_call_done"], ["delay", 5000, [["set", "sun_file"], ["set", "evidence_half2"]]]] },
+        /* 6.7 → 第三案：证据到手五十秒后，它注意到了 */
+        { id: "tg-ticket3", on: "change", if: { all: [{ flag: "evidence_half2" }, { not: "task3_active" }] }, do: [["delay", 50000, [["emit", "ticket3"]]]] },
         {
-            id: "tg-ticket3", on: "event:read-file:record",
-            do: [["set", "record_read"],
-            ["delay", 3000, [["fx", 1200], ["scare", "windows-10-bsod-sound.mp3", { rate: 0.5, drive: 10, gain: 1.1 }]]],
-            ["delay", 4300, [["blackout", 1800]]],
-            ["delay", 6100, [["set", "task3_active"], ["set", "own_watched"], ["set", "shutdown_avail"], ["phase", "p3"], ["ticket", "task3"], ["toast", "tip.watched"]]]]
+            id: "tg-ticket3-go", on: "event:ticket3", if: { not: "task3_active" },
+            do: [["fx", 1200], ["scare", "windows-10-bsod-sound.mp3", { rate: 0.5, drive: 10, gain: 1.1 }],
+            ["delay", 1300, [["blackout", 1800]]],
+            ["delay", 3100, [["set", "task3_active"], ["set", "own_watched"], ["set", "shutdown_avail"], ["phase", "p3"], ["ticket", "task3"]]]]
         },
-        { id: "tg-ticket3-fallback", on: "event:boot-done", if: { all: [{ flag: "record_read" }, { not: "task3_active" }] }, do: [["set", "task3_active"], ["set", "own_watched"], ["set", "shutdown_avail"], ["phase", "p3"], ["delay", 1200, [["ticket", "task3"]]]] },
-        { id: "tg-ticket3-seen", on: "event:ticket-open:task3", do: [["set", "ticket3_seen"]] },
+        { id: "tg-ticket3-fallback", on: "event:boot-done", if: { all: [{ flag: "evidence_half2" }, { not: "task3_active" }] }, do: [["delay", 1500, [["emit", "ticket3"]]]] },
 
-        /* ---------- 第三案 ---------- */
-        { id: "tg-agent", on: "change", if: { flag: "task3_active" }, do: [["delay", 14000, [["set", "agent_msg1"], ["toast", "tip.agent", "chat"]]]] },
-        { id: "tg-agent-read", on: "event:open-chat:c_agent", do: [["set", "agent_read"], ["delay", 22000, [["set", "mom_prefill"], ["toast", "tip.mom.prefill", "chat"]]], ["delay", 100000, [["emit", "sim-start"]]]] },
+        /* ---------- 第三案：全部按时间来 ---------- */
+        {
+            id: "tg-agent", on: "change", if: { flag: "task3_active" },
+            do: [["delay", 14000, [["set", "agent_msg1"]]], ["delay", 40000, [["set", "mom_prefill"]]], ["delay", 110000, [["emit", "sim-start"]]]]
+        },
         { id: "tg-agent-r1", on: "event:choice:agent_who", do: [["delay", 8000, [["set", "agent_r1"]]]] },
         { id: "tg-agent-r2", on: "event:choice:agent_no", do: [["delay", 6000, [["set", "agent_r2"]]]] },
         { id: "tg-mom-lie", on: "event:choice:mom_lie", do: [["set", "mom_replied"], ["delay", 9000, [["set", "mom_r_lie"]]]] },
         { id: "tg-mom-honest", on: "event:choice:mom_honest", do: [["set", "mom_replied"], ["delay", 12000, [["set", "mom_r_honest"]]]] },
-        /* 7.3 同时响起的消息 */
         { id: "tg-sim-a", on: "change", if: { all: [{ flag: "mom_replied" }, { not: "sim_started" }] }, do: [["delay", 6000, [["emit", "sim-start"]]]] },
         {
             id: "tg-sim", on: "event:sim-start", if: { not: "sim_started" },
-            do: [["set", "sim_started"], ["set", "seller_msg_down"], ["set", "fake_chen"], ["toast", "tip.sim", "chat"], ["flash", "chat"],
+            do: [["set", "sim_started"], ["set", "seller_msg_down"], ["set", "fake_chen"], ["flash", "chat"],
             ["delay", 9000, [["call", "call_chen"]]]]
         },
         { id: "tg-chen2-r1", on: "event:choice:chen2_ask", do: [["delay", 5000, [["set", "fake_r1"]]]] },
@@ -1014,16 +981,14 @@ window.DB = (function () {
         { id: "tg-chen-dec2", on: "event:call-decline:call_chen", if: { flag: "chen_dec1" }, do: [["delay", 6000, [["set", "chen_text"], ["set", "chen_helping"]]]] },
         { id: "tg-chen-miss2", on: "event:call-missed:call_chen", if: { flag: "chen_dec1" }, do: [["delay", 6000, [["set", "chen_text"], ["set", "chen_helping"]]]] },
         { id: "tg-chen-end", on: "event:call-end:call_chen", do: [["set", "chen_call_done"]] },
-        /* 7.4 真相：家属留言原件 */
-        { id: "tg-truth-unlock", on: "change", if: { flag: "chen_helping" }, do: [["delay", 7000, [["set", "truth_unlock"], ["toast", "tip.truth", "virus"], ["badge", "virus", 1], ["flash", "virus"]]]] },
+        /* 7.5 阿澄找到人了；软件开出新条件；二手平台出现代拟的帖子；询价的人来了 */
         {
-            id: "tg-truth-read", on: "event:read-file:fam_full",
-            do: [["set", "truth_read"], ["delay", 2500, [["toast", "tip.truth.read"]]],
-            ["delay", 20000, [["set", "chen_plan"], ["toast", "tip.chen.plan", "chat"], ["flash", "chat"]]],
-            ["delay", 34000, [["set", "argus_cond"], ["set", "sale_post"], ["badge", "virus", 1]]],
-            ["delay", 48000, [["set", "buyer_msg"], ["toast", "tip.buyer", "chat"]]]]
+            id: "tg-chen-plan", on: "change", if: { flag: "chen_helping" },
+            do: [["delay", 25000, [["set", "chen_plan"], ["flash", "chat"]]],
+            ["delay", 33000, [["set", "chen_nudge"]]],
+            ["delay", 50000, [["set", "argus_cond"], ["set", "sale_post"], ["flash", "virus"], ["badge", "virus", 1]]],
+            ["delay", 64000, [["set", "buyer_msg"]]]]
         },
-        /* 7.5 最后的交换 */
         { id: "tg-chen-send", on: "event:choice:chen_send", do: [["set", "evidence_sent"], ["delay", 6000, [["set", "chen_r_send"]]], ["delay", 42000, [["set", "chen_arrived"], ["flash", "chat"]]]] },
         { id: "tg-chen-leave", on: "event:choice:chen_leave", do: [["set", "leave_alone"], ["delay", 2500, [["ending", "end_normal"]]]] },
         { id: "tg-end-true", on: "event:choice:chen_out", if: { all: [{ flag: "evidence_sent" }, { flag: "sun_alive" }, { flag: "lin_alive" }] }, do: [["delay", 2500, [["ending", "end_true"]]]] },
@@ -1033,62 +998,13 @@ window.DB = (function () {
         { id: "tg-end-bad2", on: "event:choice:seller_down", do: [["set", "bad_pickup"], ["delay", 2500, [["ending", "end_bad"]]]] },
         { id: "tg-end-loop", on: "event:choice:buyer_yes", do: [["set", "sold"], ["delay", 2500, [["ending", "end_loop"]]]] },
         { id: "tg-buyer-no", on: "event:choice:buyer_no", do: [["delay", 5000, [["set", "buyer_r2"]]]] },
-        { id: "tg-destroyed", on: "change", if: { all: [{ flag: "del_backup" }, { flag: "del_record" }, { flag: "del_half2" }, { not: "evidence_destroyed" }] }, do: [["set", "evidence_destroyed"], ["toast", "tip.destroyed"]] },
+        { id: "tg-destroyed", on: "change", if: { all: [{ flag: "del_backup" }, { flag: "del_record" }, { flag: "del_half2" }, { not: "evidence_destroyed" }] }, do: [["set", "evidence_destroyed"]] },
         { id: "tg-shutdown-hidden", on: "event:shutdown", if: { all: [{ flag: "evidence_destroyed" }, { not: "evidence_sent" }] }, do: [["ending", "end_hidden"]] },
         { id: "tg-shutdown-block", on: "event:shutdown", repeat: true, if: { any: [{ not: "evidence_destroyed" }, { flag: "evidence_sent" }] }, do: [["set", "shutdown_blocked"], ["sound", "windowsError.mp3", 0.6], ["dialog", "virus.exit.fail.title", "tip.shutdown.block"]] }
     ];
 
     /* ================= 亮点表（首个命中 = 当前唯一亮点） ================= */
-    var HINTS = [
-        { if: { not: "read_note1" }, target: "file:note1" },
-        { if: { not: "read_note2" }, target: "file:note2" },
-        { if: { not: "read_note3" }, target: "file:note3" },
-        { if: { all: [{ flag: "virus_found" }, { not: "virus_opened" }] }, target: "icon:virus" },
-        { if: { all: [{ flag: "virus_opened" }, { not: "task1_active" }] }, target: "virus:close" },
-        { if: { all: [{ flag: "task1_active" }, { not: "ticket1_seen" }] }, target: "virus:popup" },
-        { if: { all: [{ flag: "task1_active" }, { not: "entered_t1" }] }, target: ["icon:virus", "virus:enter"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_xhs_read" }] }, target: ["icon:xhs", "xhs:p5"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_chat_read" }] }, target: ["icon:chat", "chat:c_scam"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_diary_read" }] }, target: ["icon:files", "file:t1_diary"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_mom_read" }] }, target: ["icon:chat", "chat:c_lmom"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_bili_read" }] }, target: ["icon:browser", "bm:hist", "hist:e_bili"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_site_read" }] }, target: ["icon:browser", "bm:pg_site"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_doc_read" }] }, target: ["icon:files", "file:t1_doc_old"] },
-        { if: { all: [{ source: "t1" }, { not: "t1_mail_read" }] }, target: ["icon:browser", "bm:pg_mail", "mail:m_hotel"] },
-        { if: { all: [{ source: "t1" }, { flag: "task1_located" }, { not: "lin_contact" }] }, target: "monitor:exit" },
-        { if: { all: [{ source: "own" }, { flag: "task1_located" }, { not: "lin_contact" }] }, target: ["icon:virus", "virus:action:act_contact"] },
-        { if: { all: [{ flag: "lin_contact" }, { not: "lin_c1" }] }, target: ["icon:chat", "chat:c_lin", "choice:lin_c1"] },
-        { if: { all: [{ flag: "lin_c1_typed" }, { not: "lin_c2" }] }, target: ["chat:c_lin", "choice:lin_c2"] },
-        { if: { all: [{ flag: "lin_r1" }, { not: "lin_c3" }] }, target: ["chat:c_lin", "choice:lin_c3"] },
-        { if: { all: [{ flag: "lin_reconnected" }, { not: "lin_routed" }] }, target: ["icon:chat", "chat:c_lin"] },
-        { if: { all: [{ flag: "lin_news_out" }, { not: "lin_news_read" }] }, target: ["icon:browser", "bm:pg_news", "news:n_lin"] },
-        { if: { all: [{ flag: "lin_cat" }, { not: "lin_cat_read" }] }, target: ["icon:chat", "chat:c_lin"] },
-        { if: { all: [{ flag: "seller_ask2_avail" }, { not: "ask_lin" }] }, target: ["icon:chat", "chat:c_seller", "choice:ask_lin"] },
-        { if: { all: [{ flag: "task2_active" }, { not: "ticket2_seen" }] }, target: "virus:popup" },
-        { if: { all: [{ flag: "task2_active" }, { not: "mk_read" }] }, target: ["icon:browser", "bm:pg_market", "post:mk_sun"] },
-        { if: { all: [{ flag: "mk_read" }, { not: "courier_read" }] }, target: ["icon:chat", "chat:c_courier"] },
-        { if: { all: [{ flag: "courier_read" }, { not: "ask_sys" }] }, target: ["icon:chat", "chat:c_seller", "choice:ask_sys"] },
-        { if: { all: [{ flag: "seller_r3" }, { not: "lizimu_read" }] }, target: ["icon:browser", "bm:hist", "hist:e_lizimu"] },
-        { if: { all: [{ flag: "lizimu_read" }, { not: "wu_log_read" }] }, target: ["icon:files", "file:wu_log"] },
-        { if: { all: [{ flag: "wu_log_read" }, { not: "wu_chat_read" }] }, target: ["icon:files", "file:wu_chat"] },
-        { if: { all: [{ flag: "archive_open" }, { not: "archive_read" }] }, target: ["icon:virus", "virus:tab:archive"] },
-        { if: { all: [{ flag: "archive_read" }, { not: "anan_photo_read" }] }, target: ["icon:files", "file:photo_anan"] },
-        { if: { all: [{ flag: "anan_photo_read" }, { not: "backup_open" }] }, target: ["icon:recycle", "file:backup_zip"] },
-        { if: { all: [{ flag: "backup_open" }, { not: "rec_done" }] }, target: ["icon:files", "file:rec_sun"] },
-        { if: { all: [{ flag: "rec_done" }, { not: "ning_mail_read" }] }, target: ["icon:files", "file:mail_ning"] },
-        { if: { all: [{ flag: "ning_contact" }, { not: "ning_c1" }] }, target: ["icon:chat", "chat:c_ning", "choice:ning_c1"] },
-        { if: { all: [{ flag: "ning_r1" }, { not: "ning_c2" }] }, target: ["chat:c_ning", "choice:ning_c2"] },
-        { if: { all: [{ flag: "ning_r2" }, { not: "ning_c3" }] }, target: ["chat:c_ning", "choice:ning_c3"] },
-        { if: { all: [{ flag: "ning_calling" }, { not: "sun_routed" }] }, target: ["icon:chat", "chat:c_ning"] },
-        { if: { all: [{ flag: "sun_news_out" }, { not: "sun_news_read" }] }, target: ["icon:browser", "bm:pg_news", "news:n_sun"] },
-        { if: { all: [{ flag: "evidence_half2" }, { not: "record_read" }] }, target: ["icon:files", "file:record"] },
-        { if: { all: [{ flag: "task3_active" }, { not: "ticket3_seen" }] }, target: "virus:popup" },
-        { if: { all: [{ flag: "agent_msg1" }, { not: "agent_read" }] }, target: ["icon:chat", "chat:c_agent"] },
-        { if: { all: [{ flag: "mom_prefill" }, { not: "mom_replied" }] }, target: ["icon:chat", "chat:c_mom"] },
-        { if: { all: [{ flag: "truth_unlock" }, { not: "truth_read" }] }, target: ["icon:virus", "virus:attach:fam_full"] },
-        { if: { all: [{ flag: "chen_plan" }, { not: "evidence_sent" }, { not: "leave_alone" }] }, target: ["icon:chat", "chat:c_chen"] },
-        { if: { flag: "chen_arrived" }, target: ["icon:chat", "chat:c_chen", "choice:chen_out"] }
-    ];
+    var HINTS = [];   /* 不再用发光亮点当路标：线索靠自己找，推进靠时间和你发出去的话 */
 
     /* ================= 文件夹 ================= */
     var FOLDERS = [
@@ -1105,20 +1021,25 @@ window.DB = (function () {
 
     /* ================= 两台电脑 ================= */
     var SYS_ADDED = { from: "sys", ref: "chat.sys.added" };
+    /* 微信里能搜到的人：输入微信号 → 资料页 → 添加到通讯录 → 会话出现（flag = added_<chat>） */
+    var CONTACTS = [
+        { chat: "c_lin", ids: ["wanwan0315"], nameRef: "chat.lin.name", wxidRef: "contact.lin.id", regionRef: "contact.lin.region", signRef: "contact.lin.sign", avatar: IMG.lin, flag: "added_c_lin" },
+        { chat: "c_ning", ids: ["sunning_maple"], nameRef: "chat.ning.name", wxidRef: "contact.ning.id", regionRef: "contact.ning.region", signRef: "contact.ning.sign", avatar: IMG.ning, flag: "added_c_ning" }
+    ];
     var DEVICES = {
         own: {
             desktop: { wallpaper: "image/wallpaper.jpg", homeRef: "own.home", icons: ["browser", "chat", "files", "mypc", "recycle", "virus"] },
             bookmarks: [{ page: "pg_news", labelRef: "news.site" }, { page: "pg_market", labelRef: "market.site" }],
             files: [
                 { id: "note1", date: "2024/9/28 3:10", size: "1 KB", folder: "desktop", nameRef: "file.note1.name", type: "txt", bodyRef: "file.note1.body", sets: "read_note1" },
-                { id: "note2", date: "2024/9/28 3:12", size: "1 KB", folder: "desktop", nameRef: "file.note2.name", type: "txt", bodyRef: "file.note2.body", locked: { flag: "read_note1" }, sets: "read_note2" },
-                { id: "note3", date: "2024/3/14 23:41", size: "1 KB", folder: "desktop", nameRef: "file.note3.name", type: "txt", bodyRef: "file.note3.body", locked: { flag: "read_note2" }, sets: "read_note3" },
+                { id: "note2", date: "2024/9/28 3:12", size: "1 KB", folder: "desktop", nameRef: "file.note2.name", type: "txt", bodyRef: "file.note2.body", sets: "read_note2" },
+                { id: "note3", date: "2024/3/14 23:41", size: "1 KB", folder: "desktop", nameRef: "file.note3.name", type: "txt", bodyRef: "file.note3.body", sets: "read_note3" },
                 { id: "photo_anan", date: "2019/6/2 14:31", size: "2.8 MB", folder: "downloads", nameRef: "file.anan.name", type: "img", img: IMG.anan, metaRefs: ["file.anan.meta1", "file.anan.meta2", "file.anan.meta3", "file.anan.meta4"], sets: "anan_photo_read" },
                 { id: "installer", date: "2009/11/30 4:44", size: "6.2 MB", folder: "downloads", nameRef: "file.installer.name", type: "exe", dlgTitleRef: "file.installer.dlg.title", dlgBodyRef: "file.installer.dlg.body" },
                 /* 第二案：旧任务 */
-                { id: "wu_log", date: "2024/5/24 1:07", size: "2 KB", folder: "oldcase", nameRef: "wu.log.name", type: "txt", bodyRef: "wu.log.body", visible: { flag: "task2_active" }, sets: "wu_log_read" },
-                { id: "wu_chat", date: "2024/5/24 0:51", size: "3 KB", folder: "oldcase", nameRef: "wu.chat.name", type: "txt", bodyRef: "wu.chat.body", visible: { flag: "task2_active" }, sets: "wu_chat_read" },
-                { id: "wu_news", date: "2024/5/23 22:16", size: "1 KB", folder: "oldcase", nameRef: "wu.news.name", type: "txt", bodyRef: "wu.news.body", visible: { flag: "task2_active" }, sets: "wu_news_read" },
+                { id: "wu_log", date: "2024/5/24 1:07", size: "2 KB", folder: "oldcase", nameRef: "wu.log.name", type: "txt", bodyRef: "wu.log.body", sets: "wu_log_read" },
+                { id: "wu_chat", date: "2024/5/24 0:51", size: "3 KB", folder: "oldcase", nameRef: "wu.chat.name", type: "txt", bodyRef: "wu.chat.body", sets: "wu_chat_read" },
+                { id: "wu_news", date: "2024/5/23 22:16", size: "1 KB", folder: "oldcase", nameRef: "wu.news.name", type: "txt", bodyRef: "wu.news.body", sets: "wu_news_read" },
                 /* 回收站里的加密备份 */
                 { id: "backup_zip", folder: "recycle", nameRef: "zip.name", type: "zip", dateRef: "zip.date", sizeRef: "zip.size", zip: { passwordRef: "zip.pwd", hintRef: "zip.hint", unlocks: "backup_open" }, deletable: "del_backup", visible: { not: "del_backup" } },
                 { id: "rec_sun", date: "2024/9/27 23:58", size: "1.4 MB", folder: "backup", nameRef: "rec.name", type: "audio", visible: { all: [{ flag: "backup_open" }, { not: "del_backup" }] }, sets: "rec_read", audio: { dur: 58, doneFlag: "rec_done", lines: [{ at: 1, ref: "rec.l1" }, { at: 7, ref: "rec.l2" }, { at: 15, ref: "rec.l3" }, { at: 22, ref: "rec.l4" }, { at: 30, ref: "rec.l5", pause: true }, { at: 42, ref: "rec.l6" }, { at: 52, ref: "rec.l7" }] } },
@@ -1130,7 +1051,7 @@ window.DB = (function () {
                 { id: "record", date: "2024/9/27 22:03", size: "88 KB", folder: "evidence", nameRef: "record.name", type: "pdf", visible: { all: [{ flag: "evidence_half2" }, { not: "del_record" }] }, deletable: "del_record", sets: "record_read", doc: { titleRef: "record.title", bodyRefs: ["record.p1", "record.p2", "record.p3", "record.p4", "record.p5"], noteRef: "record.note" } },
                 /* 软件附件 */
                 { id: "fam_short", date: "2024/10/3 21:24", size: "1 KB", folder: "argus", nameRef: "fam.short.name", type: "txt", bodyRef: "fam.short.body", visible: { flag: "task1_active" } },
-                { id: "fam_full", date: "2024/10/3 21:24", size: "1 KB", folder: "argus", nameRef: "fam.full.name", type: "txt", bodyRef: "fam.full.body", visible: { flag: "truth_unlock" } }
+                { id: "fam_full", date: "2024/10/3 21:24", size: "1 KB", folder: "argus", nameRef: "fam.full.name", type: "txt", bodyRef: "fam.full.body", visible: { flag: "task1_active" } }
             ],
             chats: [
                 {
@@ -1163,10 +1084,12 @@ window.DB = (function () {
                     messages: [
                         { at: "2024-10-02 19:40", from: "them", ref: "chat.chen.m1" }, { from: "me", ref: "chat.chen.m2" },
                         { from: "them", ref: "chat.chen.m3", if: { flag: "days_after1" } },
+                        { from: "them", ref: "chat.chen.news", if: { flag: "chen_news" } },
                         { from: "them", ref: "chat.chen.m4", if: { flag: "sun_routed" } },
                         { from: "them", ref: "chat.chen.m5", if: { flag: "chen_msg_pick" } },
                         { from: "them", ref: "chat.chen.m6", if: { flag: "chen_text" } }, { from: "them", ref: "chat.chen.m7", if: { flag: "chen_text" } },
                         { from: "them", ref: "chat.chen.m8", if: { flag: "chen_plan" } },
+                        { from: "them", ref: "chat.chen.nudge", if: { flag: "chen_nudge" } },
                         { from: "me", ref: "chat.chen.c1", if: { flag: "evidence_sent" } }, { from: "them", ref: "chat.chen.r1", if: { flag: "chen_r_send" } },
                         { from: "them", ref: "chat.chen.m9", if: { flag: "chen_arrived" } },
                         { from: "me", ref: "chat.chen.c3", if: { flag: "chen_out" } }
@@ -1201,7 +1124,7 @@ window.DB = (function () {
                     ]
                 },
                 {
-                    id: "c_lin", mode: "own", nameRef: "chat.lin.name", tagRef: "chat.tag.new", avatar: IMG.lin, visible: { flag: "lin_contact" },
+                    id: "c_lin", mode: "own", nameRef: "chat.lin.name", tagRef: "chat.tag.new", avatar: IMG.lin, visible: { flag: "added_c_lin" },
                     typing: { any: [{ all: [{ flag: "lin_c1" }, { not: "lin_c1_typed" }] }, { all: [{ flag: "lin_c3" }, { not: "lin_r3" }] }] },
                     messages: [
                         SYS_ADDED,
@@ -1230,7 +1153,7 @@ window.DB = (function () {
                     messages: [SYS_ADDED, { from: "them", ref: "chat.qing.m1", if: { flag: "qing_r1" } }, { from: "them", ref: "chat.qing.m2", if: { flag: "qing_r1" } }, { from: "them", ref: "chat.qing.m3", if: { flag: "qing_r1" } }]
                 },
                 {
-                    id: "c_ning", mode: "own", nameRef: "chat.ning.name", tagRef: "chat.tag.new", avatar: IMG.ning, visible: { flag: "ning_contact" },
+                    id: "c_ning", mode: "own", nameRef: "chat.ning.name", tagRef: "chat.tag.new", avatar: IMG.ning, visible: { flag: "added_c_ning" },
                     typing: { any: [{ all: [{ flag: "ning_c1" }, { not: "ning_r1" }] }, { all: [{ flag: "ning_c2" }, { not: "ning_r2" }] }, { all: [{ flag: "ning_c3" }, { not: "ning_r3" }] }] },
                     messages: [
                         SYS_ADDED,
@@ -1478,17 +1401,9 @@ window.DB = (function () {
                 { ref: "task1.status.fail", if: { flag: "lin_route_b" }, cls: "fail" },
                 { ref: "task1.status.active", if: { not: "lin_routed" }, cls: "hot" }
             ],
-            steps: [
-                { ref: "task1.step1", done: { flag: "t1_xhs_read" } },
-                { ref: "task1.step2", done: { all: [{ flag: "t1_chat_read" }, { flag: "t1_diary_read" }] }, locked: { flag: "t1_xhs_read" } },
-                { ref: "task1.step3", done: { all: [{ flag: "t1_mom_read" }, { flag: "t1_bili_read" }] }, locked: { all: [{ flag: "t1_chat_read" }, { flag: "t1_diary_read" }] } },
-                { ref: "task1.step4", done: { all: [{ flag: "t1_site_read" }, { flag: "t1_doc_read" }, { flag: "t1_mail_read" }] }, locked: { all: [{ flag: "t1_mom_read" }, { flag: "t1_bili_read" }] } },
-                { ref: "task1.step5", done: { flag: "lin_reconnected" }, locked: { flag: "task1_located" } },
-                { ref: "task1.step6", done: { flag: "lin_routed" }, locked: { flag: "lin_reconnected" } }
-            ],
             log: [
                 { ref: "task1.log.located", if: { flag: "task1_located" } },
-                { ref: "task1.log.contact", if: { flag: "lin_contact" } },
+                { ref: "task1.log.contact", if: { flag: "task1_located" } },
                 { ref: "task1.log.reconnected", if: { flag: "lin_reconnected" } },
                 { ref: "task1.log.pickup", if: { all: [{ flag: "lin_reconnected" }, { not: "lin_routed" }] }, cls: "warn" },
                 { ref: "task1.log.doneA", if: { flag: "lin_route_a" } },
@@ -1497,8 +1412,7 @@ window.DB = (function () {
                 { ref: "task1.log.closedB", if: { flag: "act_supp" }, cls: "dim" }
             ],
             files: [
-                { ref: "task1.file.fam", file: "fam_short" },
-                { ref: "task1.file.famfull", file: "fam_full", if: { flag: "truth_unlock" } }
+                { ref: "task1.file.fam", file: "fam_short" }
             ],
             enter: {},
             form: {
@@ -1511,7 +1425,6 @@ window.DB = (function () {
                 submitRef: "task1.form.submit", emit: "pickup:task1"
             },
             actions: [
-                { id: "act_contact", ref: "task1.act.contact", if: { all: [{ flag: "task1_located" }, { not: "lin_contact" }] }, sets: "lin_contact", primary: true },
                 { id: "act_supp", ref: "task1.act.supp", if: { all: [{ flag: "argus_fail1" }, { not: "act_supp" }] }, sets: "act_supp", danger: true }
             ]
         },
@@ -1522,14 +1435,6 @@ window.DB = (function () {
                 { ref: "task2.status.done", if: { flag: "sun_route_a" }, cls: "done" },
                 { ref: "task2.status.hang", if: { flag: "sun_route_b" }, cls: "fail" },
                 { ref: "task2.status.active", if: { not: "sun_routed" }, cls: "hot" }
-            ],
-            steps: [
-                { ref: "task2.step1", done: { all: [{ flag: "mk_read" }, { flag: "courier_read" }, { flag: "seller_r3" }] } },
-                { ref: "task2.step2", done: { all: [{ flag: "lizimu_read" }, { flag: "wu_log_read" }, { flag: "wu_chat_read" }] }, locked: { flag: "seller_r3" } },
-                { ref: "task2.step3", done: { flag: "archive_read" }, locked: { flag: "archive_open" } },
-                { ref: "task2.step4", done: { all: [{ flag: "backup_open" }, { flag: "rec_done" }, { flag: "ning_mail_read" }] }, locked: { flag: "archive_read" } },
-                { ref: "task2.step5", done: { flag: "ning_calling" }, locked: { flag: "ning_contact" } },
-                { ref: "task2.step6", done: { flag: "sun_routed" }, locked: { flag: "ning_calling" } }
             ],
             log: [
                 { ref: "task2.log.offline", cls: "err" },
@@ -1552,10 +1457,6 @@ window.DB = (function () {
             id: "task3", visible: { flag: "task3_active" },
             titleRef: "task3.title", targetRef: "task3.target", briefRef: "task3.brief", avatar: IMG.receipt,
             status: [{ ref: "task3.status.active", cls: "hot" }],
-            steps: [
-                { ref: "task3.step1", done: { flag: "agent_read" } },
-                { ref: "task3.step2", done: { flag: "bad_pickup" }, locked: { flag: "agent_read" } }
-            ],
             log: [
                 { ref: "task3.log.watch", cls: "warn" },
                 { ref: "task3.log.cond", if: { flag: "argus_cond" } },
@@ -1580,7 +1481,8 @@ window.DB = (function () {
     var VIRUS_LOG = [
         { ref: "virus.log.repaired1", if: { flag: "sys_repaired" } },
         { ref: "virus.log.repaired2", if: { flag: "sys_repaired" } },
-        { ref: "virus.log.shutdown", if: { flag: "shutdown_blocked" } }
+        { ref: "virus.log.shutdown", if: { flag: "shutdown_blocked" } },
+        { ref: "virus.log.autostart", if: { flag: "virus_autostart" } }
     ];
     var VIRUS_TICKER = ["virus.ticker.1", "virus.ticker.2", "virus.ticker.3", "virus.ticker.4", "virus.ticker.5", "virus.ticker.6"];
 
@@ -1660,6 +1562,6 @@ window.DB = (function () {
         TRIGGERS: TRIGGERS, HINTS: HINTS, FOLDERS: FOLDERS,
         DEVICES: DEVICES, PAGES: PAGES, NEWS: NEWS, BILI: BILI, MAIL: MAIL, MARKET: MARKET,
         TASKS: TASKS, VIRUS_LOG: VIRUS_LOG, VIRUS_TICKER: VIRUS_TICKER, ARCHIVE_IF: ARCHIVE_IF, ARCHIVE: ARCHIVE,
-        CALLS: CALLS, ENDINGS: ENDINGS, OWNERS: OWNERS
+        CALLS: CALLS, ENDINGS: ENDINGS, OWNERS: OWNERS, CONTACTS: CONTACTS
     };
 })();

@@ -30,6 +30,7 @@
     }
     var current = null, lastCounts = null, pickedChoice = null, inputDirty = false;
     var stampCache = {};
+    var profileView = null;   /* 正在看的联系人资料（搜微信号搜到的） */
 
     function dev() { return DB.DEVICES[STATE.source()] || DB.DEVICES.own; }
     function chats() { return (dev().chats || []).filter(function (c) { return STATE.cond(c.visible); }); }
@@ -165,6 +166,63 @@
         });
     }
 
+    /* ---------------- 搜微信号 → 资料页 → 添加到通讯录（照 ningning） ---------------- */
+    var SEARCH_ICO = '<svg viewBox="0 0 1024 1024" width="22" height="22" fill="#fff"><path d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.6-87.9-212.1C567.5 143.3 492.2 112 412 112c-80.2 0-155.6 31.3-212.1 87.9C143.3 256.4 112 331.8 112 412c0 80.2 31.3 155.6 87.9 212.1C256.4 680.7 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a40.2 40.2 0 0 0 56.8-56.8zM412 640c-125.7 0-228-102.3-228-228s102.3-228 228-228 228 102.3 228 228-102.3 228-228 228z"/></svg>';
+    function findContact(q) {
+        q = (q || "").trim().toLowerCase();
+        if (!q || STATE.source() !== "own") return null;
+        return (DB.CONTACTS || []).filter(function (c) { return (c.ids || []).some(function (i) { return i.toLowerCase() === q; }); })[0] || null;
+    }
+    function renderSearch(val) {
+        var dd = $("#wc-search-dd");
+        if (!dd) return;
+        val = (val || "").trim();
+        if (!val) { dd.hidden = true; return; }
+        var hit = findContact(val);
+        dd.hidden = false;
+        if (hit) {
+            dd.innerHTML = '<div class="wc-dd-title">' + esc(T("chat.search.net")) + '</div>' +
+                '<div class="wc-dd-item" id="wc-dd-hit"><i>' + SEARCH_ICO + "</i><span>" + esc(T("chat.search.go")) + "<b>" + esc(val) + "</b></span></div>";
+            dd.querySelector("#wc-dd-hit").addEventListener("click", function () {
+                profileView = hit;
+                $("#wc-search-input").value = "";
+                dd.hidden = true;
+                renderPanel();
+            });
+        } else {
+            dd.innerHTML = '<div class="wc-dd-none">' + esc(T("chat.search.none")) + "</div>";
+        }
+    }
+    function profileHtml(p) {
+        var added = !!STATE.get(p.flag);
+        return '<div class="wc-profile"><div class="wc-pf-card">' +
+            '<div class="wc-pf-top"><div class="wc-pf-rows"><div class="wc-pf-name">' + esc(T(p.nameRef)) + "</div>" +
+            '<div class="wc-pf-row"><span>' + esc(T("chat.profile.nick")) + "</span><b>" + esc(T(p.nameRef)) + "</b></div>" +
+            '<div class="wc-pf-row"><span>' + esc(T("chat.profile.id")) + "</span><b>" + esc(T(p.wxidRef)) + "</b></div>" +
+            '<div class="wc-pf-row"><span>' + esc(T("chat.profile.region")) + "</span><b>" + esc(T(p.regionRef)) + "</b></div></div>" +
+            '<img src="' + p.avatar + '" alt=""></div>' +
+            '<div class="wc-pf-mid"><div class="wc-pf-row"><span>' + esc(T("chat.profile.sign")) + "</span><b>" + esc(T(p.signRef)) + "</b></div>" +
+            '<div class="wc-pf-row"><span>' + esc(T("chat.profile.src")) + "</span><b>" + esc(T("chat.profile.srcval")) + "</b></div></div>" +
+            '<div class="wc-pf-foot"><button id="wc-pf-btn">' + esc(T(added ? "chat.profile.msg" : "chat.profile.add")) + "</button></div>" +
+            "</div></div>";
+    }
+    function bindProfile(p) {
+        var btn = $("#wc-pf-btn");
+        if (!btn) return;
+        btn.addEventListener("click", function () {
+            if (!STATE.get(p.flag)) {
+                btn.textContent = T("chat.profile.added");
+                STATE.set(p.flag);
+                STATE.emit("add-contact:" + p.chat);
+                if (window.FX) FX.sound("windows-10-notify-system-sound.mp3", 0.35);
+                setTimeout(function () { profileView = null; openChat(p.chat); }, 500);
+            } else {
+                profileView = null;
+                openChat(p.chat);
+            }
+        });
+    }
+
     /* ---------------- 消息面板 ---------------- */
     var PHONE = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>';
     var SPEAKER = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M9 9v6M13 7v10M17 5v14"/></svg>';
@@ -176,7 +234,7 @@
         } else if (m.type === "file") {
             inner = '<div class="wcm-file" data-file="' + (m.file || "") + '"><div class="f-top"><img src="image/file.png" alt=""><div><div class="f-name">' + esc(T(m.ref)) + '</div><div class="f-size">' + esc(m.sizeRef ? T(m.sizeRef) : "") + '</div></div></div><div class="f-foot">' + esc(T("chat.file.foot")) + "</div></div>";
         } else if (m.type === "call") {
-            inner = '<div class="wcm-call' + (m.kind !== "done" ? " red" : "") + '">' + PHONE + esc(callText(m)) + "</div>";
+            inner = '<div class="wcm-call">' + PHONE + esc(callText(m)) + "</div>";
         } else if (m.type === "voice") {
             var dur = (m.voice && m.voice.dur) || 3;
             inner = '<div class="wcm-voice" style="width:' + Math.min(230, 62 + dur * 2) + 'px">' + SPEAKER + "<span>" + esc(voiceDur(dur)) + "</span></div>" +
@@ -202,6 +260,13 @@
     function renderPanel() {
         var head = $("#wc-panel-head"), body = $("#wc-panel-body"), foot = $("#wc-panel-foot");
         var c = current && byId(current);
+        if (profileView) {
+            head.innerHTML = "";
+            body.innerHTML = profileHtml(profileView);
+            foot.hidden = true;
+            bindProfile(profileView);
+            return;
+        }
         if (!c || !STATE.cond(c.visible)) {
             head.innerHTML = "";
             body.innerHTML = '<div class="wc-blank"><svg viewBox="0 0 48 48" width="72" height="72" opacity=".14"><rect x="3" y="3" width="42" height="42" rx="10" fill="#8a8a8a"/></svg></div>';
@@ -294,6 +359,7 @@
     }
     function openChat(id) {
         if (current !== id) { inputDirty = false; pickedChoice = null; }
+        profileView = null;
         current = id;
         var c = byId(id);
         renderList(); renderPanel();
@@ -314,7 +380,7 @@
             t.id = "wx-toast";
             document.body.appendChild(t);
         }
-        t.innerHTML = '<div class="wxt-head"><svg viewBox="0 0 48 48" width="16" height="16"><rect x="3" y="3" width="42" height="42" rx="10" fill="#07c160"/><ellipse cx="19" cy="21" rx="11" ry="9" fill="#fff"/><ellipse cx="31" cy="28" rx="9" ry="7.5" fill="#fff" opacity=".92"/></svg><span>' + esc(T("app.chat.title")) + "</span></div>" +
+        t.innerHTML = '<div class="wxt-head"><img src="image/wechat.png" alt=""><span>' + esc(T("app.chat.title")) + "</span></div>" +
             '<div class="wxt-body"><img src="' + c.avatar + '" alt=""><div><div class="wxt-name">' + esc(T(c.nameRef)) + '</div><div class="wxt-text">' + esc(text) + "</div></div></div>";
         t.onclick = function () { t.classList.remove("show"); openApp("chat"); openChat(c.id); };
         requestAnimationFrame(function () { t.classList.add("show"); });
@@ -372,6 +438,11 @@
             input.addEventListener("input", function () { inputDirty = true; pickedChoice = null; autoGrow(); });
             input.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendNow(); } });
         }
+        var search = $("#wc-search-input");
+        if (search) {
+            search.addEventListener("input", function () { renderSearch(search.value); });
+            search.addEventListener("keydown", function (e) { if (e.key === "Escape") { search.value = ""; renderSearch(""); } });
+        }
         var tool = $("#wc-call-tool");
         if (tool) tool.addEventListener("click", function () {
             var c = current && byId(current);
@@ -383,5 +454,5 @@
     STATE.on(rerender);
     document.addEventListener("clock-tick", function () { renderList(); });
     document.addEventListener("app-open", function (e) { if (e.detail === "chat") rerender(); });
-    document.addEventListener("source-change", function () { current = null; lastCounts = null; inputDirty = false; stampCache = {}; rerender(); });
+    document.addEventListener("source-change", function () { current = null; profileView = null; lastCounts = null; inputDirty = false; stampCache = {}; rerender(); });
 })();

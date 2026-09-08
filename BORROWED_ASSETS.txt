@@ -18,6 +18,10 @@ audio/zilizili-error.mp3                   ← A/audio/  用途：B 站视频页
 派生出黑入过场、蓝屏、病毒现身、断开等处的恐怖变体；接入期间的底噪是 Web Audio 实时合成的，无素材。
 替换音效时只需换文件名，变体参数在 fx.js 与 data.js 的 ["scare", ...] 动作里。
 
+image/wechat.png                           ← A/image/  用途：微信桌面图标 / 窗口标题 / 弹窗（2026-09-07 换掉自画的 SVG）
+image/xiaohongshu.png                      ← A/image/小红书.png  用途：小红书桌面图标
+image/image.png  image/video.png  image/pdf.png  ← A/image/  用途：备用的图片/视频/PDF 图标
+
 二、借鉴的做法（没有复制文件，替换时无需处理）
 ----------------------------------------------------------------
 - 音效播放：new Audio(...).play().catch(静默)          ← A js/pc/main.js

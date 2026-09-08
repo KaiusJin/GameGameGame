@@ -10,7 +10,24 @@
     }
     var audioTimer = null;
 
-    function txtHtml(f) { return '<pre class="viewer-txt">' + esc(T(f.bodyRef)) + "</pre>"; }
+    /* 记事本（照 ningning）：菜单栏 + 可编辑 textarea + 状态栏；改动按文件存进 flags.edit_<id> */
+    function txtHtml(f) {
+        var edited = STATE.get("edit_" + f.id);
+        var text = edited != null ? edited : T(f.bodyRef);
+        return '<div class="np-menu">' + ["np.m1", "np.m2", "np.m3", "np.m4", "np.m5"].map(function (r) { return "<span>" + esc(T(r)) + "</span>"; }).join("") + "</div>" +
+            '<textarea class="np-input" id="np-input" spellcheck="false">' + esc(text) + "</textarea>" +
+            '<div class="np-status"><span class="np-l"></span><span class="np-r"><i>' + esc(T("np.status.pos")) + "</i><i>" + esc(T("np.status.zoom")) + "</i><i>" + esc(T("np.status.eol")) + "</i><i>" + esc(T("np.status.enc")) + "</i></span></div>";
+    }
+    function bindNotepad(f) {
+        var ta = $("#np-input");
+        if (!ta) return;
+        var timer = null;
+        ta.addEventListener("input", function () {
+            clearTimeout(timer);
+            var v = ta.value;
+            timer = setTimeout(function () { STATE.set("edit_" + f.id, v); }, 300);
+        });
+    }
     function imgHtml(src, metaRefs) {
         var meta = (metaRefs || []).map(function (r) { return "<li>" + esc(T(r)) + "</li>"; }).join("");
         return (
@@ -90,7 +107,7 @@
 
     window.VIEWER = {
         open: function (f) {
-            $("#viewer-title").textContent = T(f.nameRef);
+            $("#viewer-title").textContent = T(f.nameRef) + (f.type === "txt" ? T("app.notepad.suffix") : "");
             var body = $("#viewer-body");
             clearInterval(audioTimer);
             body.className = "viewer-body" + (f.type === "img" || f.type === "video" ? "" : " vb-light") + (f.type === "txt" ? " vb-txt" : "") + (f.type === "eml" ? " vb-mail" : "");
@@ -104,6 +121,7 @@
             openApp("viewer");
             body.scrollTop = 0;
             if (f.type === "audio") runAudio(f);
+            if (f.type === "txt") bindNotepad(f);
         },
         openImg: function (src, title, metaRefs) {
             $("#viewer-title").textContent = title || "";
