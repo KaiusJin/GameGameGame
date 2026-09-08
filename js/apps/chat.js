@@ -19,7 +19,7 @@
        messages:[ { at?:"YYYY-MM-DD HH:MM", from:"me"|"them"|"sys", ref, if?,
                     type?:"img"|"file"|"voice"|"call", img?, file?, voice:{dur}, kind:"done"|"cancel"|"noanswer"|"declined", dur } ],
        choices:[ { id, ref, if?, sets?, emit?, matchPrefill? } ] }
-   时间：历史消息写 at；带 if 的动态消息第一次出现时用游戏内时钟盖戳（flags.mt_<chat>）；
+   时间：历史消息写 at；带 if 的动态消息第一次出现时记录游戏内分钟和出现顺序（flags.mt_<chat>）；
    没写 at 的静态消息跟着上一条走。callId 会话把 flags.callres_<callId>（call.js 记录）按时间插进来。
    ===================================================================== */
 (function () {
@@ -94,13 +94,13 @@
         var st = stampsOf(c), out = [], prev = null;
         (c.messages || []).forEach(function (m, i) {
             if (!STATE.cond(m.if)) return;
-            var t;
+            var stamp = st[i], t;
             if (m.at) t = parseAt(m.at);
-            else if (st[i] != null) t = minToDate(st[i]);
+            else if (stamp != null) t = minToDate(stamp.min);
             else if (m.if) t = STATE.clockDate();
             else t = prev ? new Date(prev.getTime() + 60000) : minToDate(0);
             if (prev && t < prev) t = prev;
-            out.push({ kind: "msg", m: m, t: t, k: out.length });
+            out.push({ kind: "msg", m: m, t: t, o: stamp ? stamp.order : 0, k: out.length });
             prev = t;
         });
         sentMsgs(c).forEach(function (s) {
@@ -112,7 +112,7 @@
                 out.push({ kind: "msg", m: { from: "them", type: "call", kind: r.k === "done" ? "done" : r.k === "declined" ? "declined" : "cancel", dur: r.dur }, t: minToDate(r.t), k: out.length });
             });
         }
-        out.sort(function (a, b) { return (a.t - b.t) || (a.k - b.k); });
+        out.sort(function (a, b) { return (a.t - b.t) || (a.o - b.o) || (a.k - b.k); });
         return out;
     }
     function lastTime(c) { var it = items(c); return it.length ? it[it.length - 1].t : null; }
@@ -391,8 +391,14 @@
         var pending = [];
         (dev().chats || []).forEach(function (c) {
             var st = stampsOf(c), changed = false;
+            var nextOrder = Object.keys(st).reduce(function (max, key) {
+                return Math.max(max, +(st[key] && st[key].order) || 0);
+            }, 0);
             (c.messages || []).forEach(function (m, i) {
-                if (m.if && !m.at && st[i] == null && STATE.cond(m.if)) { st[i] = STATE.clockMin(); changed = true; }
+                if (m.if && !m.at && st[i] == null && STATE.cond(m.if)) {
+                    st[i] = { min: STATE.clockMin(), order: ++nextOrder };
+                    changed = true;
+                }
             });
             if (changed) pending.push(c.id);
         });
