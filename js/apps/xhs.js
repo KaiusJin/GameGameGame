@@ -18,10 +18,16 @@
     function render() {
         var host = $("#xhs-root");
         if (!host) return;
+        var feed = host.querySelector(".xh-feed");
+        var detail = host.querySelector(".xh-d-body");
+        var feedScrollTop = feed ? feed.scrollTop : 0;
+        var detailScrollTop = detail ? detail.scrollTop : 0;
         var d = data();
         if (!d) { host.innerHTML = '<div class="xh-empty">' + esc(T("chat.own.empty")) + "</div>"; return; }
         var posts = d.posts;
+        var activePost = posts.filter(function (p) { return p.id === openPost; })[0];
         var html =
+            '<div class="xh-feed"' + (activePost ? " inert" : "") + '>' +
             '<div class="xh-head">' +
             '<img class="xh-ava" src="' + d.avatar + '" alt="">' +
             '<div class="xh-meta"><div class="xh-name">' + esc(T(d.nameRef)) + "</div>" +
@@ -39,7 +45,7 @@
                     '<div class="xh-foot"><span>' + esc(T(p.dateRef)) + "</span><span>♡ " + p.likes + (n ? " · " + esc(T("xhs.cmt")) + " " + n : "") + "</span></div></div>"
                 );
             }).join("") +
-            "</div>";
+            "</div></div>";
         if (openPost) {
             var p = posts.filter(function (x) { return x.id === openPost; })[0];
             if (p) {
@@ -63,6 +69,9 @@
             }
         }
         host.innerHTML = html;
+        host.querySelector(".xh-feed").scrollTop = feedScrollTop;
+        detail = host.querySelector(".xh-d-body");
+        if (detail) detail.scrollTop = detailScrollTop;
         host.querySelectorAll("[data-post]").forEach(function (el) {
             el.addEventListener("click", function () {
                 openPost = el.dataset.post;

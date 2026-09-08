@@ -1,5 +1,8 @@
 /* 小红书（她的电脑）：白底 + 品牌红，瀑布流笔记 + 详情弹层 */
-#xhs-root { flex: 1; min-height: 0; overflow-y: auto; position: relative; background: #fff; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #333; }
+#xhs-root { flex: 1; min-height: 0; overflow: hidden; position: relative; background: #fff; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #333; }
+/* 主页独立滚动，详情遮罩始终覆盖整个应用窗口。 */
+.xh-feed { position: absolute; inset: 0; overflow-y: auto; scrollbar-gutter: stable; }
+.xh-feed[inert] { overflow-y: hidden; }
 .xh-empty { padding: 60px; text-align: center; color: #999; font-size: 13px; }
 .xh-head { display: flex; align-items: center; gap: 22px; padding: 28px 36px 16px; }
 .xh-ava { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; }
@@ -20,7 +23,7 @@
 .xh-detail { position: relative; width: 820px; max-width: 94%; height: 88%; background: #fff; border-radius: 14px; display: flex; overflow: hidden; }
 .xh-d-img { flex: 1; background: #111; display: flex; align-items: center; justify-content: center; }
 .xh-d-img img { max-width: 100%; max-height: 100%; }
-.xh-d-body { width: 320px; flex: none; padding: 22px 22px 20px; overflow-y: auto; }
+.xh-d-body { width: 320px; flex: none; min-height: 0; padding: 22px 22px 20px; overflow-y: auto; overscroll-behavior-y: contain; }
 .xh-d-author { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; margin-bottom: 16px; }
 .xh-d-author img { width: 36px; height: 36px; border-radius: 50%; }
 .xh-d-body h3 { margin: 0 0 10px; font-size: 16px; line-height: 1.5; }
