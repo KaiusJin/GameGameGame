@@ -873,7 +873,7 @@ window.DB = (function () {
             do: [["blackout", 1400], ["delay", 1400, [["set", "task1_active"], ["phase", "p1"], ["ticket", "task1"], ["flash", "virus"]]]]
         },
         { id: "tg-ticket1-fallback", on: "event:boot-done", if: { all: [{ flag: "virus_opened" }, { not: "task1_active" }] }, do: [["set", "task1_active"], ["phase", "p1"], ["delay", 1200, [["ticket", "task1"]]]] },
-        { id: "tg-seller-r1", on: "event:choice:ask_letters", do: [["delay", 6000, [["set", "seller_r1"]]]] },
+        { id: "tg-seller-r1", on: "event:choice:ask_letters", do: [["delay", 3000, [["set", "seller_r1"]]]] },
         { id: "tg-bsod-done", on: "event:bsod-done", do: [["set", "delete_attempted"], ["set", "sys_repaired"]] },
 
         /* ---------- 第一案：软件自己在她电脑里扫，扫到旅馆邮件（或接入满四分钟）就报"已确认位置" ---------- */
@@ -881,69 +881,69 @@ window.DB = (function () {
         { id: "tg-locate-mail", on: "event:read-mail:m_hotel", do: [["delay", 20000, [["emit", "locate1"]]]] },
         { id: "tg-locate1", on: "event:locate1", if: { not: "task1_located" }, do: [["set", "task1_located"], ["sound", "windows-10-notify-system-sound.mp3", 0.5], ["flash", "virus"], ["badge", "virus", 1]] },
         { id: "tg-added-lin", on: "event:add-contact:c_lin", do: [["set", "lin_contact"]] },
-        { id: "tg-lin-c1", on: "event:choice:lin_c1", do: [["delay", 4500, [["set", "lin_c1_typed"]]]] },
-        { id: "tg-lin-c2", on: "event:choice:lin_c2", do: [["delay", 15000, [["set", "lin_r1"]]]] },
+        { id: "tg-lin-c1", on: "event:choice:lin_c1", do: [["delay", 2000, [["set", "lin_c1_typed"]]]] },
+        { id: "tg-lin-c2", on: "event:choice:lin_c2", do: [["delay", 5000, [["set", "lin_r1"]]]] },
         {
             id: "tg-lin-c3", on: "event:choice:lin_c3",
-            do: [["delay", 18000, [["set", "lin_r2"]]],
-            ["delay", 48000, [["set", "lin_r3"], ["set", "lin_reconnected"], ["flash", "virus"], ["badge", "virus", 1], ["sound", "windows-10-notify-system-sound.mp3", 0.5]]]]
+            do: [["delay", 5000, [["set", "lin_r2"]]],
+            ["delay", 12000, [["set", "lin_r3"], ["set", "lin_reconnected"], ["flash", "virus"], ["badge", "virus", 1], ["sound", "windows-10-notify-system-sound.mp3", 0.5]]]]
         },
         /* 5.6 A：软件安排的人 */
         {
             id: "tg-lin-a", on: "event:pickup:task1",
             do: [["set", "lin_routed"], ["set", "lin_route_a"], ["set", "lin_dead"],
-            ["delay", 8000, [["set", "lin_a_r1"]]],
-            ["delay", 45000, [["set", "lin_a_r2"]]],
-            ["delay", 70000, [["advance", 3], ["set", "days_after1"]]],
-            ["delay", 76000, [["set", "lin_news_out"]]],
-            ["delay", 84000, [["set", "chen_news"]]]]
+            ["delay", 3000, [["set", "lin_a_r1"]]],
+            ["delay", 10000, [["set", "lin_a_r2"]]],
+            ["delay", 15000, [["advance", 3], ["set", "days_after1"]]],
+            ["delay", 18000, [["set", "lin_news_out"]]],
+            ["delay", 24000, [["set", "chen_news"]]]]
         },
         /* 5.6 B：她认识的人 */
         {
             id: "tg-lin-b", on: "event:choice:lin_route_b",
             do: [["set", "lin_routed"], ["set", "lin_route_b"], ["set", "lin_alive"],
-            ["delay", 6000, [["set", "lin_b_r1"]]],
-            ["delay", 32000, [["set", "qing_contact"]]],
-            ["delay", 36000, [["set", "qing_r1"]]],
-            ["delay", 44000, [["set", "argus_fail1"], ["flash", "virus"], ["badge", "virus", 1]]],
-            ["delay", 72000, [["advance", 3], ["set", "days_after1"]]],
-            ["delay", 78000, [["set", "lin_cat"]]]]
+            ["delay", 3000, [["set", "lin_b_r1"]]],
+            ["delay", 8000, [["set", "qing_contact"]]],
+            ["delay", 10000, [["set", "qing_r1"]]],
+            ["delay", 12000, [["set", "argus_fail1"], ["flash", "virus"], ["badge", "virus", 1]]],
+            ["delay", 20000, [["advance", 3], ["set", "days_after1"]]],
+            ["delay", 24000, [["set", "lin_cat"]]]]
         },
         { id: "tg-news-lin", on: "event:read-news:n_lin", do: [["set", "lin_news_read"]] },
         { id: "tg-seller2-avail", on: "change", if: { all: [{ any: [{ flag: "lin_news_read" }, { flag: "lin_cat" }] }, { not: "seller_ask2_avail" }] }, do: [["set", "seller_ask2_avail"]] },
         {
             id: "tg-seller-r2", on: "event:choice:ask_lin",
-            do: [["delay", 7000, [["set", "seller_r2"]]],
-            ["delay", 24000, [["set", "task2_active"], ["set", "archive_open"], ["phase", "p2"], ["ticket", "task2"], ["flash", "virus"]]]]
+            do: [["delay", 3000, [["set", "seller_r2"]]],
+            ["delay", 8000, [["set", "task2_active"], ["set", "archive_open"], ["phase", "p2"], ["ticket", "task2"], ["flash", "virus"]]]]
         },
         { id: "tg-ticket2-fallback", on: "event:boot-done", if: { all: [{ flag: "seller_r2" }, { not: "task2_active" }] }, do: [["set", "task2_active"], ["set", "archive_open"], ["phase", "p2"], ["delay", 1200, [["ticket", "task2"]]]] },
 
         /* ---------- 第二案 ---------- */
-        { id: "tg-seller-r3", on: "event:choice:ask_sys", do: [["delay", 6000, [["set", "seller_r3"]]]] },
+        { id: "tg-seller-r3", on: "event:choice:ask_sys", do: [["delay", 3000, [["set", "seller_r3"]]]] },
         { id: "tg-added-ning", on: "event:add-contact:c_ning", do: [["set", "ning_contact"]] },
-        { id: "tg-ning-r1", on: "event:choice:ning_c1", do: [["delay", 9000, [["set", "ning_r1"]]]] },
-        { id: "tg-ning-r2", on: "event:choice:ning_c2", do: [["delay", 12000, [["set", "ning_r2"]]]] },
+        { id: "tg-ning-r1", on: "event:choice:ning_c1", do: [["delay", 3000, [["set", "ning_r1"]]]] },
+        { id: "tg-ning-r2", on: "event:choice:ning_c2", do: [["delay", 4000, [["set", "ning_r2"]]]] },
         {
             id: "tg-ning-r3", on: "event:choice:ning_c3",
-            do: [["delay", 9000, [["set", "ning_r3"], ["set", "ning_calling"]]],
-            ["delay", 24000, [["flash", "virus"], ["badge", "virus", 1], ["sound", "windows-10-notify-system-sound.mp3", 0.5]]]]
+            do: [["delay", 3000, [["set", "ning_r3"], ["set", "ning_calling"]]],
+            ["delay", 8000, [["flash", "virus"], ["badge", "virus", 1], ["sound", "windows-10-notify-system-sound.mp3", 0.5]]]]
         },
         /* 6.6 A：向软件回报 */
         {
             id: "tg-sun-a", on: "event:pickup:task2",
             do: [["set", "sun_routed"], ["set", "sun_route_a"], ["set", "sun_dead"],
-            ["delay", 30000, [["set", "ning_a_r1"]]],
-            ["delay", 62000, [["advance", 2], ["set", "sun_news_out"]]],
-            ["delay", 72000, [["set", "ning_a_r2"], ["set", "evidence_half2"]]]]
+            ["delay", 8000, [["set", "ning_a_r1"]]],
+            ["delay", 16000, [["advance", 2], ["set", "sun_news_out"]]],
+            ["delay", 22000, [["set", "ning_a_r2"], ["set", "evidence_half2"]]]]
         },
         { id: "tg-news-sun", on: "event:read-news:n_sun", do: [["set", "sun_news_read"]] },
         /* 6.6 B：与孙宁一起接住他 */
         {
             id: "tg-sun-b", on: "event:choice:ning_route_b",
             do: [["set", "sun_routed"], ["set", "sun_route_b"], ["set", "sun_alive"],
-            ["delay", 6000, [["set", "ning_b_r1"]]],
-            ["delay", 40000, [["set", "ning_b_r2"], ["set", "sun_contact"]]],
-            ["delay", 47000, [["call", "call_sun"]]]]
+            ["delay", 3000, [["set", "ning_b_r1"]]],
+            ["delay", 10000, [["set", "ning_b_r2"], ["set", "sun_contact"]]],
+            ["delay", 12000, [["call", "call_sun"]]]]
         },
         { id: "tg-sun-dec1", on: "event:call-decline:call_sun", do: [["delay", 300, [["set", "sun_dec1"]]], ["delay", 14000, [["call", "call_sun"]]]] },
         { id: "tg-sun-miss1", on: "event:call-missed:call_sun", do: [["delay", 300, [["set", "sun_dec1"]]], ["delay", 14000, [["call", "call_sun"]]]] },
@@ -963,33 +963,33 @@ window.DB = (function () {
         /* ---------- 第三案：全部按时间来 ---------- */
         {
             id: "tg-agent", on: "change", if: { flag: "task3_active" },
-            do: [["delay", 14000, [["set", "agent_msg1"]]], ["delay", 40000, [["set", "mom_prefill"]]], ["delay", 110000, [["emit", "sim-start"]]]]
+            do: [["delay", 5000, [["set", "agent_msg1"]]], ["delay", 10000, [["set", "mom_prefill"]]], ["delay", 30000, [["emit", "sim-start"]]]]
         },
-        { id: "tg-agent-r1", on: "event:choice:agent_who", do: [["delay", 8000, [["set", "agent_r1"]]]] },
-        { id: "tg-agent-r2", on: "event:choice:agent_no", do: [["delay", 6000, [["set", "agent_r2"]]]] },
-        { id: "tg-mom-lie", on: "event:choice:mom_lie", do: [["set", "mom_replied"], ["delay", 9000, [["set", "mom_r_lie"]]]] },
-        { id: "tg-mom-honest", on: "event:choice:mom_honest", do: [["set", "mom_replied"], ["delay", 12000, [["set", "mom_r_honest"]]]] },
-        { id: "tg-sim-a", on: "change", if: { all: [{ flag: "mom_replied" }, { not: "sim_started" }] }, do: [["delay", 6000, [["emit", "sim-start"]]]] },
+        { id: "tg-agent-r1", on: "event:choice:agent_who", do: [["delay", 3000, [["set", "agent_r1"]]]] },
+        { id: "tg-agent-r2", on: "event:choice:agent_no", do: [["delay", 2500, [["set", "agent_r2"]]]] },
+        { id: "tg-mom-lie", on: "event:choice:mom_lie", do: [["set", "mom_replied"], ["delay", 3000, [["set", "mom_r_lie"]]]] },
+        { id: "tg-mom-honest", on: "event:choice:mom_honest", do: [["set", "mom_replied"], ["delay", 4000, [["set", "mom_r_honest"]]]] },
+        { id: "tg-sim-a", on: "change", if: { all: [{ flag: "mom_replied" }, { not: "sim_started" }] }, do: [["delay", 2500, [["emit", "sim-start"]]]] },
         {
             id: "tg-sim", on: "event:sim-start", if: { not: "sim_started" },
             do: [["set", "sim_started"], ["set", "seller_msg_down"], ["set", "fake_chen"], ["flash", "chat"],
-            ["delay", 9000, [["call", "call_chen"]]]]
+            ["delay", 3000, [["call", "call_chen"]]]]
         },
-        { id: "tg-chen2-r1", on: "event:choice:chen2_ask", do: [["delay", 5000, [["set", "fake_r1"]]]] },
-        { id: "tg-chen-dec1", on: "event:call-decline:call_chen", do: [["delay", 300, [["set", "chen_dec1"]]], ["delay", 4000, [["set", "chen_msg_pick"]]], ["delay", 16000, [["call", "call_chen"]]]] },
-        { id: "tg-chen-miss1", on: "event:call-missed:call_chen", do: [["delay", 300, [["set", "chen_dec1"]]], ["delay", 4000, [["set", "chen_msg_pick"]]], ["delay", 16000, [["call", "call_chen"]]]] },
-        { id: "tg-chen-dec2", on: "event:call-decline:call_chen", if: { flag: "chen_dec1" }, do: [["delay", 6000, [["set", "chen_text"], ["set", "chen_helping"]]]] },
-        { id: "tg-chen-miss2", on: "event:call-missed:call_chen", if: { flag: "chen_dec1" }, do: [["delay", 6000, [["set", "chen_text"], ["set", "chen_helping"]]]] },
+        { id: "tg-chen2-r1", on: "event:choice:chen2_ask", do: [["delay", 2000, [["set", "fake_r1"]]]] },
+        { id: "tg-chen-dec1", on: "event:call-decline:call_chen", do: [["delay", 200, [["set", "chen_dec1"]]], ["delay", 2000, [["set", "chen_msg_pick"]]], ["delay", 7000, [["call", "call_chen"]]]] },
+        { id: "tg-chen-miss1", on: "event:call-missed:call_chen", do: [["delay", 200, [["set", "chen_dec1"]]], ["delay", 2000, [["set", "chen_msg_pick"]]], ["delay", 7000, [["call", "call_chen"]]]] },
+        { id: "tg-chen-dec2", on: "event:call-decline:call_chen", if: { flag: "chen_dec1" }, do: [["delay", 2500, [["set", "chen_text"], ["set", "chen_helping"]]]] },
+        { id: "tg-chen-miss2", on: "event:call-missed:call_chen", if: { flag: "chen_dec1" }, do: [["delay", 2500, [["set", "chen_text"], ["set", "chen_helping"]]]] },
         { id: "tg-chen-end", on: "event:call-end:call_chen", do: [["set", "chen_call_done"]] },
         /* 7.5 阿澄找到人了；软件开出新条件；二手平台出现代拟的帖子；询价的人来了 */
         {
             id: "tg-chen-plan", on: "change", if: { flag: "chen_helping" },
-            do: [["delay", 25000, [["set", "chen_plan"], ["flash", "chat"]]],
-            ["delay", 33000, [["set", "chen_nudge"]]],
-            ["delay", 50000, [["set", "argus_cond"], ["set", "sale_post"], ["flash", "virus"], ["badge", "virus", 1]]],
-            ["delay", 64000, [["set", "buyer_msg"]]]]
+            do: [["delay", 8000, [["set", "chen_plan"], ["flash", "chat"]]],
+            ["delay", 10000, [["set", "chen_nudge"]]],
+            ["delay", 15000, [["set", "argus_cond"], ["set", "sale_post"], ["flash", "virus"], ["badge", "virus", 1]]],
+            ["delay", 20000, [["set", "buyer_msg"]]]]
         },
-        { id: "tg-chen-send", on: "event:choice:chen_send", do: [["set", "evidence_sent"], ["delay", 6000, [["set", "chen_r_send"]]], ["delay", 42000, [["set", "chen_arrived"], ["flash", "chat"]]]] },
+        { id: "tg-chen-send", on: "event:choice:chen_send", do: [["set", "evidence_sent"], ["delay", 3000, [["set", "chen_r_send"]]], ["delay", 12000, [["set", "chen_arrived"], ["flash", "chat"]]]] },
         { id: "tg-chen-leave", on: "event:choice:chen_leave", do: [["set", "leave_alone"], ["delay", 2500, [["ending", "end_normal"]]]] },
         { id: "tg-end-true", on: "event:choice:chen_out", if: { all: [{ flag: "evidence_sent" }, { flag: "sun_alive" }, { flag: "lin_alive" }] }, do: [["delay", 2500, [["ending", "end_true"]]]] },
         { id: "tg-end-good", on: "event:choice:chen_out", if: { all: [{ flag: "evidence_sent" }, { flag: "sun_alive" }, { not: "lin_alive" }] }, do: [["delay", 2500, [["ending", "end_good"]]]] },
@@ -997,7 +997,7 @@ window.DB = (function () {
         { id: "tg-end-bad", on: "event:pickup:task3", do: [["set", "bad_pickup"], ["delay", 2500, [["ending", "end_bad"]]]] },
         { id: "tg-end-bad2", on: "event:choice:seller_down", do: [["set", "bad_pickup"], ["delay", 2500, [["ending", "end_bad"]]]] },
         { id: "tg-end-loop", on: "event:choice:buyer_yes", do: [["set", "sold"], ["delay", 2500, [["ending", "end_loop"]]]] },
-        { id: "tg-buyer-no", on: "event:choice:buyer_no", do: [["delay", 5000, [["set", "buyer_r2"]]]] },
+        { id: "tg-buyer-no", on: "event:choice:buyer_no", do: [["delay", 2500, [["set", "buyer_r2"]]]] },
         { id: "tg-destroyed", on: "change", if: { all: [{ flag: "del_backup" }, { flag: "del_record" }, { flag: "del_half2" }, { not: "evidence_destroyed" }] }, do: [["set", "evidence_destroyed"]] },
         { id: "tg-shutdown-hidden", on: "event:shutdown", if: { all: [{ flag: "evidence_destroyed" }, { not: "evidence_sent" }] }, do: [["ending", "end_hidden"]] },
         { id: "tg-shutdown-block", on: "event:shutdown", repeat: true, if: { any: [{ not: "evidence_destroyed" }, { flag: "evidence_sent" }] }, do: [["set", "shutdown_blocked"], ["sound", "windowsError.mp3", 0.6], ["dialog", "virus.exit.fail.title", "tip.shutdown.block"]] }

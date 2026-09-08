@@ -48,6 +48,7 @@ body {
 .desktop-icon:hover { background: rgba(255, 255, 255, .12); }
 .desktop-icon.selected { background: rgba(98, 162, 228, .35); border-color: rgba(140, 190, 240, .5); }
 .desktop-icon .ic { width: 44px; height: 44px; margin: 0 auto 6px; display: block; }
+.desktop-icon img.ic { object-fit: contain; }
 .desktop-icon .label {
     font-size: 12px;
     line-height: 1.35;
@@ -99,6 +100,7 @@ body {
     white-space: nowrap;
 }
 .title-text svg, .title-text img { width: 16px; height: 16px; }
+.title-text img { object-fit: contain; }
 .window-controls { display: flex; height: 100%; }
 .window-controls button {
     width: 46px;
@@ -201,6 +203,7 @@ body {
 .task-item:hover { background: rgba(255, 255, 255, .08); }
 .task-item.active { background: rgba(255, 255, 255, .12); border-bottom-color: #4aa3e8; }
 .task-item svg, .task-item img { width: 18px; height: 18px; flex-shrink: 0; }
+.task-item img { object-fit: contain; }
 .task-clock {
     padding: 0 14px;
     color: #eee;
@@ -235,6 +238,7 @@ body {
 }
 .sm-item:hover { background: rgba(255, 255, 255, .1); }
 .sm-item svg, .sm-item img { width: 18px; height: 18px; }
+.sm-item img { object-fit: contain; }
 .sm-divider { height: 1px; background: rgba(255, 255, 255, .12); margin: 6px 0; }
 
 /* ---------------- 系统弹窗 ---------------- */
