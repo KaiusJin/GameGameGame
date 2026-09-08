@@ -146,12 +146,6 @@ body.monitoring .desktop { box-shadow: inset 0 0 0 3px rgba(57, 255, 110, .35); 
 }
 
 /* ---------------- 查看器 ---------------- */
-/* txt = 记事本：白底黑字，占满窗口 */
-.viewer-body.vb-txt {
-    background: #fff;
-    padding: 0;
-    display: block;
-}
 .viewer-txt {
     margin: 0;
     min-height: 100%;
@@ -773,7 +767,17 @@ body.watched .mb-dot { background: #ff6e6e; }
 .wcm-call { color: #111; }
 
 /* ---------------- 记事本（照 ningning） ---------------- */
-.viewer-body.vb-txt { display: flex; flex-direction: column; padding: 0; background: #fff; }
+.viewer-body.vb-txt {
+    display: flex;
+    flex-direction: column;
+    /* 覆盖查看器的居中与间距，让菜单、正文和状态栏铺满窗口。 */
+    align-items: stretch;
+    gap: 0;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0;
+    background: #fff;
+}
 .np-menu { display: flex; background: #fff; border-bottom: 1px solid #f0f0f0; padding: 2px 0; flex: none; }
 .np-menu span { padding: 2px 10px; font-size: 12px; color: #333; cursor: default; }
 .np-menu span:hover { background: #e5f3ff; }
