@@ -41,3 +41,4 @@
 | image/cat-wallpaper.jpg | 林晚桌面壁纸 + 橘子照片（Wikimedia，正式版换） |
 | image/*.png | Windows 图标（沿用） |
 | ARGUS_9 图标 | 现为内联 SVG（黑底绿 `>_`），正式版可出专属图标 |
+| 录音_2024-09-27（孙屿的录音） | 现为秒表 + 逐句转写占位。用 ElevenLabs / 剪映录好后放到 `audio/rec_sun.mp3`，在 `js/data.js` 的 `rec_sun` 条目 `audio:` 里加 `src: "audio/rec_sun.mp3"`，播放器自动切真实音频（`dur` 会按文件时长覆盖；转写 `lines[].at` 的秒数按新录音对一遍） |

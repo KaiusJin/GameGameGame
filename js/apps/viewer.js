@@ -79,11 +79,31 @@
             (meta ? '<div class="viewer-meta"><h4>' + esc(T("file.photo.metaTitle")) + "</h4><ul>" + meta + "</ul></div>" : "") +
             "</div>";
     }
-    function fmt(s) { return ("0" + Math.floor(s / 60)).slice(-2) + ":" + ("0" + (s % 60)).slice(-2); }
+    function fmt(s) { s = Math.floor(s); return ("0" + Math.floor(s / 60)).slice(-2) + ":" + ("0" + (s % 60)).slice(-2); }
+    /* 录音播放：有 a.src（正式配音文件，放 audio/ 下）就走真实音频，进度跟 currentTime；
+       没有就按 a.dur 走秒表（占位）。转写逐句按 at 秒显示，两种模式一致。 */
+    var audioEl = null;
     function runAudio(f) {
         var a = f.audio, t = 0, playing = true;
         var fill = $("#au-fill"), time = $("#au-time"), btn = $("#au-play"), lines = $("#au-lines");
         clearInterval(audioTimer);
+        if (audioEl) { try { audioEl.pause(); } catch (e) { } audioEl = null; }
+        if (a.src) {
+            var el = new Audio(a.src);
+            audioEl = el;
+            el.addEventListener("loadedmetadata", function () { if (isFinite(el.duration) && el.duration > 0) a.dur = Math.round(el.duration); paint(); });
+            el.addEventListener("timeupdate", function () { t = el.currentTime; paint(); });
+            el.addEventListener("ended", function () {
+                playing = false; t = a.dur; paint();
+                if (a.doneFlag) STATE.set(a.doneFlag);
+                STATE.emit("audio-end:" + f.id);
+            });
+            el.addEventListener("error", function () { audioEl = null; a.src = null; runAudio(f); });
+            el.play().catch(function () { playing = false; paint(); });
+            paint();
+            btn.addEventListener("click", function () { playing = !playing; if (playing) el.play().catch(function () { }); else el.pause(); paint(); });
+            return;
+        }
         function paint() {
             fill.style.width = Math.min(100, t / a.dur * 100) + "%";
             time.textContent = fmt(Math.min(t, a.dur)) + " / " + fmt(a.dur);
@@ -110,6 +130,7 @@
             $("#viewer-title").textContent = T(f.nameRef) + (f.type === "txt" ? T("app.notepad.suffix") : "");
             var body = $("#viewer-body");
             clearInterval(audioTimer);
+            if (audioEl) { try { audioEl.pause(); } catch (e) { } audioEl = null; }
             body.className = "viewer-body" + (f.type === "img" || f.type === "video" ? "" : " vb-light") + (f.type === "txt" ? " vb-txt" : "") + (f.type === "eml" ? " vb-mail" : "");
             if (f.type === "txt") body.innerHTML = txtHtml(f);
             else if (f.type === "img") body.innerHTML = imgHtml(f.img, f.metaRefs);

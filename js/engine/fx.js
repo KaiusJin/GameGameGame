@@ -4,10 +4,12 @@
    借用的音频登记在 BORROWED_ASSETS.txt。所有文字走 T()。
    ===================================================================== */
 (function () {
+    /* 总音量：Kaius 反馈部分音效过大；"响"是特色，只略削一点，所有音效统一乘这个系数 */
+    var MASTER = 0.8;
     function sound(name, vol) {
         try {
             var a = new Audio("audio/" + name);
-            if (vol != null) a.volume = vol;
+            a.volume = Math.max(0, Math.min(1, (vol != null ? vol : 1) * MASTER));
             a.play().catch(function () { });
             return a;
         } catch (e) { return null; }
@@ -57,7 +59,7 @@
             var shaper = c.createWaveShaper();
             shaper.curve = curve(o.drive != null ? o.drive : 8);
             var g = c.createGain();
-            g.gain.value = o.gain != null ? o.gain : 1;
+            g.gain.value = (o.gain != null ? o.gain : 1) * MASTER;
             src.connect(shaper); shaper.connect(g); g.connect(c.destination);
             src.start(c.currentTime + (o.at || 0));
         });
@@ -120,7 +122,7 @@
         ov.innerHTML = '<div class="hk-stripes"></div><div class="hk-red"></div><div class="hk-wins"></div><div class="hk-white"></div>';
         document.body.appendChild(ov);
         /* 三层：原版爆音 + 蓝屏音慢放失真 + 通知音倒放 */
-        sound("windows-10-foreground-earrape.mp3", 1);
+        sound("windows-10-foreground-earrape.mp3", 0.9);
         scare("windows-10-bsod-sound.mp3", { rate: 0.55, drive: 14, gain: 1.4, at: 0.3 });
         scare("windows-10-notify-system-sound.mp3", { rate: 0.35, drive: 20, gain: 1.2, reverse: true, at: 1.4 });
         scrambleLabels(2800);

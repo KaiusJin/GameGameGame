@@ -1,7 +1,7 @@
 /* =====================================================================
    内容数据层（唯一的剧情源）。换剧情 = 换这个文件，不改代码。
    剧情依据：Kaius《下一位机主 · 纯剧情大纲 v2》（仓库 剧情大纲.md）。
-   文案里带〔占位〕的是待正式化的句子，其余可直接用。
+   文案已全部正式化（2026-09-10 起不再有〔占位〕句）。
 
    结构：
    TEXT      文案表（所有 *Ref 指向这里；缺失时显示〔ref〕，不报错；{name} = 玩家在 Windows 设置页输的名字）
@@ -71,7 +71,7 @@ window.DB = (function () {
         "ui.dlg.destroy.title": "删除文件", "ui.dlg.destroy.body": "确实要永久删除“{file}”吗？此操作不经过回收站，无法撤销。", "ui.dlg.destroy.ok": "是(Y)",
         "ui.locked.tag": "无法访问", "ui.col.name": "名称", "ui.col.date": "修改日期", "ui.col.size": "大小",
         "ui.sm.restart": "重新开始（清除进度）", "ui.sm.shutdown": "关机",
-        "browser.snapshot": "〔占位：页面快照〕",
+        "browser.snapshot": "此网页的保存快照已损坏，无法显示。\n\n可能的原因：\n· 页面已从原站点删除\n· 快照文件在磁盘迁移时丢失\n· 缓存已被清理\n\n请尝试联网后重新访问原网址。",
         "ctx.open": "打开", "ctx.uninstall": "卸载", "ctx.delete": "删除", "ctx.props": "属性", "ctx.destroy": "彻底删除（不经回收站）",
         "own.home": "C:\\Users\\{name}", "t1.home": "C:\\Users\\linwan",
         "folder.desktop": "桌面", "folder.desktop.path": "{home}\\Desktop",
@@ -1174,7 +1174,7 @@ window.DB = (function () {
                     ],
                     choices: [
                         { id: "ning_c1", ref: "chat.ning.c1", if: { not: "ning_c1" } },
-                        { id: "ning_c2", ref: "chat.ning.c2", if: { all: [{ flag: "ning_r1" }, { not: "ning_c2" }] } },
+                        { id: "ning_c2", ref: "chat.ning.c2", if: { all: [{ flag: "ning_r1" }, { flag: "task2_active" }, { not: "ning_c2" }] } },
                         { id: "ning_c3", ref: "chat.ning.c3", if: { all: [{ flag: "ning_r2" }, { not: "ning_c3" }] } },
                         { id: "ning_route_b", ref: "chat.ning.cB", if: { all: [{ flag: "ning_calling" }, { not: "sun_routed" }] } },
                         { id: "ning_sorry", ref: "chat.ning.cA1", if: { all: [{ flag: "ning_a_r2" }, { not: "ning_sorry" }, { not: "ning_blame" }] } },
